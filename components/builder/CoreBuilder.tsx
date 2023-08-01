@@ -1,8 +1,3 @@
-// import { HP, FP, END } from '../../data/lookup'
-const coreStatsTable = require('@/data/lookup.json')
-const { HP, FP, END } = coreStatsTable
-import Defences from './Defences'
-
 interface ICoreStatsProps {
   baseStats: IStats,
   stats: IStats,
@@ -51,13 +46,14 @@ export default function CoreStats({ baseStats, stats, setStats, total, setTotal,
   
   return (
     <div>
-      <div className='flex items-center w-full'>
+      <div className='flex items-center justify-between w-full mb-2'>
         <label htmlFor='level'>Level</label>
-        <input
-          type='text'
-          className='border-black border-2 ml-2'
-          defaultValue={level}
-        />
+        <label
+          className="text-semibold mr-4"
+          htmlFor='level'
+        >
+          {level}
+        </label>
       </div>
       <div className="flex justify-center items-top gap-4">
         <div className="flex flex-col gap-2">
@@ -104,21 +100,6 @@ export default function CoreStats({ baseStats, stats, setStats, total, setTotal,
           })}
         </div>
       </div>
-      <div className="mt-6">
-        <div>
-          <label htmlFor='hp'>HP</label>
-          <label className='ml-2'>{Math.floor(HP[stats.vigor - 1]) ?? '??'}</label>
-        </div>
-        <div>
-          <label htmlFor="fp">FP</label>
-          <label className='ml-2'>{Math.floor(FP[stats.mind - 1])}</label>
-        </div>
-        <div>
-          <label htmlFor="end">Stamina</label>
-          <label className='ml-2'>{Math.floor(END[stats.endurance - 1])}</label>
-        </div>
-      </div>
-      <Defences stats={stats} total={total} />
     </div>
   )
 }
