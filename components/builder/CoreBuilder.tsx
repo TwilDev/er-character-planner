@@ -12,9 +12,9 @@ interface ICoreStatsProps {
 
 export default function CoreStats({ baseStats, stats, setStats, total, setTotal, level, setLevel, changeStats, setChangeStats }: ICoreStatsProps) {
   
-  const validateStat = (stat: any) => {
-    if (stat < 1 || isNaN(stat)) {
-      return 1;
+  const validateStat = (label: keyof IStats, stat: any) => {
+    if (stat < baseStats[label] || isNaN(stat)) {
+      return baseStats[label]
     }
     if (stat > 99) {
       return 99;
@@ -35,7 +35,7 @@ export default function CoreStats({ baseStats, stats, setStats, total, setTotal,
     console.log('statChange')
     console.log(changeStats)
     console.log(stats)
-    const validatedStat = validateStat(parseInt(value))
+    const validatedStat = validateStat(stat, parseInt(value))
     console.log(validatedStat)
     const newStats: IStats = { ...changeStats, [stat]: validatedStat }
     setChangeStats(newStats)
