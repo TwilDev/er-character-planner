@@ -3,7 +3,7 @@ import CoreStats from '@/components/builder/CoreStats'
 
 export default function Home() {
   //Base stats currently hardcoded for Vagabond
-  const [baseStats, setBaseStats] = useState<Stats>({
+  const [baseStats, setBaseStats] = useState<IStats>({
     vigor: 15,
     mind: 10,
     endurance: 11,
@@ -14,7 +14,7 @@ export default function Home() {
     arcane: 7,
   })
   // Current User Build
-  const [stats, setStats] = useState<Stats>(baseStats)
+  const [stats, setStats] = useState<IStats>(baseStats)
 
   //Stat Total for calculating specific defences and resistances
   const [total, setTotal] = useState<number>(Object.values(baseStats).reduce((acc, val) => acc + val, 0))

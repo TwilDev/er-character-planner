@@ -1,8 +1,8 @@
 import { HP, FP, END } from '../../data/lookup'
 interface ICoreStatsProps {
-  baseStats: Stats,
-  stats: Stats,
-  setStats: React.Dispatch<React.SetStateAction<Stats>>,
+  baseStats: IStats,
+  stats: IStats,
+  setStats: React.Dispatch<React.SetStateAction<IStats>>,
   total: number,
   setTotal: React.Dispatch<React.SetStateAction<number>>,
   level: number,
@@ -21,17 +21,17 @@ export default function CoreStats({ baseStats, stats, setStats, total, setTotal,
     return stat;
   }
   
-  const updateStats = (stat: string, value: string) => {
+  const updateStats = (stat: keyof IStats, value: string) => {
     // Update stats on input change but don't validate yet
-    const newStats = { ...stats }
-    newStats[stat] = value === '' ? '' : parseInt(value)
-    setStats(newStats)
+    const newValue = value === '' ? '' : parseInt(value, 10); // Parse the string to an integer
+    const newStats: IStats = { ...stats, [stat]: newValue };
+    setStats(newStats);
   }
   
-  const statChange = (stat: string, value: string) => {
+  const statChange = (stat: keyof IStats, value: string) => {
     // Validate and update stats on input blur
     const validatedStat = validateStat(parseInt(value))
-    const newStats = { ...stats }
+    const newStats: IStats = { ...stats }
     newStats[stat] = isNaN(validatedStat) ? '' : validatedStat
     setStats(newStats)
     setTotal(Object.values(stats).reduce((acc, val) => acc + val, 0))

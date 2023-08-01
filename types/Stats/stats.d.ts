@@ -1,4 +1,4 @@
-type Stats = {
+interface IStats{
   vigor: number
   mind: number
   endurance: number
