@@ -7,11 +7,13 @@ interface ICoreStatsProps {
   setTotal: React.Dispatch<React.SetStateAction<number>>,
   level: number,
   setLevel: React.Dispatch<React.SetStateAction<number>>
+  changeStats: IStats,
+  setChangeStats: React.Dispatch<React.SetStateAction<IStats>>
 }
 
-export default function CoreStats({ baseStats, stats, setStats, total, setTotal, level, setLevel }: ICoreStatsProps) {
+export default function CoreStats({ baseStats, stats, setStats, total, setTotal, level, setLevel, changeStats, setChangeStats }: ICoreStatsProps) {
   
-  const validateStat = (stat: number) => {
+  const validateStat = (stat: any) => {
     if (stat < 1 || isNaN(stat)) {
       return 1;
     }
@@ -21,21 +23,26 @@ export default function CoreStats({ baseStats, stats, setStats, total, setTotal,
     return stat;
   }
   
+  //Update stats to be changed
   const updateStats = (stat: keyof IStats, value: string) => {
-    // Update stats on input change but don't validate yet
-    const newValue = value === '' ? '' : parseInt(value, 10); // Parse the string to an integer
-    const newStats: IStats = { ...stats, [stat]: newValue };
-    setStats(newStats);
+    // Prevent non-numeric values
+    const newValue = value === '' ? '' : parseInt(value, 10)
+    const newStats: IStats = { ...stats, [stat]: newValue }
+    setChangeStats(newStats)
   }
   
   const statChange = (stat: keyof IStats, value: string) => {
     // Validate and update stats on input blur
+    console.log('statChange')
+    console.log(changeStats)
+    console.log(stats)
     const validatedStat = validateStat(parseInt(value))
-    const newStats: IStats = { ...stats }
-    newStats[stat] = isNaN(validatedStat) ? '' : validatedStat
+    console.log(validatedStat)
+    const newStats: IStats = { ...changeStats, [stat]: validatedStat }
+    setChangeStats(newStats)
     setStats(newStats)
-    setTotal(Object.values(stats).reduce((acc, val) => acc + val, 0))
-    setLevel(Math.floor(total - 79))
+    setTotal(Object.values(newStats).reduce((acc, val) => acc + val, 0))
+    setLevel(Object.values(newStats).reduce((acc, val) => acc + val, 0) - 79)
   }
   
   return (
@@ -48,32 +55,43 @@ export default function CoreStats({ baseStats, stats, setStats, total, setTotal,
           defaultValue={level}
         />
       </div>
-        {Object.keys(baseStats).map((stat, i) => {
-          const statValue = baseStats[stat];
-          return (
-            <div key={i} className='flex items-center w-full'>
-              <label htmlFor={stat} className='capitalize mr-4'>
-                {stat}
-              </label>
-              <small>{statValue}</small>
-            </div>
-          );
-        })}
-        {Object.keys(stats).map((stat, i) => {
-          return (
-            <input
-              key={i}
-              type='text'
-              className='border-black border-2 ml-2'
-              value={stats[stat]}
-              onChange={(e) => updateStats(stat, e.target.value)}
-              onBlur={(e) => statChange(stat, e.target.value)}
-            />
-          );
-        })}
+      <div className="flex justify-center items-top gap-4">
+        <div className="flex flex-col gap-2">
+          {Object.keys(baseStats).map((stat, i) => {
+            const statValue: number = baseStats[stat]
+            return (
+              <div key={i} className='flex justify-between w-full'>
+                <label htmlFor={stat} className='capitalize mr-4'>
+                  {stat}
+                </label>
+                <p>{statValue}</p>
+              </div>
+            );
+          })}
+        </div>
+        <div className="flex flex-col gap-[7px]">
+          {Object.keys(changeStats).map((stat, i) => {
+            const currentStat: number = changeStats[stat]
+            return (
+              <div key={i}>
+                <input
+                  type='text'
+                  maxLength={2}
+                  className='border-2 border-blue-400 rounded-md w-10 text-sm'
+                  value={currentStat}
+                  onChange={(e) => updateStats(stat, e.target.value)}
+                  onBlur={(e) => statChange(stat, e.target.value)}
+                />
+              </div>
+
+            );
+          })}
+        </div>
+      </div>
+      <div className="mt-6">
         <div>
           <label htmlFor='hp'>HP</label>
-          <label className='ml-2'>{Math.floor(HP[stats.vigor - 1])}</label>
+          <label className='ml-2'>{Math.floor(HP[stats.vigor - 1]) ?? '??'}</label>
         </div>
         <div>
           <label htmlFor="fp">FP</label>
@@ -83,6 +101,7 @@ export default function CoreStats({ baseStats, stats, setStats, total, setTotal,
           <label htmlFor="end">Stamina</label>
           <label className='ml-2'>{Math.floor(END[stats.endurance - 1])}</label>
         </div>
+      </div>
     </div> 
   )
 }

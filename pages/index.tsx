@@ -16,6 +16,9 @@ export default function Home() {
   // Current User Build
   const [stats, setStats] = useState<IStats>(baseStats)
 
+  //placeholder for stats that are changed
+  const [changeStats, setChangeStats] = useState<IStats>(stats)
+
   //Stat Total for calculating specific defences and resistances
   const [total, setTotal] = useState<number>(Object.values(baseStats).reduce((acc, val) => acc + val, 0))
 
@@ -43,7 +46,9 @@ export default function Home() {
           total={total}
           setTotal={setTotal}
           level={level}
-          setLevel={setLevel} 
+          setLevel={setLevel}
+          changeStats={changeStats}
+          setChangeStats={setChangeStats}
         />
       </div>
     </main>
