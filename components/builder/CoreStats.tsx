@@ -82,6 +82,18 @@ export default function CoreStats({ baseStats, stats, setStats, total, setTotal,
                   onChange={(e) => updateStats(stat, e.target.value)}
                   onBlur={(e) => statChange(stat, e.target.value)}
                 />
+                <button
+                  className='border-2 border-blue-400 rounded-md w-10 text-sm'
+                  onClick={() => statChange(stat, (currentStat + 1).toString())}
+                >
+                  +
+                </button>
+                <button
+                  className='border-2 border-blue-400 rounded-md w-10 text-sm'
+                  onClick={() => statChange(stat, (currentStat - 1).toString())}
+                >
+                  -
+                </button>
               </div>
 
             );
