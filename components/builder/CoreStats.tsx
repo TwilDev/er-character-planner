@@ -1,4 +1,6 @@
 import { HP, FP, END } from '../../data/lookup'
+import Defences from './Defences'
+
 interface ICoreStatsProps {
   baseStats: IStats,
   stats: IStats,
@@ -58,7 +60,7 @@ export default function CoreStats({ baseStats, stats, setStats, total, setTotal,
       <div className="flex justify-center items-top gap-4">
         <div className="flex flex-col gap-2">
           {Object.keys(baseStats).map((stat, i) => {
-            const statValue: number = baseStats[stat]
+            const statValue: number = baseStats[stat as keyof IStats]
             return (
               <div key={i} className='flex justify-between w-full'>
                 <label htmlFor={stat} className='capitalize mr-4'>
@@ -71,7 +73,7 @@ export default function CoreStats({ baseStats, stats, setStats, total, setTotal,
         </div>
         <div className="flex flex-col gap-[7px]">
           {Object.keys(changeStats).map((stat, i) => {
-            const currentStat: number = changeStats[stat]
+            const currentStat: number = changeStats[stat as keyof IStats]
             return (
               <div key={i}>
                 <input
@@ -79,18 +81,18 @@ export default function CoreStats({ baseStats, stats, setStats, total, setTotal,
                   maxLength={2}
                   className='border-2 border-blue-400 rounded-md w-10 text-sm'
                   value={currentStat}
-                  onChange={(e) => updateStats(stat, e.target.value)}
-                  onBlur={(e) => statChange(stat, e.target.value)}
+                  onChange={(e) => updateStats(stat as keyof IStats, e.target.value)}
+                  onBlur={(e) => statChange(stat as keyof IStats, e.target.value)}
                 />
                 <button
                   className='border-2 border-blue-400 rounded-md w-10 text-sm'
-                  onClick={() => statChange(stat, (currentStat + 1).toString())}
+                  onClick={() => statChange(stat as keyof IStats, (currentStat + 1).toString())}
                 >
                   +
                 </button>
                 <button
                   className='border-2 border-blue-400 rounded-md w-10 text-sm'
-                  onClick={() => statChange(stat, (currentStat - 1).toString())}
+                  onClick={() => statChange(stat as keyof IStats, (currentStat - 1).toString())}
                 >
                   -
                 </button>
@@ -114,6 +116,7 @@ export default function CoreStats({ baseStats, stats, setStats, total, setTotal,
           <label className='ml-2'>{Math.floor(END[stats.endurance - 1])}</label>
         </div>
       </div>
-    </div> 
+      <Defences stats={stats} total={total} />
+    </div>
   )
 }
