@@ -1,5 +1,8 @@
-import { defFlat, defStrAdj, defIntAdj, defFire, defHoly } from '../../data/defence'
-import { imFlat, imAdj, robFlat, robAdj, focFlat, focAdj, vitFlat, vitAdj } from '@/data/resistances'
+// Get lookup tables from JSON files
+const defTable = require('@/data/defence.json')
+const { defFlat, defStrAdj, defIntAdj, defFire, defHoly } = defTable
+const resistancesTable = require('@/data/resistances.json')
+const { imFlat, imAdj, robFlat, robAdj, focFlat, focAdj, vitFlat, vitAdj } = resistancesTable
 
 interface IDefenceProps {
   total: number,

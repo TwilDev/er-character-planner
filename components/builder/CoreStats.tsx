@@ -1,4 +1,6 @@
-import { HP, FP, END } from '../../data/lookup'
+// import { HP, FP, END } from '../../data/lookup'
+const coreStatsTable = require('@/data/lookup.json')
+const { HP, FP, END } = coreStatsTable
 import Defences from './Defences'
 
 interface ICoreStatsProps {
