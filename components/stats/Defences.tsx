@@ -3,13 +3,13 @@ const defTable = require('@/data/defence.json')
 const { defFlat, defStrAdj, defIntAdj, defFire, defHoly } = defTable
 const resistancesTable = require('@/data/resistances.json')
 const { imFlat, imAdj, robFlat, robAdj, focFlat, focAdj, vitFlat, vitAdj } = resistancesTable
+import { useContext } from 'react'
+import { ClassContext } from '@/context/ClassContext'
 
-interface IDefenceProps {
-  total: number,
-  stats: IStats
-}
+export default function Defences() {
 
-export default function Defences({total, stats}: IDefenceProps) {
+  const { total, stats } = useContext(ClassContext)
+
   return (
     <div>
       <div className="mt-2">

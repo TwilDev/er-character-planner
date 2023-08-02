@@ -1,12 +1,11 @@
 const coreStatsTable = require('@/data/lookup.json')
 const { HP, FP, END } = coreStatsTable
+import { useContext } from 'react'
+import { ClassContext } from '@/context/ClassContext'
 
-interface ICoreStatsProps {
-  stats: IStats,
-  total: number,
-}
+export default function VitalStats() {
+  const { stats } = useContext(ClassContext)
 
-export default function VitalStats({ stats, total }: ICoreStatsProps) {
   return (
     <div className="flex flex-col w-full">
       <div className="flex justify-between">

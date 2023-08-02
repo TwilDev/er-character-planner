@@ -1,17 +1,9 @@
-interface ICoreStatsProps {
-  baseStats: IStats,
-  stats: IStats,
-  setStats: React.Dispatch<React.SetStateAction<IStats>>,
-  total: number,
-  setTotal: React.Dispatch<React.SetStateAction<number>>,
-  level: number,
-  setLevel: React.Dispatch<React.SetStateAction<number>>
-  changeStats: IStats,
-  setChangeStats: React.Dispatch<React.SetStateAction<IStats>>
-}
+import ClassPicker from "./ClassPicker"
+import { useContext } from "react"
+import { ClassContext } from "@/context/ClassContext"
 
-export default function CoreStats({ baseStats, stats, setStats, total, setTotal, level, setLevel, changeStats, setChangeStats }: ICoreStatsProps) {
-  
+export default function CoreStats() {
+  const { baseStats, setBaseStats, stats, setStats, total, setTotal, level, setLevel, changeStats, setChangeStats } = useContext(ClassContext)
   const validateStat = (label: keyof IStats, stat: any) => {
     if (stat < baseStats[label] || isNaN(stat)) {
       return baseStats[label]
@@ -32,11 +24,11 @@ export default function CoreStats({ baseStats, stats, setStats, total, setTotal,
   
   const statChange = (stat: keyof IStats, value: string) => {
     // Validate and update stats on input blur
-    console.log('statChange')
-    console.log(changeStats)
-    console.log(stats)
+    // console.log('statChange')
+    // console.log(changeStats)
+    // console.log(stats)
     const validatedStat = validateStat(stat, parseInt(value))
-    console.log(validatedStat)
+    // console.log(validatedStat)
     const newStats: IStats = { ...changeStats, [stat]: validatedStat }
     setChangeStats(newStats)
     setStats(newStats)
@@ -46,6 +38,7 @@ export default function CoreStats({ baseStats, stats, setStats, total, setTotal,
   
   return (
     <div>
+      <ClassPicker />
       <div className='flex items-center justify-between w-full mb-2'>
         <label htmlFor='level'>Level</label>
         <label

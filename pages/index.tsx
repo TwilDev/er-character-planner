@@ -26,14 +26,8 @@ export default function Home() {
   //Current User Level
   const [level, setLevel] = useState(total - 79)
 
-  const validateStat = (stat: number) => {
-    if (stat < 1 || isNaN(stat)) {
-      return 1;
-    }
-    if (stat > 99) {
-      return 99;
-    }
-    return stat;
+  const updateClassOnChange = (newClass: IStats) => {
+    setBaseStats(newClass)
   }
 
   return (
@@ -42,15 +36,17 @@ export default function Home() {
       <div className="flex">
         <div className='flex w-[300px] flex-col items-center justify-center gap-4'>
           <CoreBuilder 
-            baseStats={baseStats}
-            stats={stats}
-            setStats={setStats}
-            total={total}
-            setTotal={setTotal}
-            level={level}
-            setLevel={setLevel}
-            changeStats={changeStats}
-            setChangeStats={setChangeStats}
+            // baseStats={baseStats}
+            // setBaseStats={setBaseStats}
+            // stats={stats}
+            // setStats={setStats}
+            // total={total}
+            // setTotal={setTotal}
+            // level={level}
+            // setLevel={setLevel}
+            // changeStats={changeStats}
+            // setChangeStats={setChangeStats}
+            // updateOnChangeClass={updateClassOnChange}
           />
         </div>
         <div className="flex w-[300px] flex-col items-center justify-center gap-4">

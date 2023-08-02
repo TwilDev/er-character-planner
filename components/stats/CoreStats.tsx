@@ -10,8 +10,8 @@ export default function CoreStats({ stats, total }: ICoreStatsProps) {
   return (
     <div>
       <div className='flex flex-col items-center justify-between w-full mb-2'>
-        <VitalStats stats={stats} total={total} />
-        <Defences stats={stats} total={total} />
+        <VitalStats />
+        <Defences />
       </div>
     </div>
   )
