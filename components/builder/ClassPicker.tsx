@@ -4,7 +4,7 @@ import { useEffect, useState, useContext } from "react"
 import { ClassContext } from '@/context/ClassContext'
 
 export default function ClassPicker() {
-  const [classes, setClasses] = useState<any>(null)
+  const [classes, setClasses] = useState<{label: string, value: object }[] | null>(null)
   const { updateClassOnChange } = useContext(ClassContext)
 
     useEffect(() => {
@@ -19,12 +19,15 @@ export default function ClassPicker() {
       }
       setClasses(options)
     }, []);
-
+  if (!classes) return (<div></div>
+  )
   return (
     <div>
       <Select 
-        options={classes}
-        onChange={(e: any) => updateClassOnChange(e.value)}
+        id='class-picker'
+        options={classes ?? []}
+        defaultValue={classes ? classes[0] : null}
+        onChange={(selectedOption: any) => updateClassOnChange(selectedOption.value)}
       />
     </div>
   )

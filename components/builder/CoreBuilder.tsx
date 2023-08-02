@@ -1,9 +1,25 @@
 import ClassPicker from "./ClassPicker"
 import { useContext } from "react"
 import { ClassContext } from "@/context/ClassContext"
+import { useState, useEffect } from "react"
 
 export default function CoreStats() {
-  const { baseStats, setBaseStats, stats, setStats, total, setTotal, level, setLevel, changeStats, setChangeStats } = useContext(ClassContext)
+  const { 
+    baseStats,
+    setBaseStats,
+    stats,
+    setStats,
+    hasChangedStats,
+    setHasChangedStats,
+    total,
+    setTotal,
+    level,
+    setLevel,
+    changeStats,
+    setChangeStats 
+  } = useContext(ClassContext)
+
+
   const validateStat = (label: keyof IStats, stat: any) => {
     if (stat < baseStats[label] || isNaN(stat)) {
       return baseStats[label]
@@ -17,6 +33,12 @@ export default function CoreStats() {
   //Update stats to be changed
   const updateStats = (stat: keyof IStats, value: string) => {
     // Prevent non-numeric values
+
+    // Set hasChangedStats on first change
+    if (!hasChangedStats) {
+      setHasChangedStats(true)
+    }
+
     const newValue = value === '' ? '' : parseInt(value, 10)
     const newStats: IStats = { ...stats, [stat]: newValue }
     setChangeStats(newStats)
@@ -36,6 +58,11 @@ export default function CoreStats() {
     setLevel(Object.values(newStats).reduce((acc, val) => acc + val, 0) - 79)
   }
   
+  // const [userStats, setUserStats] = useState<IStats>(stats)
+  // useEffect(() => {
+  //   setUserStats(stats)
+  // }, [stats])
+
   return (
     <div>
       <ClassPicker />
