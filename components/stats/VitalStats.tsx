@@ -1,7 +1,7 @@
 const coreStatsTable = require('@/data/lookup.json')
 const { HP, FP, END } = coreStatsTable
 import { useContext } from 'react'
-import { ClassContext } from '@/context/ClassContext'
+import { ClassContext } from '@/context/classContext'
 
 export default function VitalStats() {
   const { stats } = useContext(ClassContext)

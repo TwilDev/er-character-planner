@@ -1,6 +1,6 @@
 import ClassPicker from "./ClassPicker"
 import { useContext } from "react"
-import { ClassContext } from "@/context/ClassContext"
+import { ClassContext } from "@/context/classContext"
 import { useState, useEffect } from "react"
 
 export default function CoreStats() {
@@ -86,7 +86,7 @@ export default function CoreStats() {
                 </label>
                 <p>{statValue}</p>
               </div>
-            );
+            )
           })}
         </div>
         <div className="flex flex-col gap-[7px]">

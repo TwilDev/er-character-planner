@@ -4,7 +4,7 @@ const { defFlat, defStrAdj, defIntAdj, defFire, defHoly } = defTable
 const resistancesTable = require('@/data/resistances.json')
 const { imFlat, imAdj, robFlat, robAdj, focFlat, focAdj, vitFlat, vitAdj } = resistancesTable
 import { useContext } from 'react'
-import { ClassContext } from '@/context/ClassContext'
+import { ClassContext } from '@/context/classContext'
 
 export default function Defences() {
 

@@ -1,7 +1,7 @@
 const baseClasses = require ('@/data/classes.json')
 import Select from 'react-select'
 import { useEffect, useState, useContext } from "react"
-import { ClassContext } from '@/context/ClassContext'
+import { ClassContext } from '@/context/classContext'
 
 export default function ClassPicker() {
   const [classes, setClasses] = useState<{label: string, value: object }[] | null>(null)

@@ -47,7 +47,7 @@ const ClassContextProvider = ({ children }: any) => {
   //Current User Level
   const [level, setLevel] = useState(total - 79)
 
-  const updateClassOnChange = (newClass: any) => {
+  const updateClassOnChange = (newClass: IStats) => {
     console.log(newClass)
     console.log(hasChangedStats)
 
@@ -58,19 +58,22 @@ const ClassContextProvider = ({ children }: any) => {
       console.log("New Stats: " + newClass)
       setStats(newClass)
       setBaseStats(newClass)
-      setTotal(Object.values(stats).reduce((acc, val) => acc + val, 0))
+      const statSum = Object.values(newClass).reduce((acc, val) => acc + val, 0)
+      console.log(statSum)
+      setTotal(statSum)
       console.log(total)
-      setLevel(total - 79)
+      setLevel((statSum - 79))
       return
     }
 
     const currentStats: IStats = stats
+    console.log("got here")
     //Go through each current stat and if the value is less than the base value, set it to the base value
     for (const stat in currentStats) {
       if (Object.hasOwnProperty.call(currentStats, stat)) {
         const element = currentStats[stat as keyof IStats];
-        if (element < newClass[stat]) {
-          currentStats[stat as keyof IStats] = newClass[stat]
+        if (element < newClass[stat as keyof IStats]) {
+          currentStats[stat as keyof IStats] = newClass[stat as keyof IStats]
         }
       }
     }
