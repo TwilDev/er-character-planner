@@ -51,6 +51,15 @@ const ClassContextProvider = ({ children }: any) => {
     console.log(newClass)
     console.log(hasChangedStats)
 
+    
+    /*** - TODO: - ***/
+    //NEED TO CHANGE SO THAT THE STATS THAT HAVE BEEN ALTERRED ARE STORED AND CHECKED AGAINST HERE
+    // Example hasChangedStats change to an array of keys that have been changed
+    // changedStats = ["vigor", "mind", "endurance"] etc..
+    // Then can check if this array has some length if not then just set all stats and totals to new base stats
+    // IF it contains keys go down to loop
+
+
     //Check if the stats have been changed, if not then set the current stats to the base stats
     if (!hasChangedStats) {
       // console.log("stats have not been changed")
@@ -66,20 +75,33 @@ const ClassContextProvider = ({ children }: any) => {
       return
     }
 
+    // TODO CONTINUED
+    // If some stats have been we loop through the new stats and set any stats that have not been changed to the base stats
+    // Then combine these values to new current stats that will be set to ChangeStats & Stats
+    // Base stats will be set to the new class
+    // Calculate new total and new leve from currentStats
+    
+
+
     const currentStats: IStats = stats
     console.log("got here")
+    console.log("New Class Stats")
+    console.log(newClass)
     //Go through each current stat and if the value is less than the base value, set it to the base value
     for (const stat in currentStats) {
       if (Object.hasOwnProperty.call(currentStats, stat)) {
         const element = currentStats[stat as keyof IStats];
         if (element < newClass[stat as keyof IStats]) {
+          console.log(stat)
           currentStats[stat as keyof IStats] = newClass[stat as keyof IStats]
         }
       }
     }
 
     console.log(currentStats)
-    // setBaseStats(newClass)
+    setBaseStats(newClass)
+    setChangeStats(currentStats)
+    setStats(currentStats)
     // setStats(currentStats)
     // setTotal(Object.values(currentStats).reduce((acc, val) => acc + val, 0))
     // setLevel(total - 79)
