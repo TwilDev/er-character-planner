@@ -46,9 +46,10 @@ export default function CoreStats() {
   
   const statChange = (stat: keyof IStats, value: string) => {
     // Validate and update stats on input blur
-    // console.log('statChange')
-    // console.log(changeStats)
-    // console.log(stats)
+    if (!hasChangedStats) {
+      setHasChangedStats(true)
+    }
+
     const validatedStat = validateStat(stat, parseInt(value))
     // console.log(validatedStat)
     const newStats: IStats = { ...changeStats, [stat]: validatedStat }
@@ -57,11 +58,6 @@ export default function CoreStats() {
     setTotal(Object.values(newStats).reduce((acc, val) => acc + val, 0))
     setLevel(Object.values(newStats).reduce((acc, val) => acc + val, 0) - 79)
   }
-  
-  // const [userStats, setUserStats] = useState<IStats>(stats)
-  // useEffect(() => {
-  //   setUserStats(stats)
-  // }, [stats])
 
   return (
     <div>

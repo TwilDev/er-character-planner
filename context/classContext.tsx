@@ -53,15 +53,15 @@ const ClassContextProvider = ({ children }: any) => {
 
     //Check if the stats have been changed, if not then set the current stats to the base stats
     if (!hasChangedStats) {
-      console.log("stats have not been changed")
+      // console.log("stats have not been changed")
       setChangeStats(newClass)
-      console.log("New Stats: " + newClass)
+      // console.log("New Stats: " + newClass)
       setStats(newClass)
       setBaseStats(newClass)
       const statSum = Object.values(newClass).reduce((acc, val) => acc + val, 0)
-      console.log(statSum)
+      // console.log(statSum)
       setTotal(statSum)
-      console.log(total)
+      // console.log(total)
       setLevel((statSum - 79))
       return
     }
@@ -77,6 +77,8 @@ const ClassContextProvider = ({ children }: any) => {
         }
       }
     }
+
+    console.log(currentStats)
     // setBaseStats(newClass)
     // setStats(currentStats)
     // setTotal(Object.values(currentStats).reduce((acc, val) => acc + val, 0))
