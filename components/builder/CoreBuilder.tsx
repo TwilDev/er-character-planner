@@ -9,8 +9,6 @@ export default function CoreStats() {
     setBaseStats,
     stats,
     setStats,
-    hasChangedStats,
-    setHasChangedStats,
     total,
     setTotal,
     level,
