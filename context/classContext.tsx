@@ -15,6 +15,8 @@ interface IClassContext {
   level: number
   setLevel: React.Dispatch<React.SetStateAction<number>>
   updateClassOnChange: (newClass: any) => void
+  statChange: string[]
+  setStatChange: React.Dispatch<React.SetStateAction<string[]>>
 }
 
 const ClassContext = createContext({} as IClassContext)
@@ -41,6 +43,8 @@ const ClassContextProvider = ({ children }: any) => {
   //placeholder for stats that are changed
   const [changeStats, setChangeStats] = useState<IStats>(stats)
 
+  const [statChange, setStatChange] = useState<string[]>([])
+
   //Stat Total for calculating specific defences and resistances
   const [total, setTotal] = useState<number>(Object.values(baseStats).reduce((acc, val) => acc + val, 0))
 
@@ -48,9 +52,6 @@ const ClassContextProvider = ({ children }: any) => {
   const [level, setLevel] = useState(total - 79)
 
   const updateClassOnChange = (newClass: IStats) => {
-    console.log(newClass)
-    console.log(hasChangedStats)
-
     
     /*** - TODO: - ***/
     //NEED TO CHANGE SO THAT THE STATS THAT HAVE BEEN ALTERRED ARE STORED AND CHECKED AGAINST HERE
@@ -61,7 +62,7 @@ const ClassContextProvider = ({ children }: any) => {
 
 
     //Check if the stats have been changed, if not then set the current stats to the base stats
-    if (!hasChangedStats) {
+    if (statChange.length === 0) {
       // console.log("stats have not been changed")
       setChangeStats(newClass)
       // console.log("New Stats: " + newClass)
@@ -81,31 +82,28 @@ const ClassContextProvider = ({ children }: any) => {
     // Base stats will be set to the new class
     // Calculate new total and new leve from currentStats
     
+    else {
+      const newClassStats: IStats = {...newClass}
 
-
-    const currentStats: IStats = stats
-    console.log("got here")
-    console.log("New Class Stats")
-    console.log(newClass)
-    //Go through each current stat and if the value is less than the base value, set it to the base value
-    for (const stat in currentStats) {
-      if (Object.hasOwnProperty.call(currentStats, stat)) {
-        const element = currentStats[stat as keyof IStats];
-        if (element < newClass[stat as keyof IStats]) {
-          console.log(stat)
-          currentStats[stat as keyof IStats] = newClass[stat as keyof IStats]
+      //If user has alterred any stats loop through new classes stats and set any stats higher than the base stats to current user stats to maintain their build
+      for (const stat in newClassStats) {
+        if (Object.hasOwnProperty.call(newClassStats, stat)) {
+          if (statChange.includes(stat) && newClassStats[stat as keyof IStats] <= changeStats[stat as keyof IStats]) {
+            newClassStats[stat as keyof IStats] = stats[stat as keyof IStats]
+          }
         }
       }
-    }
+      
+      console.log(newClass)
 
-    console.log(currentStats)
-    setBaseStats(newClass)
-    setChangeStats(currentStats)
-    setStats(currentStats)
-    // setStats(currentStats)
-    // setTotal(Object.values(currentStats).reduce((acc, val) => acc + val, 0))
-    // setLevel(total - 79)
-    // console.log(currentStats)
+      //Set new stats
+      setChangeStats(newClassStats)
+      setStats(newClassStats)
+      setBaseStats(newClass)
+      const statSum = Object.values(newClassStats).reduce((acc, val) => acc + val, 0)
+      setTotal(statSum)
+      setLevel((statSum - 79))
+    }
   }
 
   return (
@@ -122,7 +120,9 @@ const ClassContextProvider = ({ children }: any) => {
       setTotal,
       level,
       setLevel,
-      updateClassOnChange
+      updateClassOnChange,
+      statChange,
+      setStatChange
     }}>
       {children}
     </ClassContext.Provider>

@@ -16,7 +16,9 @@ export default function CoreStats() {
     level,
     setLevel,
     changeStats,
-    setChangeStats 
+    setChangeStats,
+    setStatChange,
+    statChange,
   } = useContext(ClassContext)
 
 
@@ -32,24 +34,17 @@ export default function CoreStats() {
   
   //Update stats to be changed
   const updateStats = (stat: keyof IStats, value: string) => {
-    // Prevent non-numeric values
-
-    // Set hasChangedStats on first change
-    if (!hasChangedStats) {
-      setHasChangedStats(true)
-    }
-
     const newValue = value === '' ? '' : parseInt(value, 10)
     const newStats: IStats = { ...stats, [stat]: newValue }
     setChangeStats(newStats)
   }
   
-  const statChange = (stat: keyof IStats, value: string) => {
-    // Validate and update stats on input blur
-    if (!hasChangedStats) {
-      setHasChangedStats(true)
+  const handleStatChange = (stat: keyof IStats, value: string) => {
+    // add stat key to statChange array if it doesn't exist
+    if (!statChange.includes(stat)) {
+      setStatChange([...statChange, stat])
     }
-
+    
     const validatedStat = validateStat(stat, parseInt(value))
     // console.log(validatedStat)
     const newStats: IStats = { ...changeStats, [stat]: validatedStat }
@@ -96,17 +91,17 @@ export default function CoreStats() {
                   className='border-2 border-blue-400 rounded-md w-10 text-sm'
                   value={currentStat}
                   onChange={(e) => updateStats(stat as keyof IStats, e.target.value)}
-                  onBlur={(e) => statChange(stat as keyof IStats, e.target.value)}
+                  onBlur={(e) => handleStatChange(stat as keyof IStats, e.target.value)}
                 />
                 <button
                   className='border-2 border-blue-400 rounded-md w-10 text-sm'
-                  onClick={() => statChange(stat as keyof IStats, (currentStat + 1).toString())}
+                  onClick={() => handleStatChange(stat as keyof IStats, (currentStat + 1).toString())}
                 >
                   +
                 </button>
                 <button
                   className='border-2 border-blue-400 rounded-md w-10 text-sm'
-                  onClick={() => statChange(stat as keyof IStats, (currentStat - 1).toString())}
+                  onClick={() => handleStatChange(stat as keyof IStats, (currentStat - 1).toString())}
                 >
                   -
                 </button>
