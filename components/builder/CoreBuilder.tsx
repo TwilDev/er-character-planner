@@ -1,4 +1,5 @@
 import ClassPicker from "./ClassPicker"
+import RuneCount from "./RuneCount"
 import { useContext } from "react"
 import { ClassContext } from "@/context/classContext"
 import { useState, useEffect } from "react"
@@ -6,7 +7,6 @@ import { useState, useEffect } from "react"
 export default function CoreStats() {
   const { 
     baseStats,
-    setBaseStats,
     stats,
     setStats,
     total,
@@ -107,6 +107,7 @@ export default function CoreStats() {
 
             );
           })}
+          <RuneCount />
         </div>
       </div>
     </div>

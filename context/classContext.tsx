@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from "react"
+import getNextLevelRunes from "@/helpers/getNextLevelRunes"
 
 // Define the type for your context
 interface IClassContext {
@@ -15,6 +16,7 @@ interface IClassContext {
   updateClassOnChange: (newClass: any) => void
   statChange: string[]
   setStatChange: React.Dispatch<React.SetStateAction<string[]>>
+  useRuneCosts: (currentLevel: number, baseLevel: number) => { nextLevelRunes: number; totalRunesRequired: number }
 }
 
 const ClassContext = createContext({} as IClassContext)
@@ -46,6 +48,31 @@ const ClassContextProvider = ({ children }: any) => {
 
   //Current User Level
   const [level, setLevel] = useState(total - 79)
+
+  // calculate rune costs for current level 
+  function useRuneCosts(currentLevel: number, baseLevel: number) {
+    const [nextLevelRunes, setNextLevelRunes] = useState(0);
+    const [totalRunesRequired, setTotalRunesRequired] = useState(0);
+  
+    useEffect(() => {
+      function calculateCosts(level: number) {
+        if (level >= 12) return Math.floor(0.02 * Math.pow(level, 3) + 3.06 * Math.pow(level, 2) + 105.6 * level - 895)
+        else return Math.floor(0.0068 * Math.pow(level, 3) - 0.06 * Math.pow(level, 2) + 17.1 * level + 639)
+      }
+  
+      if (currentLevel >= baseLevel) {
+        const nextLevelCost = calculateCosts(currentLevel + 1);
+        setNextLevelRunes(nextLevelCost)
+        let totalCost = [...Array(currentLevel - baseLevel + 1)].reduce((acc, val, i) => {
+          return acc + calculateCosts(baseLevel + i)
+        }, 0)
+
+        setTotalRunesRequired(totalCost);
+      }
+    }, [currentLevel]);
+  
+    return { nextLevelRunes, totalRunesRequired };
+  }
 
   //Update stats when a new class is selected
   const updateClassOnChange = (newClass: IStats) => {
@@ -87,7 +114,8 @@ const ClassContextProvider = ({ children }: any) => {
       setLevel,
       updateClassOnChange,
       statChange,
-      setStatChange
+      setStatChange,
+      useRuneCosts
     }}>
       {children}
     </ClassContext.Provider>

@@ -1,5 +1,5 @@
 const coreStatsTable = require('@/data/lookup.json')
-const { HP, FP, END } = coreStatsTable
+const { HP, FP, END, EQUIPLOAD } = coreStatsTable
 import { useContext } from 'react'
 import { ClassContext } from '@/context/classContext'
 
@@ -19,6 +19,10 @@ export default function VitalStats() {
       <div className="flex justify-between">
         <label htmlFor="end">Stamina</label>
         <label className='ml-2'>{Math.floor(END[stats.endurance - 1])}</label>
+      </div>
+      <div className="flex justify-between">
+        <label htmlFor="end">Equip Load</label>
+        <label className='ml-2'>TODO</label>
       </div>
   </div>
   )
