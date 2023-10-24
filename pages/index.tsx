@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import CoreBuilder from '@/components/builder/CoreBuilder'
 import CoreStats from '@/components/stats/CoreStats'
+import ArmourSelection from '@/components/builder/ArmourSelection'
 
 export default function Home() {
   //Base stats currently hardcoded for Vagabond
@@ -35,19 +36,10 @@ export default function Home() {
       <h1>Elden Ring Character Builder</h1>
       <div className="flex">
         <div className='flex w-[300px] flex-col items-center justify-center gap-4'>
-          <CoreBuilder 
-            // baseStats={baseStats}
-            // setBaseStats={setBaseStats}
-            // stats={stats}
-            // setStats={setStats}
-            // total={total}
-            // setTotal={setTotal}
-            // level={level}
-            // setLevel={setLevel}
-            // changeStats={changeStats}
-            // setChangeStats={setChangeStats}
-            // updateOnChangeClass={updateClassOnChange}
-          />
+          <CoreBuilder />
+        </div>
+        <div className="flex w-[300px] flex-col items-center justify-center gap-4">
+          <ArmourSelection />
         </div>
         <div className="flex w-[300px] flex-col items-center justify-center gap-4">
           <CoreStats 
@@ -56,8 +48,6 @@ export default function Home() {
           />
         </div>
       </div>
-
-
     </main>
   );
 }
