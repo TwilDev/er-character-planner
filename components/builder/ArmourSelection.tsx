@@ -1,20 +1,24 @@
 import Select from 'react-select'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { ArmourContext } from '@/context/armourContext'
 import { armour } from '@/data/armour/armourData.json'
 
 export default function ArmourSelection() {
 
-  const [headArmour, setHeadArmour] = useState<{label: string, value: object }[] | null>(null)
-  const [chestArmour, setChestArmour] = useState<{label: string, value: object }[] | null>(null)
-  const [handsArmour, setHandsArmour] = useState<{label: string, value: object }[] | null>(null)
-  const [legsArmour, setLegsArmour] = useState<{label: string, value: object }[] | null>(null)
+  // Values for each dropdown - all Armour pieces in the game
+  const [headOptions, setHeadOptions] = useState<IArmourPiece[] | null>(null)
+  const [chestOptions, setChestOptions] = useState<IArmourPiece[] | null>(null)
+  const [handsOptions, setHandsOptions] = useState<IArmourPiece[] | null>(null)
+  const [legsOptions, setLegsOptions] = useState<IArmourPiece[] | null>(null)
+
+  const { selectArmour } = useContext(ArmourContext)
 
   useEffect(() => {
     // Iterate through armour and set the states based upon armourType
-    let headOptions: {label: string, value: object }[] = []
-    let chestOptions: {label: string, value: object }[] = []
-    let handsOptions: {label: string, value: object }[] = []
-    let legsOptions: {label: string, value: object }[] = []
+    let headOptions: IArmourPiece[] = []
+    let chestOptions: IArmourPiece[] = []
+    let handsOptions: IArmourPiece[] = []
+    let legsOptions: IArmourPiece[] = []
 
     armour.forEach((armourData) => {
       if (armourData && armourData.armourType) {
@@ -41,31 +45,36 @@ export default function ArmourSelection() {
     })
 
     // Push arrays to states
-    setHeadArmour(headOptions)
-    setChestArmour(chestOptions)
-    setHandsArmour(handsOptions)
-    setLegsArmour(legsOptions)
+    setHeadOptions(headOptions)
+    setChestOptions(chestOptions)
+    setHandsOptions(handsOptions)
+    setLegsOptions(legsOptions)
 
   }, [])
 
   return (
-    <div>
+    <div className="w-full p-4">
       <h1>Armour Selection</h1>
       <Select 
         id='head-armour'
-        options={headArmour ?? []}
+        className="w-full"
+        options={headOptions ?? []}
+        onChange={(selectedOption: any) => selectArmour(selectedOption)}
       />
       <Select 
         id='chest-armour'
-        options={chestArmour ?? []}
+        options={chestOptions ?? []}
+        onChange={(selectedOption: any) => selectArmour(selectedOption)}
       />
       <Select 
         id='hands-armour'
-        options={handsArmour ?? []}
+        options={handsOptions ?? []}
+        onChange={(selectedOption: any) => selectArmour(selectedOption)}
       />
       <Select 
         id='legs-armour'
-        options={legsArmour ?? []}
+        options={legsOptions ?? []}
+        onChange={(selectedOption: any) => selectArmour(selectedOption)}
       />
     </div>
   )
