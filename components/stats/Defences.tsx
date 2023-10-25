@@ -3,11 +3,14 @@ const defTable = require('@/data/defence.json')
 const { defFlat, defStrAdj, defIntAdj, defFire, defHoly } = defTable
 const resistancesTable = require('@/data/resistances.json')
 const { imFlat, imAdj, robFlat, robAdj, focFlat, focAdj, vitFlat, vitAdj } = resistancesTable
+
+import useCalculateAbsorption from '@/hooks/useCalculateAbsorption'
 import { useContext } from 'react'
 import { ClassContext } from '@/context/classContext'
 
 export default function Defences() {
 
+  const { phsyicalAbsorption } = useCalculateAbsorption()
   const { total, stats } = useContext(ClassContext)
 
   return (
@@ -16,6 +19,7 @@ export default function Defences() {
         <div className="flex justify-between">
           <label htmlFor="physicalDefence">Physical Defence</label>
           <label className='ml-2'>{Math.floor(defFlat[total - 1] + defStrAdj[stats.strength - 1])}</label>
+          <label className='ml-2'>/ { phsyicalAbsorption }</label>
         </div>
         <div className="flex justify-between">
           <label htmlFor="magicDefence">Magic Defence</label>

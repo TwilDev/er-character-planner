@@ -3,13 +3,13 @@ import getNextLevelRunes from "@/helpers/getNextLevelRunes"
 
 // Define the type for your context
 interface IArmourContext {
-  // headArmour: IArmourPiece | null
+  headArmour: IArmourPiece | null
   setHeadArmour: React.Dispatch<React.SetStateAction<IArmourPiece | null>>
-  // bodyArmour: IArmourPiece | null
+  bodyArmour: IArmourPiece | null
   setBodyArmour: React.Dispatch<React.SetStateAction<IArmourPiece | null>>
-  // handsArmour: IArmourPiece | null
+  handsArmour: IArmourPiece | null
   setHandsArmour: React.Dispatch<React.SetStateAction<IArmourPiece | null>>
-  // legsArmour: IArmourPiece | null
+  legsArmour: IArmourPiece | null
   setLegsArmour: React.Dispatch<React.SetStateAction<IArmourPiece | null>>
   selectArmour: (armourPiece: IArmourPiece) => void
 }
@@ -45,6 +45,10 @@ const ArmourContextProvider = ({ children }: any) => {
 
   return (
     <ArmourContext.Provider value={{
+      headArmour,
+      bodyArmour,
+      handsArmour,
+      legsArmour,
       setHeadArmour,
       setBodyArmour,
       setHandsArmour,

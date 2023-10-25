@@ -10,10 +10,10 @@ interface IStats{
 }
 
 interface IArmour {
-  head: IArmourPiece
-  chest: IArmourPiece
-  hands: IArmourPiece
-  legs: IArmourPiece
+  head: IArmourPiece | null
+  body: IArmourPiece | null
+  hands: IArmourPiece | null
+  legs: IArmourPiece | null
 }
 
 interface IArmourPiece {
