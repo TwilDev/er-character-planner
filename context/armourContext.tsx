@@ -23,6 +23,15 @@ const ArmourContextProvider = ({ children }: any) => {
   const [handsArmour, setHandsArmour] = useState<IArmourPiece | null>(null)
   const [legsArmour, setLegsArmour] = useState<IArmourPiece | null>(null)
 
+  const [armour, setArmour] = useState<IArmour>(
+    {
+      head: headArmour, 
+      body: bodyArmour, 
+      hands: handsArmour, 
+      legs: legsArmour
+    }
+  )
+
   const selectArmour = (armourPiece: IArmourPiece) => {
     switch (armourPiece.value.armourType) {
       case 'Head':
@@ -40,6 +49,13 @@ const ArmourContextProvider = ({ children }: any) => {
       default:
         break;
     }
+
+    setArmour({
+      head: headArmour, 
+      body: bodyArmour, 
+      hands: handsArmour, 
+      legs: legsArmour
+    })
   }
 
 

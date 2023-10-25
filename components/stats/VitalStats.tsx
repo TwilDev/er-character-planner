@@ -2,9 +2,11 @@ const coreStatsTable = require('@/data/lookup.json')
 const { HP, FP, END, EQUIPLOAD } = coreStatsTable
 import { useContext } from 'react'
 import { ClassContext } from '@/context/classContext'
+import useCalculatePoise from '@/hooks/useCalculatePoise'
 
 export default function VitalStats() {
   const { stats } = useContext(ClassContext)
+  const { poise } = useCalculatePoise()
 
   return (
     <div className="flex flex-col w-full">
@@ -21,8 +23,12 @@ export default function VitalStats() {
         <label className='ml-2'>{Math.floor(END[stats.endurance - 1])}</label>
       </div>
       <div className="flex justify-between">
-        <label htmlFor="end">Equip Load</label>
+        <label htmlFor="eqp">Equip Load</label>
         <label className='ml-2'>TODO</label>
+      </div>
+      <div className="flex justify-between">
+        <label htmlFor="poise">Poise</label>
+        <label className='ml-2'>{ poise }</label>
       </div>
   </div>
   )
