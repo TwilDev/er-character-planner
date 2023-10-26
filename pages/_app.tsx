@@ -5,10 +5,10 @@ import { ArmourContextProvider } from '@/context/armourContext'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ClassContextProvider>
-      <ArmourContextProvider>
+    <ArmourContextProvider>
+      <ClassContextProvider>
         <Component {...pageProps} />
-      </ArmourContextProvider>
-    </ClassContextProvider>
+      </ClassContextProvider>
+    </ArmourContextProvider>
   )
 }

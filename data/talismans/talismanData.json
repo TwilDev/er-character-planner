@@ -1,0 +1,580 @@
+{
+  "talismans":
+    [
+      {
+      "Talisman": "Crimson Amber Medallion",
+      "ID": 1000,
+      "accessoryGroup": 1000
+      },
+      {
+      "Talisman": "Crimson Amber Medallion +1",
+      "ID": 1001,
+      "accessoryGroup": 1000
+      },
+      {
+      "Talisman": "Crimson Amber Medallion +2",
+      "ID": 1002,
+      "accessoryGroup": 1000
+      },
+      {
+      "Talisman": "Crimson Seed Talisman",
+      "ID": 5000,
+      "accessoryGroup": 5000
+      },
+      {
+      "Talisman": "Blessed Dew Talisman",
+      "ID": 5020,
+      "accessoryGroup": 5020
+      },
+      {
+      "Talisman": "Cerulean Amber Medallion",
+      "ID": 1010,
+      "accessoryGroup": 1010
+      },
+      {
+      "Talisman": "Cerulean Amber Medallion +1",
+      "ID": 1011,
+      "accessoryGroup": 1010
+      },
+      {
+      "Talisman": "Cerulean Amber Medallion +2",
+      "ID": 1012,
+      "accessoryGroup": 1010
+      },
+      {
+      "Talisman": "Cerulean Seed Talisman",
+      "ID": 5010,
+      "accessoryGroup": 5010
+      },
+      {
+      "Talisman": "Viridian Amber Medallion",
+      "ID": 1020,
+      "accessoryGroup": 1020
+      },
+      {
+      "Talisman": "Viridian Amber Medallion +1",
+      "ID": 1021,
+      "accessoryGroup": 1020
+      },
+      {
+      "Talisman": "Viridian Amber Medallion +2",
+      "ID": 1022,
+      "accessoryGroup": 1020
+      },
+      {
+      "Talisman": "Green Turtle Talisman",
+      "ID": 1150,
+      "accessoryGroup": 1150
+      },
+      {
+      "Talisman": "Arsenal Charm",
+      "ID": 1030,
+      "accessoryGroup": 1030
+      },
+      {
+      "Talisman": "Arsenal Charm +1",
+      "ID": 1031,
+      "accessoryGroup": 1030
+      },
+      {
+      "Talisman": "Great-Jar's Arsenal",
+      "ID": 1032,
+      "accessoryGroup": 1030
+      },
+      {
+      "Talisman": "Erdtree's Favor",
+      "ID": 1040,
+      "accessoryGroup": 1040
+      },
+      {
+      "Talisman": "Erdtree's Favor +1",
+      "ID": 1041,
+      "accessoryGroup": 1040
+      },
+      {
+      "Talisman": "Erdtree's Favor +2",
+      "ID": 1042,
+      "accessoryGroup": 1040
+      },
+      {
+      "Talisman": "Radagon's Scarseal",
+      "ID": 1050,
+      "accessoryGroup": 1050
+      },
+      {
+      "Talisman": "Radagon's Soreseal",
+      "ID": 1051,
+      "accessoryGroup": 1050
+      },
+      {
+      "Talisman": "Marika's Scarseal",
+      "ID": 1220,
+      "accessoryGroup": 1220
+      },
+      {
+      "Talisman": "Marika's Soreseal",
+      "ID": 1221,
+      "accessoryGroup": 1220
+      },
+      {
+      "Talisman": "Starscourge Heirloom",
+      "ID": 1060,
+      "accessoryGroup": 1060
+      },
+      {
+      "Talisman": "Prosthesis-Wearer Heirloom",
+      "ID": 1070,
+      "accessoryGroup": 1070
+      },
+      {
+      "Talisman": "Stargazer Heirloom",
+      "ID": 1080,
+      "accessoryGroup": 1080
+      },
+      {
+      "Talisman": "Two Fingers Heirloom",
+      "ID": 1090,
+      "accessoryGroup": 1090
+      },
+      {
+      "Talisman": "Dragoncrest Shield Talisman",
+      "ID": 4000,
+      "accessoryGroup": 4000
+      },
+      {
+      "Talisman": "Dragoncrest Shield Talisman +1",
+      "ID": 4001,
+      "accessoryGroup": 4000
+      },
+      {
+      "Talisman": "Dragoncrest Shield Talisman +2",
+      "ID": 4002,
+      "accessoryGroup": 4000
+      },
+      {
+      "Talisman": "Dragoncrest Greatshield Talisman",
+      "ID": 4003,
+      "accessoryGroup": 4000
+      },
+      {
+      "Talisman": "Spelldrake Talisman",
+      "ID": 4010,
+      "accessoryGroup": 4010
+      },
+      {
+      "Talisman": "Spelldrake Talisman +1",
+      "ID": 4011,
+      "accessoryGroup": 4010
+      },
+      {
+      "Talisman": "Spelldrake Talisman +2",
+      "ID": 4012,
+      "accessoryGroup": 4010
+      },
+      {
+      "Talisman": "Flamedrake Talisman",
+      "ID": 4020,
+      "accessoryGroup": 4020
+      },
+      {
+      "Talisman": "Flamedrake Talisman +1",
+      "ID": 4021,
+      "accessoryGroup": 4020
+      },
+      {
+      "Talisman": "Flamedrake Talisman +2",
+      "ID": 4022,
+      "accessoryGroup": 4020
+      },
+      {
+      "Talisman": "Boltdrake Talisman",
+      "ID": 4030,
+      "accessoryGroup": 4030
+      },
+      {
+      "Talisman": "Boltdrake Talisman +1",
+      "ID": 4031,
+      "accessoryGroup": 4030
+      },
+      {
+      "Talisman": "Boltdrake Talisman +2",
+      "ID": 4032,
+      "accessoryGroup": 4030
+      },
+      {
+      "Talisman": "Haligdrake Talisman",
+      "ID": 4040,
+      "accessoryGroup": 4040
+      },
+      {
+      "Talisman": "Haligdrake Talisman +1",
+      "ID": 4041,
+      "accessoryGroup": 4040
+      },
+      {
+      "Talisman": "Haligdrake Talisman +2",
+      "ID": 4042,
+      "accessoryGroup": 4040
+      },
+      {
+      "Talisman": "Pearldrake Talisman",
+      "ID": 4050,
+      "accessoryGroup": 4050
+      },
+      {
+      "Talisman": "Pearldrake Talisman +1",
+      "ID": 4051,
+      "accessoryGroup": 4050
+      },
+      {
+      "Talisman": "Pearldrake Talisman +2",
+      "ID": 4052,
+      "accessoryGroup": 4050
+      },
+      {
+      "Talisman": "Immunizing Horn Charm",
+      "ID": 1170,
+      "accessoryGroup": 1170
+      },
+      {
+      "Talisman": "Immunizing Horn Charm +1",
+      "ID": 1171,
+      "accessoryGroup": 1170
+      },
+      {
+      "Talisman": "Stalwart Horn Charm",
+      "ID": 1160,
+      "accessoryGroup": 1160
+      },
+      {
+      "Talisman": "Stalwart Horn Charm +1",
+      "ID": 1161,
+      "accessoryGroup": 1160
+      },
+      {
+      "Talisman": "Clarifying Horn Charm",
+      "ID": 1180,
+      "accessoryGroup": 1180
+      },
+      {
+      "Talisman": "Clarifying Horn Charm +1",
+      "ID": 1181,
+      "accessoryGroup": 1180
+      },
+      {
+      "Talisman": "Mottled Necklace",
+      "ID": 1200,
+      "accessoryGroup": 1200
+      },
+      {
+      "Talisman": "Mottled Necklace +1",
+      "ID": 1201,
+      "accessoryGroup": 1200
+      },
+      {
+      "Talisman": "Prince of Death's Pustule",
+      "ID": 1190,
+      "accessoryGroup": 1190
+      },
+      {
+      "Talisman": "Prince of Death's Cyst",
+      "ID": 1191,
+      "accessoryGroup": 1190
+      },
+      {
+      "Talisman": "Dagger Talisman",
+      "ID": 2090,
+      "accessoryGroup": 2090
+      },
+      {
+      "Talisman": "Curved Sword Talisman",
+      "ID": 2200,
+      "accessoryGroup": 2200
+      },
+      {
+      "Talisman": "Twinblade Talisman",
+      "ID": 2120,
+      "accessoryGroup": 2120
+      },
+      {
+      "Talisman": "Axe Talisman",
+      "ID": 2130,
+      "accessoryGroup": 2130
+      },
+      {
+      "Talisman": "Hammer Talisman",
+      "ID": 2070,
+      "accessoryGroup": 2070
+      },
+      {
+      "Talisman": "Spear Talisman",
+      "ID": 2060,
+      "accessoryGroup": 2060
+      },
+      {
+      "Talisman": "Lance Talisman",
+      "ID": 2140,
+      "accessoryGroup": 2140
+      },
+      {
+      "Talisman": "Claw Talisman",
+      "ID": 2180,
+      "accessoryGroup": 2180
+      },
+      {
+      "Talisman": "Greatshield Talisman",
+      "ID": 4100,
+      "accessoryGroup": 4100
+      },
+      {
+      "Talisman": "Arrow's Sting Talisman",
+      "ID": 2150,
+      "accessoryGroup": 2150
+      },
+      {
+      "Talisman": "Arrow's Reach Talisman",
+      "ID": 2100,
+      "accessoryGroup": 2100
+      },
+      {
+      "Talisman": "Graven-School Talisman",
+      "ID": 3000,
+      "accessoryGroup": 3000
+      },
+      {
+      "Talisman": "Graven-Mass Talisman",
+      "ID": 3001,
+      "accessoryGroup": 3001
+      },
+      {
+      "Talisman": "Faithful's Canvas Talisman",
+      "ID": 3040,
+      "accessoryGroup": 3040
+      },
+      {
+      "Talisman": "Flock's Canvas Talisman",
+      "ID": 3050,
+      "accessoryGroup": 3050
+      },
+      {
+      "Talisman": "Primal Glintstone Blade",
+      "ID": 3080,
+      "accessoryGroup": 3080
+      },
+      {
+      "Talisman": "Moon of Nokstella",
+      "ID": 1140,
+      "accessoryGroup": 1140
+      },
+      {
+      "Talisman": "Old Lord's Talisman",
+      "ID": 3060,
+      "accessoryGroup": 3060
+      },
+      {
+      "Talisman": "Radagon Icon",
+      "ID": 3070,
+      "accessoryGroup": 3070
+      },
+      {
+      "Talisman": "Roar Medallion",
+      "ID": 2190,
+      "accessoryGroup": 2190
+      },
+      {
+      "Talisman": "Companion Jar",
+      "ID": 2210,
+      "accessoryGroup": 2210
+      },
+      {
+      "Talisman": "Perfumer's Talisman",
+      "ID": 2220,
+      "accessoryGroup": 2220
+      },
+      {
+      "Talisman": "Carian Filigreed Crest",
+      "ID": 6020,
+      "accessoryGroup": 6020
+      },
+      {
+      "Talisman": "Warrior Jar Shard",
+      "ID": 1230,
+      "accessoryGroup": 1230
+      },
+      {
+      "Talisman": "Shard of Alexander",
+      "ID": 1231,
+      "accessoryGroup": 1230
+      },
+      {
+      "Talisman": "Godfrey Icon",
+      "ID": 3090,
+      "accessoryGroup": 3090
+      },
+      {
+      "Talisman": "Bull-Goat's Talisman",
+      "ID": 1210,
+      "accessoryGroup": 1210
+      },
+      {
+      "Talisman": "Blue Dancer Charm",
+      "ID": 2110,
+      "accessoryGroup": 2110
+      },
+      {
+      "Talisman": "Magic Scorpion Charm",
+      "ID": 2000,
+      "accessoryGroup": 2000
+      },
+      {
+      "Talisman": "Fire Scorpion Charm",
+      "ID": 2020,
+      "accessoryGroup": 2020
+      },
+      {
+      "Talisman": "Lightning Scorpion Charm",
+      "ID": 2010,
+      "accessoryGroup": 2010
+      },
+      {
+      "Talisman": "Sacred Scorpion Charm",
+      "ID": 2030,
+      "accessoryGroup": 2030
+      },
+      {
+      "Talisman": "Crucible Scale Talisman",
+      "ID": 4060,
+      "accessoryGroup": 4060
+      },
+      {
+      "Talisman": "Crucible Feather Talisman",
+      "ID": 4070,
+      "accessoryGroup": 4070
+      },
+      {
+      "Talisman": "Crucible Knot Talisman",
+      "ID": 4110,
+      "accessoryGroup": 4110
+      },
+      {
+      "Talisman": "Red-Feathered Branchsword",
+      "ID": 2040,
+      "accessoryGroup": 2040
+      },
+      {
+      "Talisman": "Blue-Feathered Branchsword",
+      "ID": 4080,
+      "accessoryGroup": 4080
+      },
+      {
+      "Talisman": "Ritual Sword Talisman",
+      "ID": 2050,
+      "accessoryGroup": 2050
+      },
+      {
+      "Talisman": "Ritual Shield Talisman",
+      "ID": 4090,
+      "accessoryGroup": 4090
+      },
+      {
+      "Talisman": "Assassin's Crimson Dagger",
+      "ID": 5050,
+      "accessoryGroup": 5050
+      },
+      {
+      "Talisman": "Assassin's Cerulean Dagger",
+      "ID": 5060,
+      "accessoryGroup": 5060
+      },
+      {
+      "Talisman": "Winged Sword Insignia",
+      "ID": 2080,
+      "accessoryGroup": 2080
+      },
+      {
+      "Talisman": "Rotten Winged Sword Insignia",
+      "ID": 2081,
+      "accessoryGroup": 2080
+      },
+      {
+      "Talisman": "Millicent's Prosthesis",
+      "ID": 1250,
+      "accessoryGroup": 1250
+      },
+      {
+      "Talisman": "Godskin Swaddling Cloth",
+      "ID": 5040,
+      "accessoryGroup": 5040
+      },
+      {
+      "Talisman": "Kindred of Rot's Exultation",
+      "ID": 2170,
+      "accessoryGroup": 2170
+      },
+      {
+      "Talisman": "Lord of Blood's Exultation",
+      "ID": 2160,
+      "accessoryGroup": 2160
+      },
+      {
+      "Talisman": "Taker's Cameo",
+      "ID": 5030,
+      "accessoryGroup": 5030
+      },
+      {
+      "Talisman": "Ancestral Spirit's Horn",
+      "ID": 6110,
+      "accessoryGroup": 6110
+      },
+      {
+      "Talisman": "Gold Scarab",
+      "ID": 1110,
+      "accessoryGroup": 1110
+      },
+      {
+      "Talisman": "Silver Scarab",
+      "ID": 1100,
+      "accessoryGroup": 1100
+      },
+      {
+      "Talisman": "Crepus's Vial",
+      "ID": 6000,
+      "accessoryGroup": 6000
+      },
+      {
+      "Talisman": "Concealing Veil",
+      "ID": 6010,
+      "accessoryGroup": 6010
+      },
+      {
+      "Talisman": "Longtail Cat Talisman",
+      "ID": 6040,
+      "accessoryGroup": 6040
+      },
+      {
+      "Talisman": "Furled Finger's Trick-Mirror",
+      "ID": 6080,
+      "accessoryGroup": 6080
+      },
+      {
+      "Talisman": "Host's Trick-Mirror",
+      "ID": 6090,
+      "accessoryGroup": 6080
+      },
+      {
+      "Talisman": "Shabriri's Woe",
+      "ID": 6050,
+      "accessoryGroup": 6050
+      },
+      {
+      "Talisman": "Daedicar's Woe",
+      "ID": 6060,
+      "accessoryGroup": 6060
+      },
+      {
+      "Talisman": "Sacrificial Twig",
+      "ID": 6070,
+      "accessoryGroup": 6070
+      }
+  ]
+}

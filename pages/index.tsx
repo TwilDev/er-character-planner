@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import CoreBuilder from '@/components/builder/CoreBuilder'
 import CoreStats from '@/components/stats/CoreStats'
 import ArmourSelection from '@/components/builder/ArmourSelection'
+import TalismanSelection from '@/components/builder/TalismanSelection'
 
 export default function Home() {
   //Base stats currently hardcoded for Vagabond
@@ -40,6 +41,7 @@ export default function Home() {
         </div>
         <div className="flex w-[300px] flex-col items-center justify-center gap-4">
           <ArmourSelection />
+          <TalismanSelection />
         </div>
         <div className="flex w-[300px] flex-col items-center justify-center gap-4">
           <CoreStats 
