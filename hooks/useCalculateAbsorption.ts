@@ -2,7 +2,6 @@ import { armourProtectorParams } from '@/data/armour/armourParamProtector.json'
 import { ArmourContext } from '@/context/armourContext'
 import { useState, useContext, useEffect } from 'react'
 
-
 function calculateAbsorption ( armour: IArmour, damageType: any ) {
   let damageCutRates: number[] = []
 
@@ -12,8 +11,6 @@ function calculateAbsorption ( armour: IArmour, damageType: any ) {
       const armourPiece = armourProtectorParams.find((armourPiece) => armourPiece.ID === value.value.id) as any // Use type assertion
       let damageCutRate = armourPiece ? armourPiece[damageType] : 1;
       damageCutRates.push(damageCutRate);
-    } else {
-      console.log('no armour piece');
     }
   }
 
@@ -40,15 +37,7 @@ function calculateAbsorption ( armour: IArmour, damageType: any ) {
 }
 
 export default function useCalculateAbsorption() {
-  const { headArmour, bodyArmour, handsArmour, legsArmour } = useContext(ArmourContext)
-  const [armour, setArmour] = useState<IArmour>(
-    {
-      head: headArmour, 
-      body: bodyArmour, 
-      hands: handsArmour, 
-      legs: legsArmour
-    }
-  )
+  const { armour } = useContext(ArmourContext)
   
   const [physicalAbsorption, setPhysicalAbsorption] = useState<string>('0.000')
   const [strikeAbsorption, setStrikeAbsorption] = useState<string>('0.000')
@@ -59,18 +48,8 @@ export default function useCalculateAbsorption() {
   const [lightningAbsorption, setLightningAbsorption] = useState<string>('0.000')
   const [holyAbsorption, setHolyAbsorption] = useState<string>('0.000')
 
-  // update armour state when armour pieces change
+  // When user changes armour updated the absorption values
   useEffect(() => {
-    setArmour({
-      head: headArmour, 
-      body: bodyArmour, 
-      hands: handsArmour, 
-      legs: legsArmour
-    })
-  }, [headArmour, bodyArmour, handsArmour, legsArmour])
-
-  useEffect(() => {
-    console.log(armour)
     setPhysicalAbsorption(calculateAbsorption(armour, 'neutralDamageCutRate'))
     setStrikeAbsorption(calculateAbsorption(armour, 'blowDamageCutRate'))
     setSlashAbsorption(calculateAbsorption(armour, 'slashDamageCutRate'))
@@ -81,7 +60,6 @@ export default function useCalculateAbsorption() {
     setHolyAbsorption(calculateAbsorption(armour, 'darkDamageCutRate'))
 
   }, [armour])
-
 
   return { 
     physicalAbsorption, 

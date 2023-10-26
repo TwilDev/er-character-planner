@@ -12,6 +12,7 @@ interface IArmourContext {
   legsArmour: IArmourPiece | null
   setLegsArmour: React.Dispatch<React.SetStateAction<IArmourPiece | null>>
   selectArmour: (armourPiece: IArmourPiece) => void
+  armour: IArmour
 }
 
 const ArmourContext = createContext({} as IArmourContext)
@@ -32,30 +33,35 @@ const ArmourContextProvider = ({ children }: any) => {
     }
   )
 
+  const updateArmour = (armourPiece: IArmourPiece, armourSlot: keyof IArmour) => {
+    const newArmour: IArmour = {
+      ...armour,
+      [armourSlot]: armourPiece
+    }
+    setArmour(newArmour)
+  }
+
   const selectArmour = (armourPiece: IArmourPiece) => {
     switch (armourPiece.value.armourType) {
       case 'Head':
         setHeadArmour(armourPiece)
+        updateArmour(armourPiece, 'head')
         break;
       case 'Body':
         setBodyArmour(armourPiece)
+        updateArmour(armourPiece, 'body')
         break;
       case 'Hands':
         setHandsArmour(armourPiece)
+        updateArmour(armourPiece, 'hands')
         break;
       case 'Legs':
         setLegsArmour(armourPiece)
+        updateArmour(armourPiece, 'legs')
         break
       default:
         break;
     }
-
-    setArmour({
-      head: headArmour, 
-      body: bodyArmour, 
-      hands: handsArmour, 
-      legs: legsArmour
-    })
   }
 
 
@@ -70,6 +76,7 @@ const ArmourContextProvider = ({ children }: any) => {
       setHandsArmour,
       setLegsArmour,
       selectArmour,
+      armour
     }}>
       {children}
     </ArmourContext.Provider>

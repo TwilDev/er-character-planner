@@ -24,7 +24,6 @@ export default function ArmourSelection() {
       if (armourData && armourData.armourType) {
 
         const armourParams = { value: armourData, label: armourData.armourPiece }
-        console.log(armourData.armourType)
         switch (armourData.armourType) {
           case 'Head':
             headOptions.push(armourParams)
