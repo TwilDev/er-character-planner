@@ -1,17 +1,11 @@
 import Select from 'react-select'
 import { useState, useEffect, useContext } from 'react'
 import { talismans } from '@/data/talismans/talismanData.json'
-
-interface ITalisman {
-  value: {
-    Talisman: string
-    ID: number
-    accessoryGroup: number
-  }
-  label: string
-}
+import { EquipmentContext } from '@/context/equipmentContext'
 
 export default function TalismanSelection() {
+
+  const { selectTalisman } = useContext(EquipmentContext)
 
   // Values for each dropdown - all talismans in the ggame
   const [talismanOptions, setTalismanOptions] = useState<ITalisman[]>([])
@@ -20,7 +14,7 @@ export default function TalismanSelection() {
     talismans.forEach((talismanData) => { 
       if (talismanData && talismanData.Talisman) {
         const talismanParams: ITalisman = { value: talismanData, label: talismanData.Talisman }
-        talismanOptions.push(talismanParams)
+        setTalismanOptions(talismanOptions => [...talismanOptions, talismanParams])
       }
     })
   }, [])
@@ -31,19 +25,22 @@ export default function TalismanSelection() {
       <Select 
         id='talisman-1'
         options={talismanOptions ?? []}
-        // onChange={(selectedOption: any) => selectArmour(selectedOption)}
+        onChange={(selectedOption: any) => selectTalisman(selectedOption, 'slot1')}
       />
       <Select 
         id='talisman-2'
         options={talismanOptions ?? []}
+        onChange={(selectedOption: any) => selectTalisman(selectedOption, 'slot2')}
       />
       <Select 
         id='talisman-3'
         options={talismanOptions ?? []}
+        onChange={(selectedOption: any) => selectTalisman(selectedOption, 'slot3')}
       />
       <Select 
         id='talisman-4'
         options={talismanOptions ?? []}
+        onChange={(selectedOption: any) => selectTalisman(selectedOption, 'slot4')}
       />
     </div>
   )

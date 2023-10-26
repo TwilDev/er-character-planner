@@ -13,6 +13,7 @@ interface IEquipmentContextContext {
   setLegsArmour: React.Dispatch<React.SetStateAction<IArmourPiece | null>>
   selectArmour: (armourPiece: IArmourPiece) => void
   armour: IArmour
+  selectTalisman: (talisman: ITalisman, slot: keyof ITalismanSlots) => void
 }
 
 const EquipmentContext = createContext({} as IEquipmentContextContext)
@@ -32,6 +33,13 @@ const EquipmentContextProvider = ({ children }: any) => {
       legs: legsArmour
     }
   )
+
+  const [talismans, setTalismans] = useState<ITalismanSlots>({
+    slot1: null,
+    slot2: null,
+    slot3: null,
+    slot4: null
+  })
 
   const updateArmour = (armourPiece: IArmourPiece, armourSlot: keyof IArmour) => {
     const newArmour: IArmour = {
@@ -64,6 +72,13 @@ const EquipmentContextProvider = ({ children }: any) => {
     }
   }
 
+  const selectTalisman = (talisman: ITalisman, slot: keyof ITalismanSlots) => {
+    const newTalismanSlots: ITalismanSlots = {
+      ...talismans,
+      [slot]: talisman
+    }
+    setTalismans(newTalismanSlots)
+  }
 
   return (
     <EquipmentContext.Provider value={{
@@ -76,7 +91,8 @@ const EquipmentContextProvider = ({ children }: any) => {
       setHandsArmour,
       setLegsArmour,
       selectArmour,
-      armour
+      armour,
+      selectTalisman
     }}>
       {children}
     </EquipmentContext.Provider>

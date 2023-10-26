@@ -8,19 +8,3 @@ interface IStats{
   faith: number
   arcane: number
 }
-
-interface IArmour {
-  head: IArmourPiece | null
-  body: IArmourPiece | null
-  hands: IArmourPiece | null
-  legs: IArmourPiece | null
-}
-
-interface IArmourPiece {
-  label: string, 
-  value: {
-    armourType: string,
-    armourPiece: string,
-    id: number
-  } 
-}
