@@ -2,7 +2,7 @@ import React, { createContext, useState, useContext, useEffect } from "react"
 import getNextLevelRunes from "@/helpers/getNextLevelRunes"
 
 // Define the type for your context
-interface IArmourContext {
+interface IEquipmentContextContext {
   headArmour: IArmourPiece | null
   setHeadArmour: React.Dispatch<React.SetStateAction<IArmourPiece | null>>
   bodyArmour: IArmourPiece | null
@@ -15,9 +15,9 @@ interface IArmourContext {
   armour: IArmour
 }
 
-const ArmourContext = createContext({} as IArmourContext)
+const EquipmentContext = createContext({} as IEquipmentContextContext)
 
-const ArmourContextProvider = ({ children }: any) => {
+const EquipmentContextProvider = ({ children }: any) => {
 
   const [headArmour, setHeadArmour] = useState<IArmourPiece | null>(null)
   const [bodyArmour, setBodyArmour] = useState<IArmourPiece | null>(null)
@@ -66,7 +66,7 @@ const ArmourContextProvider = ({ children }: any) => {
 
 
   return (
-    <ArmourContext.Provider value={{
+    <EquipmentContext.Provider value={{
       headArmour,
       bodyArmour,
       handsArmour,
@@ -79,8 +79,8 @@ const ArmourContextProvider = ({ children }: any) => {
       armour
     }}>
       {children}
-    </ArmourContext.Provider>
+    </EquipmentContext.Provider>
   )
 }
 
-export { ArmourContext, ArmourContextProvider  }
+export { EquipmentContext, EquipmentContextProvider  }

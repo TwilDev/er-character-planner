@@ -1,5 +1,5 @@
 import { armourProtectorParams } from '@/data/armour/armourParamProtector.json'
-import { ArmourContext } from '@/context/armourContext'
+import { EquipmentContext } from '@/context/equipmentContext'
 import { useState, useContext, useEffect } from 'react'
 
 function calculateAbsorption ( armour: IArmour, damageType: any ) {
@@ -37,7 +37,7 @@ function calculateAbsorption ( armour: IArmour, damageType: any ) {
 }
 
 export default function useCalculateAbsorption() {
-  const { armour } = useContext(ArmourContext)
+  const { armour } = useContext(EquipmentContext)
   
   const [physicalAbsorption, setPhysicalAbsorption] = useState<string>('0.000')
   const [strikeAbsorption, setStrikeAbsorption] = useState<string>('0.000')

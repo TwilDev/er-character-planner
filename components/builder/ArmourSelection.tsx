@@ -1,6 +1,6 @@
 import Select from 'react-select'
 import { useState, useEffect, useContext } from 'react'
-import { ArmourContext } from '@/context/armourContext'
+import { EquipmentContext } from '@/context/equipmentContext'
 import { armour } from '@/data/armour/armourData.json'
 
 export default function ArmourSelection() {
@@ -11,7 +11,7 @@ export default function ArmourSelection() {
   const [handsOptions, setHandsOptions] = useState<IArmourPiece[] | null>(null)
   const [legsOptions, setLegsOptions] = useState<IArmourPiece[] | null>(null)
 
-  const { selectArmour } = useContext(ArmourContext)
+  const { selectArmour } = useContext(EquipmentContext)
 
   useEffect(() => {
     // Iterate through armour and set the states based upon armourType
