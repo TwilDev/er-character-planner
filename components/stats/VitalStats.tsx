@@ -2,14 +2,12 @@ const coreStatsTable = require('@/data/lookup.json')
 const { HP, FP, END, EQUIPLOAD } = coreStatsTable
 import { useContext } from 'react'
 import { ClassContext } from '@/context/classContext'
-import { EffectContext } from '@/context/effectContext'
 import useCalculatePoise from '@/hooks/useCalculatePoise'
 import useVitalStats from '@/hooks/useVitalStats'
 
 export default function VitalStats() {
   const { stats } = useContext(ClassContext)
   const { poise } = useCalculatePoise()
-  const { effects } = useContext(EffectContext)
   const { calculateVitalStat } = useVitalStats()
 
   return (
