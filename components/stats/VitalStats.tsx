@@ -10,21 +10,21 @@ export default function VitalStats() {
   const { stats } = useContext(ClassContext)
   const { poise } = useCalculatePoise()
   const { effects } = useContext(EffectContext)
-  const { calculateVigor } = useVitalStats()
+  const { calculateVitalStat } = useVitalStats()
 
   return (
     <div className="flex flex-col w-full">
       <div className="flex justify-between">
         <label htmlFor='hp'>HP</label>
-        <label className='ml-2'>{calculateVigor()}</label>
+        <label className='ml-2'>{calculateVitalStat('vigor')}</label>
       </div>
       <div className="flex justify-between">
         <label htmlFor="fp">FP</label>
-        <label className='ml-2'>{Math.floor(FP[stats.mind - 1])}</label>
+        <label className='ml-2'>{calculateVitalStat('mind')}</label>
       </div>
       <div className="flex justify-between">
         <label htmlFor="end">Stamina</label>
-        <label className='ml-2'>{Math.floor(END[stats.endurance - 1])}</label>
+        <label className='ml-2'>{calculateVitalStat('endurance')}</label>
       </div>
       <div className="flex justify-between">
         <label htmlFor="eqp">Equip Load</label>
