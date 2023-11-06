@@ -34,6 +34,7 @@ const ClassContextProvider = ({ children }: any) => {
     faith: 9,
     arcane: 7,
   })
+
   // Current User Build
   const [stats, setStats] = useState<IStats>(baseStats)
 

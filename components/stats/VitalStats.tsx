@@ -2,17 +2,21 @@ const coreStatsTable = require('@/data/lookup.json')
 const { HP, FP, END, EQUIPLOAD } = coreStatsTable
 import { useContext } from 'react'
 import { ClassContext } from '@/context/classContext'
+import { EffectContext } from '@/context/effectContext'
 import useCalculatePoise from '@/hooks/useCalculatePoise'
+import useVitalStats from '@/hooks/useVitalStats'
 
 export default function VitalStats() {
   const { stats } = useContext(ClassContext)
   const { poise } = useCalculatePoise()
+  const { effects } = useContext(EffectContext)
+  const { calculateVigor } = useVitalStats()
 
   return (
     <div className="flex flex-col w-full">
       <div className="flex justify-between">
         <label htmlFor='hp'>HP</label>
-        <label className='ml-2'>{Math.floor(HP[stats.vigor - 1]) ?? '??'}</label>
+        <label className='ml-2'>{calculateVigor()}</label>
       </div>
       <div className="flex justify-between">
         <label htmlFor="fp">FP</label>

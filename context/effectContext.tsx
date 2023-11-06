@@ -28,12 +28,23 @@ const EffectContextProvider = ({ children }: any) => {
       }
 
     }
+    
+    for (const [key, value] of Object.entries(talismans)) {
+      const talisman = value as ITalisman
+      if (talisman) {
+        const checkEffect = effectData.find(effect => effect?.Source === talisman.label)
+        if (checkEffect) {
+          newEffects.push(checkEffect as IEffect)
+        }
+      }
+    }
+    
     setEffects(newEffects)
   }
 
   useEffect(() => {
     getEffects()
-  }, [armour, ta])
+  }, [armour, talismans])
 
 
   return (
