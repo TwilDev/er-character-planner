@@ -1,5 +1,6 @@
 import ClassPicker from "./ClassPicker"
 import RuneCount from "./RuneCount"
+import FinalStats from "@/components/stats/FinalStats"
 import { useContext } from "react"
 import { ClassContext } from "@/context/classContext"
 import { useState, useEffect } from "react"
@@ -10,6 +11,7 @@ export default function CoreStats() {
     stats,
     setStats,
     total,
+    setTotalStats,
     setTotal,
     level,
     setLevel,
@@ -19,7 +21,7 @@ export default function CoreStats() {
     statChange,
   } = useContext(ClassContext)
 
-
+  // Ensures stats are within the range of the base stats for their starter class and 99 and ensures to avoid NaN values
   const validateStat = (label: keyof IStats, stat: any) => {
     if (stat < baseStats[label] || isNaN(stat)) {
       return baseStats[label]
@@ -30,13 +32,14 @@ export default function CoreStats() {
     return stat;
   }
   
-  //Update stats to be changed
+  //Handle individual stat changes and update holding state to be used for final stats
   const updateStats = (stat: keyof IStats, value: string) => {
     const newValue = value === '' ? '' : parseInt(value, 10)
     const newStats: IStats = { ...stats, [stat]: newValue }
     setChangeStats(newStats)
   }
   
+  /* Handles updating stats across the board & calculating values associated with stats */
   const handleStatChange = (stat: keyof IStats, value: string) => {
     // add stat key to statChange array if it doesn't exist
     if (!statChange.includes(stat)) {
@@ -48,6 +51,7 @@ export default function CoreStats() {
     const newStats: IStats = { ...changeStats, [stat]: validatedStat }
     setChangeStats(newStats)
     setStats(newStats)
+    setTotalStats(newStats)
     setTotal(Object.values(newStats).reduce((acc, val) => acc + val, 0))
     setLevel(Object.values(newStats).reduce((acc, val) => acc + val, 0) - 79)
   }
@@ -107,6 +111,7 @@ export default function CoreStats() {
 
             );
           })}
+          <FinalStats />
           <RuneCount />
         </div>
       </div>

@@ -7,6 +7,8 @@ interface IClassContext {
   setBaseStats: React.Dispatch<React.SetStateAction<IStats>>
   stats: IStats
   setStats: React.Dispatch<React.SetStateAction<IStats>>
+  totalStats: IStats
+  setTotalStats: React.Dispatch<React.SetStateAction<IStats>>
   changeStats: IStats
   setChangeStats: React.Dispatch<React.SetStateAction<IStats>>
   total: number
@@ -37,6 +39,9 @@ const ClassContextProvider = ({ children }: any) => {
 
   // Current User Build
   const [stats, setStats] = useState<IStats>(baseStats)
+
+  // Total stats including modiefiers from Equipment, Great Runes, etc.
+  const [totalStats, setTotalStats] = useState<IStats>(stats)
 
   //placeholder for stats that are changed
   const [changeStats, setChangeStats] = useState<IStats>(stats)
@@ -107,6 +112,8 @@ const ClassContextProvider = ({ children }: any) => {
       setBaseStats,
       stats,
       setStats,
+      totalStats,
+      setTotalStats,
       changeStats,
       setChangeStats,
       total,
