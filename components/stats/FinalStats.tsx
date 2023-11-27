@@ -26,10 +26,9 @@ export default function FinalStats() {
     // extract all stat modifiers from each effect
     let newStatModifiers: any = {}
     effects.forEach(effect => {
-      // Check if effect has any key matching a stat in Itats vigor, mind, etc.
+      // Check if effect has any key matching a stat in IStats vigor, mind, etc.
       Object.keys(effect).forEach(key => {
-        let index = 0
-        console.log(key, "index", index)
+
         if (Object.keys(statModifiers).includes(key)) {
           // if key exists, add it to newStatModifiers
           
@@ -39,7 +38,7 @@ export default function FinalStats() {
           
           }
         }
-        index += 1
+
       })
     })
     console.log(newStatModifiers)
