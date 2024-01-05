@@ -5,7 +5,7 @@ import { ClassContext } from '@/context/classContext'
 const { HP, FP, END, EQUIPLOAD } = coreStatsTable
 
 export default function useVitalStats() {
-  const { stats } = useContext(ClassContext)
+  const { totalStats } = useContext(ClassContext)
   const { effects } = useContext(EffectContext)
 
   const calculateVitalStat = (stat: keyof IStats) => {
@@ -33,7 +33,7 @@ export default function useVitalStats() {
     
     if (!lookupTable || !modifierKey) return "??"
 
-    const baseStat = Math.floor(lookupTable[stats[stat] - 1])
+    const baseStat = Math.floor(lookupTable[totalStats[stat] - 1])
     // Iterate through effects and add all values matching modifier key to array
     const modifiers = effects.map(effect => effect[modifierKey])
     // Multiply all values in array together

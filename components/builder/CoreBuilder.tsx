@@ -51,7 +51,7 @@ export default function CoreStats() {
     const newStats: IStats = { ...changeStats, [stat]: validatedStat }
     setChangeStats(newStats)
     setStats(newStats)
-    setTotalStats(newStats)
+    // setTotalStats(newStats)
     setTotal(Object.values(newStats).reduce((acc, val) => acc + val, 0))
     setLevel(Object.values(newStats).reduce((acc, val) => acc + val, 0) - 79)
   }
