@@ -5,23 +5,11 @@ import { useState, useEffect } from 'react'
 
 export default function FinalStats() {
 
-  const { stats, totalStats, setTotalStats } = useContext(ClassContext)
+  const { stats, totalStats, setTotalStats, setTotal, total } = useContext(ClassContext)
   const { effects } = useContext(EffectContext)
 
   // state that holds all stat modifiers from effects, is an object wth key of stat and value of modifier
   const [statModifiers, setStatModifiers] = useState<IStats>(
-    {
-      vigor: 0,
-      mind: 0,
-      endurance: 0,
-      strength: 0,
-      dexterity: 0,
-      intelligence: 0,
-      faith: 0,
-      arcane: 0
-    }
-  )
-  const [finalStats, setFinalStats] = useState<IStats>(
     {
       vigor: 0,
       mind: 0,
@@ -68,9 +56,9 @@ export default function FinalStats() {
         [stat]: stats[stat as keyof IStats] + statModifiers[stat as keyof IStats]
       }
     })
-
-    console.log()
     setTotalStats(newFinalStats)
+    setTotal(Object.values(totalStats).reduce((acc, val) => acc + val, 0))
+    console.log("Total", total)
   }, [statModifiers])
 
   return (
@@ -80,7 +68,7 @@ export default function FinalStats() {
           const statValue: number = totalStats[stat as keyof IStats]
           return (
             <div key={i} className='flex justify-between w-full'>
-              <p>{statValue}</p>
+              <p className="font-semibold">{statValue}</p>
             </div>
           )
         })}
