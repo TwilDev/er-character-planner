@@ -31,7 +31,7 @@ export default function FinalStats() {
       Object.keys(effect).forEach(key => {
         if (Object.keys(statModifiers).includes(key)) {
           // if key exists, add value to exisiting value in statModifiers
-            newStatModifiers[key as keyof IStats] = effect[key as keyof IStats]
+            newStatModifiers[key as keyof IStats] = (newStatModifiers[key as keyof IStats] || 0) + effect[key as keyof IStats]
         }
       })
     })
@@ -57,9 +57,12 @@ export default function FinalStats() {
       }
     })
     setTotalStats(newFinalStats)
-    setTotal(Object.values(totalStats).reduce((acc, val) => acc + val, 0))
     console.log("Total", total)
   }, [statModifiers])
+
+  useEffect(() => {
+    setTotal(Object.values(totalStats).reduce((acc, val) => acc + val, 0))
+  }, [totalStats, setTotal])
 
   return (
     <div className="flex justify-center items-top gap-4">

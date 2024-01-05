@@ -7,8 +7,8 @@ export default function RuneCount() {
     return Object.values(baseStats).reduce((acc, val) => acc + val, 0) - 79
   }
   const { nextLevelRunes, totalRunesRequired } = useRuneCosts(level, getBaselevel())
-  console.log(nextLevelRunes)
-  console.log(totalRunesRequired)
+  // console.log(nextLevelRunes)
+  // console.log(totalRunesRequired)
   return (
     <div>
       <div className='flex items-center justify-between w-full mb-2'>
