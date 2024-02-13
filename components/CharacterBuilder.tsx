@@ -8,14 +8,14 @@ export default function CharacterBuilder() {
     <div className="p-4">
       <h1>Elden Ring Character Builder</h1>
         <div className="flex">
-          <div className='flex w-[350px] flex-col items-center justify-center gap-4'>
+          <div className='flex w-[350px] flex-col items-center gap-4'>
             <CoreBuilder />
           </div>
-          <div className="flex w-[300px] flex-col items-center justify-center gap-4">
+          <div className="flex w-[350px] flex-col items-center">
             <ArmourSelection />
             <TalismanSelection />
           </div>
-          <div className="flex w-[300px] flex-col items-center justify-center gap-4">
+          <div className="flex flex-col items-center justify-center gap-4">
             <CoreStats />
           </div>
         </div>

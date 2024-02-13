@@ -7,6 +7,8 @@ interface ICharacterContext {
   setBaseStats: React.Dispatch<React.SetStateAction<IStats>>
   stats: IStats
   setStats: React.Dispatch<React.SetStateAction<IStats>>
+  greatRune: GreatRune | null
+  setGreatRune: React.Dispatch<React.SetStateAction<GreatRune | null>>
   headArmour: IArmourPiece | null
   setHeadArmour: React.Dispatch<React.SetStateAction<IArmourPiece | null>>
   bodyArmour: IArmourPiece | null
@@ -41,6 +43,9 @@ const CharacterContextProvider = ({ children }: any) => {
   // User Stats
   const [stats, setStats] = useState<IStats>(baseStats)
 
+  // User Great Rune
+  const [greatRune, setGreatRune] = useState<GreatRune | null>(null)
+
   // User selected Armour
   const [headArmour, setHeadArmour] = useState<IArmourPiece | null>(null)
   const [bodyArmour, setBodyArmour] = useState<IArmourPiece | null>(null)
@@ -63,6 +68,8 @@ const CharacterContextProvider = ({ children }: any) => {
       setBaseStats,
       stats,
       setStats,
+      greatRune,
+      setGreatRune,
       headArmour,
       setHeadArmour,
       bodyArmour,

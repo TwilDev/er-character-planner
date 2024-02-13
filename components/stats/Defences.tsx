@@ -60,7 +60,8 @@ export default function Defences() {
   }, [total, totalStats])
 
   return (
-    <div>
+    <div className="w-full">
+      <label htmlFor="def">Defence/Absorption</label>
       <div className="mt-2">
         <div className="flex justify-between">
           <label htmlFor="physicalDefence">Physical Defence</label>
@@ -128,7 +129,8 @@ export default function Defences() {
         </div>
       </div>
       <div className="mt-2">
-        <div className="flex justify-between">
+        <label htmlFor="resistances">Resistances</label>
+        <div className="flex justify-between mt-1">
           <label htmlFor="immunityResistance">Immunity</label>
           {/* <label className='ml-2'>{Math.floor(imFlat[total - 1] + imAdj[totalStats.vigor - 1])}</label> */}
           <label className='ml-2'>{ immunity }</label>

@@ -18,6 +18,7 @@ const EffectContextProvider = ({ children }: any) => {
 
   const getEffects = () => {
     const newEffects: IEffect[] = []
+    // Get effects for armour
     for (const [key, value] of Object.entries(armour)) {
       const armourPiece = value as IArmourPiece
       if (armourPiece) {
@@ -29,6 +30,7 @@ const EffectContextProvider = ({ children }: any) => {
 
     }
     
+    // Get effects for talismans
     for (const [key, value] of Object.entries(talismans)) {
       const talisman = value as ITalisman
       if (talisman) {
@@ -38,6 +40,9 @@ const EffectContextProvider = ({ children }: any) => {
         }
       }
     }
+
+    // Get Effect for Great Rune if exists and is active
+    
     
     setEffects(newEffects)
   }

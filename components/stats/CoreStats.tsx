@@ -3,9 +3,10 @@ import VitalStats from "./VitalStats"
 
 export default function CoreStats() {
   return (
-    <div>
-      <div className='flex flex-col items-center justify-between w-full mb-2'>
+    <div className="w-[300px]">
+      <div className='flex flex-col items-center mb-2'>
         <VitalStats />
+        <hr className="py-2"/>
         <Defences />
       </div>
     </div>

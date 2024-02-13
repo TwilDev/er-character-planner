@@ -52,27 +52,34 @@ export default function ArmourSelection() {
   }, [])
 
   return (
-    <div className="w-full p-4">
+    <div className="w-full p-2 px-4">
       <h1>Armour Selection</h1>
       <Select 
         id='head-armour'
-        className="w-full"
+        className="w-full mb-2"
         options={headOptions ?? []}
+        placeholder='Head'
         onChange={(selectedOption: any) => selectArmour(selectedOption)}
       />
       <Select 
         id='chest-armour'
+        className="w-full mb-2"
         options={chestOptions ?? []}
+        placeholder='Chest'
         onChange={(selectedOption: any) => selectArmour(selectedOption)}
       />
       <Select 
         id='hands-armour'
+        className="w-full mb-2"
         options={handsOptions ?? []}
+        placeholder='Hands'
         onChange={(selectedOption: any) => selectArmour(selectedOption)}
       />
       <Select 
         id='legs-armour'
+        className="w-full mb-2"
         options={legsOptions ?? []}
+        placeholder='Legs'
         onChange={(selectedOption: any) => selectArmour(selectedOption)}
       />
     </div>

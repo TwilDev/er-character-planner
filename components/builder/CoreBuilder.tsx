@@ -1,4 +1,5 @@
 import ClassPicker from "./ClassPicker"
+import GreatRuneSelector from "./GreatRuneSelector"
 import RuneCount from "./RuneCount"
 import FinalStats from "@/components/stats/FinalStats"
 import { useContext } from "react"
@@ -55,22 +56,23 @@ export default function CoreStats() {
 
   return (
     <div>
-      <div>
+      <div className="flex flex-col gap-2">
         <label htmlFor="name">Character Name</label>
         <input
           type="text"
           id="name"
-          className="border-2 border-blue-400 rounded-md w-40"
+          className="w-100 p-[3.87rem] border-2"
           value={characterName}
           onChange={(e) => setCharacterName(e.target.value)}
         />
+        <ClassPicker />
+        <GreatRuneSelector />
       </div>
-      <ClassPicker />
-      <div>
+      <div className="mt-4">
         <div className='flex items-center justify-between w-full mb-2'>
           <label htmlFor='level'>Level</label>
           <label
-            className="text-semibold mr-4"
+            className="text-semibold"
             htmlFor='level'
           >
             {level}
