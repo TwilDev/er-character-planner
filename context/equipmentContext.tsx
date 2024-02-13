@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from "react"
+import { CharacterContext } from "./characterContext"
 import getNextLevelRunes from "@/helpers/getNextLevelRunes"
 
 // Define the type for your context
@@ -21,10 +22,19 @@ const EquipmentContext = createContext({} as IEquipmentContextContext)
 
 const EquipmentContextProvider = ({ children }: any) => {
 
-  const [headArmour, setHeadArmour] = useState<IArmourPiece | null>(null)
-  const [bodyArmour, setBodyArmour] = useState<IArmourPiece | null>(null)
-  const [handsArmour, setHandsArmour] = useState<IArmourPiece | null>(null)
-  const [legsArmour, setLegsArmour] = useState<IArmourPiece | null>(null)
+  // import character context
+  const { 
+    headArmour, 
+    setHeadArmour, 
+    bodyArmour, 
+    setBodyArmour, 
+    handsArmour, 
+    setHandsArmour, 
+    legsArmour, 
+    setLegsArmour,
+    talismans,
+    setTalismans
+  } = useContext(CharacterContext)
 
   const [armour, setArmour] = useState<IArmour>(
     {
@@ -34,13 +44,6 @@ const EquipmentContextProvider = ({ children }: any) => {
       legs: legsArmour
     }
   )
-
-  const [talismans, setTalismans] = useState<ITalismanSlots>({
-    slot1: null,
-    slot2: null,
-    slot3: null,
-    slot4: null
-  })
 
   const updateArmour = (armourPiece: IArmourPiece, armourSlot: keyof IArmour) => {
     const newArmour: IArmour = {

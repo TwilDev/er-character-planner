@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from "react"
+import { CharacterContext } from "./characterContext"
 import getNextLevelRunes from "@/helpers/getNextLevelRunes"
 
 // Define the type for your context
@@ -25,20 +26,8 @@ const ClassContext = createContext({} as IClassContext)
 
 const ClassContextProvider = ({ children }: any) => {
 
-  //Base stats currently hardcoded for Vagabond
-  const [baseStats, setBaseStats] = useState<IStats>({
-    vigor: 15,
-    mind: 10,
-    endurance: 11,
-    strength: 14,
-    dexterity: 13,
-    intelligence: 9,
-    faith: 9,
-    arcane: 7,
-  })
-
-  // Current User Build
-  const [stats, setStats] = useState<IStats>(baseStats)
+  // import character context
+  const { stats, setStats, baseStats, setBaseStats } = useContext(CharacterContext)
 
   // Total stats including modiefiers from Equipment, Great Runes, etc.
   const [totalStats, setTotalStats] = useState<IStats>(stats)

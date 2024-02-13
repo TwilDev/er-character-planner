@@ -3,7 +3,6 @@ import RuneCount from "./RuneCount"
 import FinalStats from "@/components/stats/FinalStats"
 import { useContext } from "react"
 import { ClassContext } from "@/context/classContext"
-import { useState, useEffect } from "react"
 
 export default function CoreStats() {
   const { 
@@ -53,6 +52,7 @@ export default function CoreStats() {
 
   return (
     <div>
+
       <ClassPicker />
       <div>
         <div className='flex items-center justify-between w-full mb-2'>
