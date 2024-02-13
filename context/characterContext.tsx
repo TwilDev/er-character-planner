@@ -1,6 +1,8 @@
 import React, { createContext, useState, useContext, useEffect } from "react"
 
 interface ICharacterContext {
+  characterName: string
+  setCharacterName: React.Dispatch<React.SetStateAction<string>>
   baseStats: IStats
   setBaseStats: React.Dispatch<React.SetStateAction<IStats>>
   stats: IStats
@@ -20,6 +22,9 @@ interface ICharacterContext {
 const CharacterContext = createContext({} as ICharacterContext)
 
 const CharacterContextProvider = ({ children }: any) => {
+
+  // Name for Character
+  const [characterName, setCharacterName] = useState<string>('Maidenless Tarnished')
 
   //Base stats currently hardcoded for Vagabond
   const [baseStats, setBaseStats] = useState<IStats>({
@@ -52,6 +57,8 @@ const CharacterContextProvider = ({ children }: any) => {
 
   return (
     <CharacterContext.Provider value={{
+      characterName,
+      setCharacterName,
       baseStats,
       setBaseStats,
       stats,

@@ -2,10 +2,13 @@ import ClassPicker from "./ClassPicker"
 import RuneCount from "./RuneCount"
 import FinalStats from "@/components/stats/FinalStats"
 import { useContext } from "react"
+import { CharacterContext } from "@/context/characterContext"
 import { ClassContext } from "@/context/classContext"
 
 export default function CoreStats() {
-  const { 
+  const { characterName, setCharacterName } = useContext(CharacterContext)
+  const {
+
     baseStats,
     stats,
     setStats,
@@ -52,7 +55,16 @@ export default function CoreStats() {
 
   return (
     <div>
-
+      <div>
+        <label htmlFor="name">Character Name</label>
+        <input
+          type="text"
+          id="name"
+          className="border-2 border-blue-400 rounded-md w-40"
+          value={characterName}
+          onChange={(e) => setCharacterName(e.target.value)}
+        />
+      </div>
       <ClassPicker />
       <div>
         <div className='flex items-center justify-between w-full mb-2'>
