@@ -9,6 +9,8 @@ interface ICharacterContext {
   setStats: React.Dispatch<React.SetStateAction<IStats>>
   greatRune: GreatRune | null
   setGreatRune: React.Dispatch<React.SetStateAction<GreatRune | null>>
+  activateGreatRune: boolean
+  setActivateGreatRune: React.Dispatch<React.SetStateAction<boolean>>
   headArmour: IArmourPiece | null
   setHeadArmour: React.Dispatch<React.SetStateAction<IArmourPiece | null>>
   bodyArmour: IArmourPiece | null
@@ -46,6 +48,9 @@ const CharacterContextProvider = ({ children }: any) => {
   // User Great Rune
   const [greatRune, setGreatRune] = useState<GreatRune | null>(null)
 
+  // Toggle Great Rune
+  const [activateGreatRune, setActivateGreatRune] = useState<boolean>(false)
+
   // User selected Armour
   const [headArmour, setHeadArmour] = useState<IArmourPiece | null>(null)
   const [bodyArmour, setBodyArmour] = useState<IArmourPiece | null>(null)
@@ -70,6 +75,8 @@ const CharacterContextProvider = ({ children }: any) => {
       setStats,
       greatRune,
       setGreatRune,
+      activateGreatRune,
+      setActivateGreatRune,
       headArmour,
       setHeadArmour,
       bodyArmour,

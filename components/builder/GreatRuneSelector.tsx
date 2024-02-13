@@ -1,9 +1,10 @@
 import Select from 'react-select'
 import { useContext } from "react"
 import { CharacterContext } from '@/context/characterContext'
+import { act } from 'react-dom/test-utils';
 
 export default function GreatRuneSelector() {
-  const { greatRune, setGreatRune } = useContext(CharacterContext);
+  const { greatRune, setGreatRune, setActivateGreatRune, activateGreatRune } = useContext(CharacterContext);
 
   const greatRunes = [
     { value: 'Godrick\'s Great Rune', label: 'Godrick\'s Great Rune' },
@@ -16,7 +17,11 @@ export default function GreatRuneSelector() {
 
   const handleChange = (selectedOption: { value: string; label: string } | null) => {
     setGreatRune(selectedOption ? selectedOption.value as GreatRune : null);
-  };
+  }
+
+  const toggleActiveGreatRune = () => {
+    setActivateGreatRune(!activateGreatRune);
+  }
 
   return (
     <div className="flex gap-4 justify-center align-middle">
@@ -29,7 +34,12 @@ export default function GreatRuneSelector() {
         className="flex-1"
       />
       <div className="flex items-center gap-4">
-        <input type="checkbox" />
+        <input 
+          type="checkbox" 
+          checked={activateGreatRune} 
+          onChange={toggleActiveGreatRune} 
+          disabled={!greatRune}
+        />
         <label>Activate</label>
       </div>
     </div>

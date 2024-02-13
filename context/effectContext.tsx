@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from "react"
 import { EquipmentContext } from "./equipmentContext"
+import { CharacterContext } from "./characterContext"
 import { effectData } from "@/data/effects/effectData.json"
 
 // Define the type for your context
@@ -13,6 +14,7 @@ const EffectContext = createContext({} as IEffectContextContext)
 const EffectContextProvider = ({ children }: any) => {
 
   const { armour, talismans } = useContext(EquipmentContext)
+  const { greatRune, activateGreatRune } = useContext(CharacterContext)
   
   const [effects, setEffects] = useState<IEffect[]>([])
 
@@ -42,14 +44,19 @@ const EffectContextProvider = ({ children }: any) => {
     }
 
     // Get Effect for Great Rune if exists and is active
-    
+    if (greatRune && activateGreatRune) {
+      const checkEffect = effectData.find(effect => effect?.Source === greatRune)
+      if (checkEffect) {
+        newEffects.push(checkEffect as IEffect)
+      }
+    }
     
     setEffects(newEffects)
   }
 
   useEffect(() => {
     getEffects()
-  }, [armour, talismans])
+  }, [armour, talismans, greatRune, activateGreatRune])
 
 
   return (

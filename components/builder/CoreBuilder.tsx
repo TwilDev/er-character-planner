@@ -61,7 +61,7 @@ export default function CoreStats() {
         <input
           type="text"
           id="name"
-          className="w-100 p-[3.87rem] border-2"
+          className="w-100 p-[0.31em] border-2"
           value={characterName}
           onChange={(e) => setCharacterName(e.target.value)}
         />
@@ -122,13 +122,11 @@ export default function CoreStats() {
 
               );
             })}
-            <RuneCount />
           </div>
           <FinalStats />
         </div>
         </div>
-
-
+        <RuneCount />
       </div>
     </div>
 

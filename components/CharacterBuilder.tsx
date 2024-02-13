@@ -15,7 +15,7 @@ export default function CharacterBuilder() {
             <ArmourSelection />
             <TalismanSelection />
           </div>
-          <div className="flex flex-col items-center justify-center gap-4">
+          <div className="flex w-[350px] flex-col items-center justify-center gap-4">
             <CoreStats />
           </div>
         </div>
