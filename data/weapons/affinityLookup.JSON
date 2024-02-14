@@ -1,0 +1,54 @@
+[
+  {
+    "infusion": "Standard",
+    "ofsset": 0
+  },
+  {
+    "infusion": "Heavy",
+    "offset": 100
+  },
+  {
+    "infusion": "Keen",
+    "offset": 200
+  },
+  {
+    "infusion": "Quality",
+    "offset": 300
+  },
+  {
+    "infusion": "Fire",
+    "offset": 400
+  },
+  {
+    "infusion": "Flame Art",
+    "offset": 500
+  },
+  {
+    "infusion": "Lightning",
+    "offset": 600
+  },
+  {
+    "infusion": "Sacred",
+    "offset": 700
+  },
+  {
+    "infusion": "Magic",
+    "offset": 800
+  },
+  {
+    "infusion": "Cold",
+    "offset": 900
+  },
+  {
+    "infusion": "Poison",
+    "offset": 1000
+  },
+  {
+    "infusion": "Blood",
+    "offset": 1100
+  },
+  {
+    "infusion": "Occult",
+    "offset": 1200
+  }
+]
