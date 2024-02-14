@@ -1,0 +1,75 @@
+Damage Calc (Rh1) - physical
+
+Character Sheet Final ## ->
+
+Check R21 (Rounded final) - takes rough number checks if greater than 0 and if so rounds to 2 decimal places or returns - ## ->
+
+Non reounded number checks CN2 ## ->
+
+Check if throwable in weaponData 
+	If it make a lookup to ConsumableData and fetch attackBasePhysics
+	If NOT lookup weapon in EquipParamWeapon using weaponID + Afinity as the ID for lookup and get attackBasePhysics
+Multiply value returned by inital lookup and multiply by physicsAtkRate from ReinforceParamWeapon using reinforcement level + reinforcementTypeId as ID for the lookup
+Return value of this multiplication or return 0
+
+Add the value to itself AND then multiply by the below ##
+
+Initial check to see if there is a physical attack penality CH2 (Likely not meeting stats) if true returns negative value of Q12 (unsure as to what this value is just yet)
+
+If the user meets requiremens it performs calculations below
+	$AN2 * 0.01 * BI2 * 0.01 + $AO2 * 0.01 * BN2 * 0.01 + $AP2 * 0.01 * BS2 * 0.01 + $AQ2 * 0.01 * BX2 * 0.01 + $AR2 * 0.01 * CC2 * 0.01
+breaking this down
+	AN2 - correctStr multiplies values from EquipParamWeapons & ReinforceParam Weapons or returns 0
+		takes correctStrength property from EquipParamWeapon using weaponID + affinity as an ID for the lookup (affinity obtained from lookup for heavy, keen etc)
+		takes correctStrength value at index of reinforceTypeId (standard/twinkling) added to reinforcement level (+25,+10)
+	* 0.01
+	* BI2 - StrengthCorrect_byPhysics Checks multiple values returning a singular value
+		Checks bool value of isStrengthCorrect_byPhysics in AttackElementCorrectParam using the attackElementCorrectId from EquipParamWeapon as the ID for lookup
+		If the value is false it returns 0 if it is true another check is made
+		gets the correctType_Physics (Cell AY) value using weaponId + affinity as an index from EquipParamWeapon
+		correctTypePhysics used as an ID for lookup in CalcCorrectGraphEZ using the final Str value as the column to return the value
+	* 0.01
+	+ A02 correctDex multiplies values from EquipParamWeapons & ReinforceParamWeapons or returns 0
+	  takes correctAgility at index of the ID of weapon + affinity (infusion related to a number)
+	  takes correctAgilityRate where id is Reinforcement level (+25,+10) added to reinforceTypeId (standard/twinkling)
+	* 0.01
+	* BN2 DexterityCorrect_by_Physics Checks multiple values returning a singular value
+	  Checks bool value of isDexterityCorrect_byPhysics in AttackElementCorrectParam using the attackElementCorrectId from EquipParamWeapon as the ID for lookup
+	  if isDexterityCorrect_byPhysics is false return 0 if it is true go to the next lookup
+          gets the correctTypePhysics (Cell AY) value using weaponId + affinity as the ID for the weapon lookup
+          correctTypePhysics used as an ID for lookup in CalcCorrectGraphEZ using the final Dex Value + 1 as the final return value
+	* 0.01
+	+ AP2 - correctInt multiples values from EquipParamWeapon & ReinforceParamWeapon or returns 0 if values not found
+	  takes correctMagic property from EquipParamWeapon using weaponId + affinity as the sortId to locate
+	  takes correctMagicRate property from ReinforceParamWeapon using Reinforcement level + reinforceTypeId as the ID to locate value
+	* 0.01
+	* BS2 MagicCorrect_byPhysics Checks multiple values returning a singular value
+	  Checks bool value of isMagicCorrect_byPhysics in AttackElementCorrectParam using the attackElementCorrectId from EquipParamWeapon as the ID for lookup
+	  If false return - if it is true another check is made
+	  gets the correctTypePhysics (Cell AY) value in EquipParamWeapon using the weapon id + affinity as an id for the lookup
+	  correctTypePhysics used as an ID for lookup in CalcCorrectGraphEZ using the final Int value + 1 as the column to return value
+		
+	* 0.01
+	+ AQ2 correctFth multiplies two values or returns 0
+	  takes correctFaith property from EquipParamWeapon using weaponID + affinity as an ID for the lookup
+	  takes correctFaithRate property from ReinforceParamWeapon using the reinforcement level + reinforcementTypeId from EquipParamWeapon as ID for lookup
+
+	* 0.01
+	* BX2 FaithCorrect_byPhysics Checks multiple values and returns a singular value
+	  Checks bool value of isFaithCorrect_byPhysics in AttackElementCorrectParam using the attackElementCorrectId from EquipParamWeapon as the ID for lookup
+	  If false return 0 if true make another check
+	  gets the correctTypePhysics (Cell AY) value in EquipParamWeapon using the weapon id + affinity as an id for the lookup
+	  correctTypePhysics used as an ID for lookup in CalcCorrectGraphEZ using the final faith value + 1 as the column to return the valye
+	* 0.01
+	+ AR2 correctArc multiplies values from EquipParamWeapons & ReinforceParamWeapon or returns 0
+	  gets correctLuck from EquipmentParamWeapon using weaponID + affinity as id for lookup
+	  gets correctLuckRate from ReinforceParamWeapon using the Reinforce level + reinforceTypeId as ID for the lookup
+	* 0.01 
+	* CC2 LuckCorrect_byPhysics Checks multiple values and returns a singular value
+	  Checks bool value of isLuckCorrect_byPhysics in AttackElementCorrectParam using the attackElementCorrectId from EquipParamWeapon as the ID for lookup
+	  if false return 0 if true do next check
+	  gets the correctTypePhysics (Cell AY) value in EquipParamWeapon using the weapon id + affinity as an id for the lookup
+	  correctTypePhysics used as an ID for lookup in CalcCorrectGraphEZ using final arcane value +1 as the column to return the value
+	* 0.01 ##
+
+
