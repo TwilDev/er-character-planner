@@ -21,6 +21,18 @@ interface ICharacterContext {
   setLegsArmour: React.Dispatch<React.SetStateAction<IArmourPiece | null>>
   talismans: ITalismanSlots
   setTalismans: React.Dispatch<React.SetStateAction<ITalismanSlots>>
+  rh1: any
+  setRh1: React.Dispatch<React.SetStateAction<any>>
+  rh2: any
+  setRh2: React.Dispatch<React.SetStateAction<any>>
+  rh3: any
+  setRh3: React.Dispatch<React.SetStateAction<any>>
+  lh1: any
+  setLh1: React.Dispatch<React.SetStateAction<any>>
+  lh2: any
+  setLh2: React.Dispatch<React.SetStateAction<any>>
+  lh3: any
+  setLh3: React.Dispatch<React.SetStateAction<any>>
 }
 
 const CharacterContext = createContext({} as ICharacterContext)
@@ -65,6 +77,13 @@ const CharacterContextProvider = ({ children }: any) => {
     slot4: null
   })
 
+  const [rh1, setRh1] = useState<any>(null)
+  const [rh2, setRh2] = useState<any>(null)
+  const [rh3, setRh3] = useState<any>(null)
+  const [lh1, setLh1] = useState<any>(null)
+  const [lh2, setLh2] = useState<any>(null)
+  const [lh3, setLh3] = useState<any>(null)
+
   return (
     <CharacterContext.Provider value={{
       characterName,
@@ -86,7 +105,19 @@ const CharacterContextProvider = ({ children }: any) => {
       legsArmour,
       setLegsArmour,
       talismans,
-      setTalismans
+      setTalismans,
+      rh1,
+      setRh1,
+      rh2,
+      setRh2,
+      rh3,
+      setRh3,
+      lh1,
+      setLh1,
+      lh2,
+      setLh2,
+      lh3,
+      setLh3
     }}>
       {children}
     </CharacterContext.Provider>

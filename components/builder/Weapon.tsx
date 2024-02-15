@@ -3,7 +3,7 @@ import EquipParamWeapon from '@/data/weapons/EquipParamWeapon.json'
 import calculateWeaponDamage from '@/helpers/calculateWeaponDamage'
 import { useState, useEffect, useContext } from 'react'
 import { ClassContext } from '@/context/classContext'
-
+import { EquipmentContext } from '@/context/equipmentContext'
 
 interface IWeaponProps {
   dataSet: any
@@ -14,6 +14,8 @@ interface IWeaponProps {
 export default function Weapon(props: IWeaponProps) {
   const { dataSet, placeholder, weaponSlot } = props
   // Obtain final Stats after all modifiers from equipment, runes, etc.
+
+  const { selectWeapon } = useContext(EquipmentContext)
   const { totalStats } = useContext(ClassContext)
 
   const selectId = `weapon-${weaponSlot}`
@@ -35,8 +37,9 @@ export default function Weapon(props: IWeaponProps) {
 
   useEffect(() => {
     if (selectedWeapon) {
-      // console.log(selectedWeapon)
+      // Get weapon damage values
       const weaponDamageValues = calculateWeaponDamage(selectedWeapon, totalStats)
+      // Set weapon damage values to state
       const { totalAttack, physicalBaseAttackRating, physicalScalingAttackRating, magicalBaseAttackRating, magicalScalingAttackRating, fireBaseAttackRating, fireScalingAttackRating, lightningBaseAttackRating, lightningScalingAttackRating, holyBaseAttackRating, holyScalingAttackRating } = weaponDamageValues
       setTotalAttackRating(totalAttack)
       setPhysicalBaseAttackRating(physicalBaseAttackRating)
@@ -49,6 +52,10 @@ export default function Weapon(props: IWeaponProps) {
       setLightningScalingAttackRating(lightningScalingAttackRating)
       setHolyBaseAttackRating(holyBaseAttackRating)
       setHolyScalingAttackRating(holyScalingAttackRating)
+
+      // Update context with selected weapon
+      selectWeapon(selectedWeapon, weaponSlot)
+
     }
   }, [selectedWeapon, totalStats]);
 
@@ -66,7 +73,8 @@ export default function Weapon(props: IWeaponProps) {
         onChange={handleSelectWeapon}
       />
       <p 
-        onClick={() => setToggleShowDamageStats(!toggleShowDamageStats)}
+        onMouseEnter={() => setToggleShowDamageStats(true)}
+        onMouseLeave={() => setToggleShowDamageStats(false)}
         className="text-xs"
       >
         Total AR: {totalAttackRating.toFixed(0)}

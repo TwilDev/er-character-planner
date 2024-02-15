@@ -16,6 +16,8 @@ interface IEquipmentContextContext {
   armour: IArmour
   talismans: ITalismanSlots
   selectTalisman: (talisman: ITalisman, slot: keyof ITalismanSlots) => void
+  weapons: any
+  selectWeapon: (weapon: any, weaponSlot: any) => void
 }
 
 const EquipmentContext = createContext({} as IEquipmentContextContext)
@@ -33,7 +35,19 @@ const EquipmentContextProvider = ({ children }: any) => {
     legsArmour, 
     setLegsArmour,
     talismans,
-    setTalismans
+    setTalismans,
+    rh1,
+    setRh1,
+    rh2,
+    setRh2,
+    rh3,
+    setRh3,
+    lh1,
+    setLh1,
+    lh2,
+    setLh2,
+    lh3,
+    setLh3
   } = useContext(CharacterContext)
 
   const [armour, setArmour] = useState<IArmour>(
@@ -44,6 +58,56 @@ const EquipmentContextProvider = ({ children }: any) => {
       legs: legsArmour
     }
   )
+
+  const [weapons, setWeapons] = useState<any>(
+    {
+      rh1: rh1,
+      rh2: rh2,
+      rh3: rh3,
+      lh1: lh1,
+      lh2: lh2,
+      lh3: lh3
+    }
+  )
+
+  const updateWeapons = (weapon: any, weaponSlot: any) => {
+    const newWeapons: any = {
+      ...weapons,
+      [weaponSlot]: weapon
+    }
+    setWeapons(newWeapons)
+  }
+
+  const selectWeapon = (weapon: any, weaponSlot: any) => {
+    switch (weaponSlot) {
+      case 'rh1':
+        setRh1(weapon)
+        updateWeapons(weapon, 'rh1')
+        break;
+      case 'rh2':
+        setRh2(weapon)
+        updateWeapons(weapon, 'rh2')
+        break;
+      case 'rh3':
+        setRh3(weapon)
+        updateWeapons(weapon, 'rh3')
+        break;
+      case 'lh1':
+        setLh1(weapon)
+        updateWeapons(weapon, 'lh1')
+        break;
+      case 'lh2':
+        setLh2(weapon)
+        updateWeapons(weapon, 'lh2')
+        break;
+      case 'lh3':
+        setLh3(weapon)
+        updateWeapons(weapon, 'lh3')
+        break;
+      default:
+        break;
+    }
+  }
 
   const updateArmour = (armourPiece: IArmourPiece, armourSlot: keyof IArmour) => {
     const newArmour: IArmour = {
@@ -97,7 +161,9 @@ const EquipmentContextProvider = ({ children }: any) => {
       selectArmour,
       armour,
       talismans,
-      selectTalisman
+      selectTalisman,
+      weapons,
+      selectWeapon
     }}>
       {children}
     </EquipmentContext.Provider>
