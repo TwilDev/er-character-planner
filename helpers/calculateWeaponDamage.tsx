@@ -183,9 +183,29 @@ const handleScalingCalculations = (weaponParams: any, reinforceParamForAffinity:
   return finalCalculation
 }
 
-// console.log("initial weapon data", weaponData)
-// console.log("reinforce data", reinforceParamForAffinity)
-// console.log("weapon equip params", weaponParams)
+const ELEMENTAL_TYPES = 5
+
+// Base Attack Lookup Values
+const baseAtkLookupValues = ['attackBasePhysics', 'attackBaseMagic', 'attackBaseFire', 'attackBaseThunder', 'attackBaseDark'] //Dark is holy dmg
+const reinforceAtkLookupValues = ['physicsAtkRate', 'magicAtkRate', 'fireAtkRate', 'thunderAtkRate', 'darkAtkRate'] // Dark is holy dmg
+
+// Scaling Lookup Values
+const correctTypeByElement = ['correctType_Physics', 'correctType_Magic', 'correctType_Fire', 'correctType_Thunder', 'correctType_Dark'] // Dark is holy dmg
+const isStatCorrectByPhysics = ['isStrengthCorrect_byPhysics', 'isDexterityCorrect_byPhysics', 'isMagicCorrect_byPhysics', 'isFaithCorrect_byPhysics', 'isLuckCorrect_byPhysics'] // Luck is Arcane
+const isStatCorrectByMagic = ['isStrengthCorrect_byMagic', 'isDexterityCorrect_byMagic', 'isMagicCorrect_byMagic', 'isFaithCorrect_byMagic', 'isLuckCorrect_byMagic'] // Luck is Arcane
+const isStatCorrectByFire = ['isStrengthCorrect_byFire', 'isDexterityCorrect_byFire', 'isMagicCorrect_byFire', 'isFaithCorrect_byFire', 'isLuckCorrect_byFire'] // Luck is Arcane
+const isStatCorrectByThunder = ['isStrengthCorrect_byThunder', 'isDexterityCorrect_byThunder', 'isMagicCorrect_byThunder', 'isFaithCorrect_byThunder', 'isLuckCorrect_byThunder'] // Luck is Arcane
+const isStatCorrectByDark = ['isStrengthCorrect_byDark', 'isDexterityCorrect_byDark', 'isMagicCorrect_byDark', 'isFaithCorrect_byDark', 'isLuckCorrect_byDark'] // Luck is Arcane
+
+console.log(baseAtkLookupValues.length)
+console.log(reinforceAtkLookupValues.length)
+console.log(correctTypeByElement.length)
+console.log(isStatCorrectByPhysics.length)
+console.log(isStatCorrectByMagic.length)
+console.log(isStatCorrectByFire.length)
+console.log(isStatCorrectByThunder.length)
+console.log(isStatCorrectByDark.length)
+
 
 // Calculate Base Attack for weapon
 const baseAttack = getBaseValue(weaponParams, reinforceParamForAffinity)
