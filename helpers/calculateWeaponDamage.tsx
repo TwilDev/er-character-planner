@@ -81,7 +81,7 @@ export default function calculateWeaponDamage(weaponData: any, totalStats: IStat
 
   const userFinalStats = totalStats
   const affinity = 0 // TODO implement later
-  const upgradeLevel = 25 // TODO implement later
+  const upgradeLevel = 0 // TODO implement later
   const meetsStatRequirements = true // TODO implement later
 
   // Lookup ID for common lookups in EquipParams
@@ -98,26 +98,23 @@ export default function calculateWeaponDamage(weaponData: any, totalStats: IStat
 
 
   // Calculate Base attack for the weapon based on upgrade level and reinforcement type
-  const getBaseValue = (weaponParams: any, reinforceParamForAffinity: any) => {
+  const getBaseValue = (weaponParams: any, reinforceParamForAffinity: any, baseAttackElementType: string, reinforceAttackElementType: string) => {
     // Obtain Base Attack
-    const weaponBaseAttack = weaponParams.attackBasePhysics ?? 0
+    const weaponBaseAttack = weaponParams[baseAttackElementType] ?? 0
     // console.log("weapon base attack lookup", weaponBaseAttack)
 
     // Get physical attack rate for upgrade level and reinforce type
-    const reinforceLevelAtkRate = reinforceParamForAffinity.physicsAtkRate
-    // console.log("Weapon Reinforce Level Atk Rate", reinforceLevelAtkRate)
-    
-    // console.log(weaponBaseAttack * reinforceLevelAtkRate)
+    const reinforceLevelAtkRate = reinforceParamForAffinity[reinforceAttackElementType]
+
     // return these two multiplied
     const baseAttackForUpgradeLevel = (weaponBaseAttack * reinforceLevelAtkRate)
+    console.log("base attack for upgrade level", baseAttackForUpgradeLevel)
     return baseAttackForUpgradeLevel
 }
 
 // Calculate scaling for weapon based on final stats
 const checkScaling = (scalingBoolCheck: boolean, correctTypePhysics: number, playerStat: number) => {
   if (!scalingBoolCheck) return 0
-  // console.log("Scaling bool check", scalingBoolCheck)
-  // console.log("Correct Type Physics", correctTypePhysics)
   const scalingCorrectionRow = CalcCorrectGraphEZData.find((item) => item.ID === correctTypePhysics)
   if (!scalingCorrectionRow) return 
   if (!scalingCorrectionRow.hasOwnProperty(playerStat)) return console.log("Player Stat not found in scaling correction row")
@@ -128,18 +125,25 @@ const checkScaling = (scalingBoolCheck: boolean, correctTypePhysics: number, pla
 }
 
 // Calculate Scaling for weapon  for all element types
-const handleScalingCalculations = (weaponParams: any, reinforceParamForAffinity: any, userFinalStats: IStats, baseAttack: number) => {
+const handleScalingCalculations = (
+  weaponParams: any, 
+  reinforceParamForAffinity: any, 
+  userFinalStats: IStats, 
+  baseAttack: number, 
+  correctType: string, 
+  correctByElement: string
+) => {
   if (!meetsStatRequirements) return 0// handle mutation later
 
   // Fetch Scaling data for checks to Str, Dex, Faith, Int, Arc
-  const scalingData = AttackElementCorrectParam.find((item) => item.ID === weaponParams.attackElementCorrectId)
+  const scalingData: any = AttackElementCorrectParam.find((item) => item.ID === weaponParams.attackElementCorrectId)
 
   // Calculate Str correction for weapon upgrade
   const correctStr = weaponParams.correctStrength * reinforceParamForAffinity.correctStrengthRate ?? 0
   console.log("correctStr", correctStr)
 
   // Calculate strength scaling affect for current final str // TODO implement * 1.5 on str if two handing
-  const strengthCorrectionByPhysics = checkScaling (scalingData ? scalingData.isStrengthCorrect_byPhysics : false, weaponParams.correctType_Physics, userFinalStats.strength)
+  const strengthCorrectionByPhysics = checkScaling (scalingData ? scalingData["isStrengthCorrect_by" + correctByElement] : false, weaponParams[correctType], userFinalStats.strength)
   console.log("strengthCorrectionByPhysics", strengthCorrectionByPhysics)
 
   // Calculate Dex correction for weapon upgrade
@@ -147,7 +151,7 @@ const handleScalingCalculations = (weaponParams: any, reinforceParamForAffinity:
   console.log("correctDex", correctDex)
 
   // Calculate Dex scaling for current final Dex
-  const dexterityCorrectByPhysics = checkScaling (scalingData ? scalingData.isDexterityCorrect_byPhysics : false, weaponParams.correctType_Physics, userFinalStats.dexterity)
+  const dexterityCorrectByPhysics = checkScaling (scalingData ? scalingData["isDexterityCorrect_by" + correctByElement] : false, weaponParams[correctType], userFinalStats.dexterity)
   console.log("dexterityCorrectByPhysics", dexterityCorrectByPhysics)
 
   // Calculate Int correction for weapon upgrade
@@ -155,7 +159,7 @@ const handleScalingCalculations = (weaponParams: any, reinforceParamForAffinity:
   console.log("correctInt", correctInt)
   
   // Calculate Int scaling for current final Int
-  const magicCorrectByPhysics = checkScaling (scalingData ? scalingData.isMagicCorrect_byPhysics : false, weaponParams.correctType_Physics, userFinalStats.intelligence + 1)
+  const magicCorrectByPhysics = checkScaling (scalingData ? scalingData["isMagicCorrect_by" + correctByElement] : false, weaponParams[correctType], userFinalStats.intelligence)
   console.log("magicCorrectByPhysics", magicCorrectByPhysics)
 
   // Calculate Fth correction for weapon upgrade
@@ -163,7 +167,7 @@ const handleScalingCalculations = (weaponParams: any, reinforceParamForAffinity:
   console.log("correctFth", correctFth)
 
   // Calculate Fth scaling for current final fth
-  const faithCorrectByPhysics = checkScaling (scalingData ? scalingData.isFaithCorrect_byPhysics : false, weaponParams.correctType_Physics, userFinalStats.intelligence + 1)
+  const faithCorrectByPhysics = checkScaling (scalingData ? scalingData["isFaithCorrect_by" + correctByElement] : false, weaponParams[correctType], userFinalStats.faith)
   console.log("faithCorrectByPhysics", faithCorrectByPhysics)
 
   // Calculate Arc correction for weapon upgrade  
@@ -171,14 +175,24 @@ const handleScalingCalculations = (weaponParams: any, reinforceParamForAffinity:
   console.log("correctArc", correctArc)
 
   // Calculate Arc scaling for current final arc
-  const luckCorrectByPhysics = checkScaling (scalingData ? scalingData.isLuckCorrect_byPhysics : false, weaponParams.correctType_Physics, userFinalStats.arcane + 1)
+  const luckCorrectByPhysics = checkScaling (scalingData ? scalingData["isLuckCorrect_by" + correctByElement] : false, weaponParams[correctType], userFinalStats.arcane)
   console.log("luckCorrectByPhysics", luckCorrectByPhysics)
 
-  const finalCalculation = (baseAttack + baseAttack * (correctStr * 0.01 * strengthCorrectionByPhysics * 0.01 +
-    correctDex * 0.01 * dexterityCorrectByPhysics * 0.01 +
-    correctInt * 0.01 * magicCorrectByPhysics * 0.01 +
-    correctFth * 0.01 * faithCorrectByPhysics * 0.01 +
-    correctArc * 0.01 * correctArc * 0.01))
+  var finalCalculation;
+
+  if (correctByElement === "Physics") {
+    finalCalculation = (baseAttack + baseAttack * (correctStr * 0.01 * strengthCorrectionByPhysics * 0.01 +
+      correctDex * 0.01 * dexterityCorrectByPhysics * 0.01 +
+      correctInt * 0.01 * magicCorrectByPhysics * 0.01 +
+      correctFth * 0.01 * faithCorrectByPhysics * 0.01 +
+      correctArc * 0.01 * luckCorrectByPhysics * 0.01))
+  } else {
+    finalCalculation = (baseAttack + (baseAttack * (correctStr * 0.01 * strengthCorrectionByPhysics * 0.01 +
+      correctDex * 0.01 * dexterityCorrectByPhysics * 0.01 +
+      correctInt * 0.01 * magicCorrectByPhysics * 0.01 +
+      correctFth * 0.01 * faithCorrectByPhysics * 0.01 +
+      correctArc * 0.01 * luckCorrectByPhysics * 0.01)))
+  }
 
   return finalCalculation
 }
@@ -197,30 +211,36 @@ const isStatCorrectByFire = ['isStrengthCorrect_byFire', 'isDexterityCorrect_byF
 const isStatCorrectByThunder = ['isStrengthCorrect_byThunder', 'isDexterityCorrect_byThunder', 'isMagicCorrect_byThunder', 'isFaithCorrect_byThunder', 'isLuckCorrect_byThunder'] // Luck is Arcane
 const isStatCorrectByDark = ['isStrengthCorrect_byDark', 'isDexterityCorrect_byDark', 'isMagicCorrect_byDark', 'isFaithCorrect_byDark', 'isLuckCorrect_byDark'] // Luck is Arcane
 
-console.log(baseAtkLookupValues.length)
-console.log(reinforceAtkLookupValues.length)
-console.log(correctTypeByElement.length)
-console.log(isStatCorrectByPhysics.length)
-console.log(isStatCorrectByMagic.length)
-console.log(isStatCorrectByFire.length)
-console.log(isStatCorrectByThunder.length)
-console.log(isStatCorrectByDark.length)
+const physicalBaseAttack = getBaseValue(weaponParams, reinforceParamForAffinity, 'attackBasePhysics', 'physicsAtkRate')
+const physicalScalingAttack = handleScalingCalculations(weaponParams, reinforceParamForAffinity, userFinalStats, physicalBaseAttack, 'correctType_Physics', 'Physics')
 
+const magicalBaseAttack = getBaseValue(weaponParams, reinforceParamForAffinity, 'attackBaseMagic', 'magicAtkRate')
+const magicalScalingAttack = handleScalingCalculations(weaponParams, reinforceParamForAffinity, userFinalStats, magicalBaseAttack, 'correctType_Magic', 'Magic')
 
+const fireBaseAttack = getBaseValue(weaponParams, reinforceParamForAffinity, 'attackBaseFire', 'fireAtkRate')
+const fireScalingAttack = handleScalingCalculations(weaponParams, reinforceParamForAffinity, userFinalStats, fireBaseAttack, 'correctType_Fire', 'Fire')
+
+const thunderBaseAttack = getBaseValue(weaponParams, reinforceParamForAffinity, 'attackBaseThunder', 'thunderAtkRate')
+const thunderScalingAttack = handleScalingCalculations(weaponParams, reinforceParamForAffinity, userFinalStats, thunderBaseAttack, 'correctType_Thunder', 'Thunder')
+
+const holyBaseAttack = getBaseValue(weaponParams, reinforceParamForAffinity, 'attackBaseDark', 'darkAtkRate')
+const holyScalingAttack = handleScalingCalculations(weaponParams, reinforceParamForAffinity, userFinalStats, holyBaseAttack, 'correctType_Dark', 'Dark')
+
+console.log("Magic Attack", magicalScalingAttack)
 // Calculate Base Attack for weapon
-const baseAttack = getBaseValue(weaponParams, reinforceParamForAffinity)
+// const baseAttack = getBaseValue(weaponParams, reinforceParamForAffinity)
 
 // console.log("base attack", baseAttack)
 
 // Calculate Scaling for weapon
-const scalingAttack = handleScalingCalculations(weaponParams, reinforceParamForAffinity, userFinalStats, baseAttack)
-console.log(scalingAttack)
+// const scalingAttack = handleScalingCalculations(weaponParams, reinforceParamForAffinity, userFinalStats, baseAttack)
+// console.log(scalingAttack)
 
-console.log("base attack", baseAttack)
-console.log("scaling", scalingAttack - baseAttack)
+// console.log("base attack", baseAttack)
+// console.log("scaling", scalingAttack - baseAttack)
 // 
 // Calculate total attack
-const totalAttack = scalingAttack
+const totalAttack = physicalScalingAttack
 
 return totalAttack
 }
