@@ -195,6 +195,9 @@ const baseAttack = getBaseValue(weaponParams, reinforceParamForAffinity)
 // Calculate Scaling for weapon
 const scalingAttack = handleScalingCalculations(weaponParams, reinforceParamForAffinity, userFinalStats, baseAttack)
 console.log(scalingAttack)
+
+console.log("base attack", baseAttack)
+console.log("scaling", scalingAttack - baseAttack)
 // 
 // Calculate total attack
 const totalAttack = scalingAttack
