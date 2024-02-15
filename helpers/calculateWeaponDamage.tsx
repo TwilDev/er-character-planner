@@ -73,7 +73,7 @@ interface EquipParamWeapon {
   gemMountType: number;
 }
 
-export default function calculateWeaponDamage(weaponData: any, totalStats: IStats): number {
+export default function calculateWeaponDamage(weaponData: any, totalStats: IStats) {
 
   // Typing for lookup tables
   const EquipParamWeaponData: EquipParamWeapon[] = EquipParamWeapon as EquipParamWeapon[]
@@ -227,20 +227,38 @@ const holyBaseAttack = getBaseValue(weaponParams, reinforceParamForAffinity, 'at
 const holyScalingAttack = handleScalingCalculations(weaponParams, reinforceParamForAffinity, userFinalStats, holyBaseAttack, 'correctType_Dark', 'Dark')
 
 console.log("Magic Attack", magicalScalingAttack)
-// Calculate Base Attack for weapon
-// const baseAttack = getBaseValue(weaponParams, reinforceParamForAffinity)
+// const totalAttack = physicalScalingAttack
 
-// console.log("base attack", baseAttack)
+const totalAttack = physicalScalingAttack + magicalScalingAttack + fireScalingAttack + thunderScalingAttack + holyScalingAttack
 
-// Calculate Scaling for weapon
-// const scalingAttack = handleScalingCalculations(weaponParams, reinforceParamForAffinity, userFinalStats, baseAttack)
-// console.log(scalingAttack)
+const physicalBaseAttackRating = physicalBaseAttack
+const physicalScalingAttackRating = physicalScalingAttack - physicalBaseAttack
 
+const magicalBaseAttackRating = magicalBaseAttack
+const magicalScalingAttackRating = magicalScalingAttack - magicalBaseAttack
+
+const fireBaseAttackRating = fireBaseAttack
+const fireScalingAttackRating = fireScalingAttack - fireBaseAttack
+
+const lightningBaseAttackRating = thunderBaseAttack
+const lightningScalingAttackRating = thunderScalingAttack - thunderBaseAttack
+
+const holyBaseAttackRating = holyBaseAttack
+const holyScalingAttackRating = holyScalingAttack - holyBaseAttack
 // console.log("base attack", baseAttack)
 // console.log("scaling", scalingAttack - baseAttack)
-// 
-// Calculate total attack
-const totalAttack = physicalScalingAttack
 
-return totalAttack
+return { 
+  totalAttack, 
+  physicalBaseAttackRating, 
+  physicalScalingAttackRating, 
+  magicalBaseAttackRating, 
+  magicalScalingAttackRating, 
+  fireBaseAttackRating, 
+  fireScalingAttackRating, 
+  lightningBaseAttackRating, 
+  lightningScalingAttackRating, 
+  holyBaseAttackRating, 
+  holyScalingAttackRating 
+}
 }
