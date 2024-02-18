@@ -2,7 +2,7 @@ import CoreBuilder from '@/components/builder/CoreBuilder'
 import CoreStats from '@/components/stats/CoreStats'
 import ArmourSelection from '@/components/builder/ArmourSelection'
 import TalismanSelection from '@/components/builder/TalismanSelection'
-import WeaponSelection from '@/components/builder/WeaponSelection'
+import WeaponSelection from '@/components/builder/weapon/WeaponSelection'
 
 export default function CharacterBuilder() {
   return (

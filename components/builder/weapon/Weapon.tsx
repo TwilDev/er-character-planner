@@ -5,6 +5,7 @@ import { useState, useEffect, useContext } from 'react'
 import { ClassContext } from '@/context/classContext'
 import { EquipmentContext } from '@/context/equipmentContext'
 import calculateGetWeaponScaling from '@/helpers/calculateGetWeaponScaling'
+import getWeaponStatRequirements from '@/helpers/getWeaponStatRequirements'
 
 interface IWeaponProps {
   dataSet: any
@@ -37,7 +38,7 @@ export default function Weapon(props: IWeaponProps) {
   const [toggleShowDamageStats, setToggleShowDamageStats] = useState<boolean>(false)
 
   const [scalingValues, setScalingValues] = useState<any>(null)
-
+  const [weaponStatRequirements, setWeaponStatRequirements] = useState<any>(null)
 
   useEffect(() => {
     if (selectedWeapon) {
@@ -64,6 +65,10 @@ export default function Weapon(props: IWeaponProps) {
       const weaponScalingValues = calculateGetWeaponScaling(selectedWeapon, 0, 0, totalStats)
       setScalingValues(weaponScalingValues)
 
+      // Get weapon stat requirements
+      const weaponStatRequirements = getWeaponStatRequirements(selectedWeapon, 0) 
+      setWeaponStatRequirements(weaponStatRequirements)
+      console.log(weaponStatRequirements)
     }
   }, [selectedWeapon, totalStats]);
 
@@ -80,6 +85,13 @@ export default function Weapon(props: IWeaponProps) {
         placeholder={placeholder}
         onChange={handleSelectWeapon}
       />
+      <p>
+        { 
+          // If weaponStatRequirements is not null, show the stat requirements like this STRNumber/DEXNumber/INTNumber/FAINumber/ARCNumber
+          weaponStatRequirements &&
+          `${weaponStatRequirements.strength}/${weaponStatRequirements.dexterity}/${weaponStatRequirements.intelligence}/${weaponStatRequirements.faith}/${weaponStatRequirements.arcane}` 
+        }
+      </p>
       <p 
         onMouseEnter={() => setToggleShowDamageStats(true)}
         onMouseLeave={() => setToggleShowDamageStats(false)}

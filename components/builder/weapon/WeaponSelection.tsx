@@ -1,6 +1,6 @@
 import Select from 'react-select'
 import weaponData from '@/data/weapons/weaponData.json'
-import Weapon from '@/components/builder/Weapon'
+import Weapon from '@/components/builder/weapon/Weapon'
 
 export default function WeaponSelection() {
 
