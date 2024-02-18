@@ -80,25 +80,28 @@ export default function Weapon(props: IWeaponProps) {
     <div className="relative">
       <Select
         id={selectId}
-        className="w-full mb-2"
+        className="w-full mb-0 pb-0"
         options={dataSet}
         placeholder={placeholder}
         onChange={handleSelectWeapon}
       />
-      <p>
-        { 
-          // If weaponStatRequirements is not null, show the stat requirements like this STRNumber/DEXNumber/INTNumber/FAINumber/ARCNumber
-          weaponStatRequirements &&
-          `${weaponStatRequirements.strength}/${weaponStatRequirements.dexterity}/${weaponStatRequirements.intelligence}/${weaponStatRequirements.faith}/${weaponStatRequirements.arcane}` 
-        }
-      </p>
-      <p 
-        onMouseEnter={() => setToggleShowDamageStats(true)}
-        onMouseLeave={() => setToggleShowDamageStats(false)}
-        className="text-xs"
-      >
-        Total AR: {totalAttackRating.toFixed(0)}
-      </p>
+      <div className="flex justify-between mb-4">
+        <p className="text-xs">
+          { 
+            // If weaponStatRequirements is not null, show the stat requirements like this STRNumber/DEXNumber/INTNumber/FAINumber/ARCNumber
+            weaponStatRequirements &&
+            `${weaponStatRequirements.strength}/${weaponStatRequirements.dexterity}/${weaponStatRequirements.intelligence}/${weaponStatRequirements.faith}/${weaponStatRequirements.arcane}` 
+          }
+        </p>
+        <p 
+          onMouseEnter={() => setToggleShowDamageStats(true)}
+          onMouseLeave={() => setToggleShowDamageStats(false)}
+          className="text-xs"
+        >
+          Total AR: {totalAttackRating.toFixed(0)}
+        </p>
+      </div>
+
       {
         toggleShowDamageStats &&
         <div className="absolute right-[-115px] z-10 top-0">
