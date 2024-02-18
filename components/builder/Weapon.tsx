@@ -4,6 +4,7 @@ import calculateWeaponDamage from '@/helpers/calculateWeaponDamage'
 import { useState, useEffect, useContext } from 'react'
 import { ClassContext } from '@/context/classContext'
 import { EquipmentContext } from '@/context/equipmentContext'
+import calculateGetWeaponScaling from '@/helpers/calculateGetWeaponScaling'
 
 interface IWeaponProps {
   dataSet: any
@@ -35,6 +36,9 @@ export default function Weapon(props: IWeaponProps) {
 
   const [toggleShowDamageStats, setToggleShowDamageStats] = useState<boolean>(false)
 
+  const [scalingValues, setScalingValues] = useState<any>(null)
+
+
   useEffect(() => {
     if (selectedWeapon) {
       // Get weapon damage values
@@ -55,6 +59,10 @@ export default function Weapon(props: IWeaponProps) {
 
       // Update context with selected weapon
       selectWeapon(selectedWeapon, weaponSlot)
+
+      // Get weapon scaling values
+      const weaponScalingValues = calculateGetWeaponScaling(selectedWeapon, 0, 0, totalStats)
+      setScalingValues(weaponScalingValues)
 
     }
   }, [selectedWeapon, totalStats]);
@@ -88,6 +96,24 @@ export default function Weapon(props: IWeaponProps) {
             <span>Fire: {`${fireBaseAttackRating.toFixed(0)} + ${fireScalingAttackRating.toFixed(0)}`}</span>
             <span>Lightning: {`${lightningBaseAttackRating.toFixed(0)} + ${lightningScalingAttackRating.toFixed(0)}`}</span>
             <span>Holy: {`${holyBaseAttackRating.toFixed(0)} + ${holyScalingAttackRating.toFixed(0)}`}</span>
+
+            <div className="flex flex-col">
+              <p>Scaling</p>
+              {/* iterate through object and check if scaling true val is above 0 and if so show the letter */}
+              {
+                scalingValues &&
+                Object.keys(scalingValues).map((key: string, index: number) => {
+                  const scaling = scalingValues[key]
+                  if (scaling.trueVal > 0) 
+                    return (
+                      <span key={index}>
+                        <span className="capitalize">{key} </span>
+                        <span>{scaling.trueVal > 0 ? scaling.letter : '---'}</span>
+                      </span>
+                    )
+                })
+              }
+            </div>
           </div>
         </div>
       }
@@ -96,3 +122,4 @@ export default function Weapon(props: IWeaponProps) {
     </div>
   )
 }
+
