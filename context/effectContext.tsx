@@ -44,19 +44,22 @@ const EffectContextProvider = ({ children }: any) => {
     }
 
     // Get Effect for Great Rune if exists and is active
-    if (greatRune && activateGreatRune) {
-      const checkEffect = effectData.find(effect => effect?.Source === greatRune)
-      if (checkEffect) {
-        newEffects.push(checkEffect as IEffect)
+    if (greatRune) {
+      if (activateGreatRune) {
+        const checkEffect = effectData.find(effect => effect?.Source === greatRune)
+        if (checkEffect) {
+          newEffects.push(checkEffect as IEffect)
+        }
       }
     }
     
+
     setEffects(newEffects)
   }
 
   useEffect(() => {
     getEffects()
-  }, [armour, talismans, greatRune, activateGreatRune])
+  }, [armour, talismans, activateGreatRune])
 
 
   return (

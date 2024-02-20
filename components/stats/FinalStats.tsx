@@ -24,9 +24,23 @@ export default function FinalStats() {
 
   // Check for changes in effects mutations effect and track stat modifiers
   useEffect(() => {
+    
+    // reset statModifiers to 0
+    setStatModifiers({
+      vigor: 0,
+      mind: 0,
+      endurance: 0,
+      strength: 0,
+      dexterity: 0,
+      intelligence: 0,
+      faith: 0,
+      arcane: 0
+    })
+
     // extract all stat modifiers from each effect
     let newStatModifiers: any = {}
     effects.forEach(effect => {
+      console.log(effect.Source)
       // Check if effect has any key matching a stat in IStats vigor, mind, etc.
       Object.keys(effect).forEach(key => {
         if (Object.keys(statModifiers).includes(key)) {
@@ -57,7 +71,6 @@ export default function FinalStats() {
       }
     })
     setTotalStats(newFinalStats)
-    console.log("Total", total)
   }, [statModifiers])
 
   useEffect(() => {
