@@ -47,8 +47,8 @@ export default function Weapon(props: IWeaponProps) {
       // Update context with selected weapon
       selectWeapon(selectedWeapon, weaponSlot, affinity)
 
-      // Get weapon damage values
-      const weaponDamageValues = calculateWeaponDamage(selectedWeapon, totalStats, affinity)
+      const weaponDamageValues = calculateWeaponDamage(selectedWeapon, totalStats, selectedWeapon.isInfuse ? affinity : 0)
+
       // Set weapon damage values to state
       const { totalAttack, physicalBaseAttackRating, physicalScalingAttackRating, magicalBaseAttackRating, magicalScalingAttackRating, fireBaseAttackRating, fireScalingAttackRating, lightningBaseAttackRating, lightningScalingAttackRating, holyBaseAttackRating, holyScalingAttackRating } = weaponDamageValues
       setTotalAttackRating(totalAttack)
@@ -64,11 +64,11 @@ export default function Weapon(props: IWeaponProps) {
       setHolyScalingAttackRating(holyScalingAttackRating)
 
       // Get weapon scaling values
-      const weaponScalingValues = calculateGetWeaponScaling(selectedWeapon, 0, 0, totalStats)
+      const weaponScalingValues = calculateGetWeaponScaling(selectedWeapon, selectedWeapon.isInfuse ? affinity : 0, 0, totalStats)
       setScalingValues(weaponScalingValues)
 
       // Get weapon stat requirements
-      const weaponStatRequirements = getWeaponStatRequirements(selectedWeapon, 0) 
+      const weaponStatRequirements = getWeaponStatRequirements(selectedWeapon, selectedWeapon.isInfuse ? affinity : 0) 
       setWeaponStatRequirements(weaponStatRequirements)
     }
   }, [selectedWeapon, totalStats, affinity]);
