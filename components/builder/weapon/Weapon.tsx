@@ -6,6 +6,7 @@ import { ClassContext } from '@/context/classContext'
 import { EquipmentContext } from '@/context/equipmentContext'
 import calculateGetWeaponScaling from '@/helpers/calculateGetWeaponScaling'
 import getWeaponStatRequirements from '@/helpers/getWeaponStatRequirements'
+import AffinitySelection from './AffinitySelection'
 
 interface IWeaponProps {
   dataSet: any
@@ -39,11 +40,15 @@ export default function Weapon(props: IWeaponProps) {
 
   const [scalingValues, setScalingValues] = useState<any>(null)
   const [weaponStatRequirements, setWeaponStatRequirements] = useState<any>(null)
+  const [affinity, setAffinity] = useState<number>(0)
 
   useEffect(() => {
     if (selectedWeapon) {
+      // Update context with selected weapon
+      selectWeapon(selectedWeapon, weaponSlot, affinity)
+
       // Get weapon damage values
-      const weaponDamageValues = calculateWeaponDamage(selectedWeapon, totalStats)
+      const weaponDamageValues = calculateWeaponDamage(selectedWeapon, totalStats, affinity)
       // Set weapon damage values to state
       const { totalAttack, physicalBaseAttackRating, physicalScalingAttackRating, magicalBaseAttackRating, magicalScalingAttackRating, fireBaseAttackRating, fireScalingAttackRating, lightningBaseAttackRating, lightningScalingAttackRating, holyBaseAttackRating, holyScalingAttackRating } = weaponDamageValues
       setTotalAttackRating(totalAttack)
@@ -58,9 +63,6 @@ export default function Weapon(props: IWeaponProps) {
       setHolyBaseAttackRating(holyBaseAttackRating)
       setHolyScalingAttackRating(holyScalingAttackRating)
 
-      // Update context with selected weapon
-      selectWeapon(selectedWeapon, weaponSlot)
-
       // Get weapon scaling values
       const weaponScalingValues = calculateGetWeaponScaling(selectedWeapon, 0, 0, totalStats)
       setScalingValues(weaponScalingValues)
@@ -68,9 +70,8 @@ export default function Weapon(props: IWeaponProps) {
       // Get weapon stat requirements
       const weaponStatRequirements = getWeaponStatRequirements(selectedWeapon, 0) 
       setWeaponStatRequirements(weaponStatRequirements)
-      console.log(weaponStatRequirements)
     }
-  }, [selectedWeapon, totalStats]);
+  }, [selectedWeapon, totalStats, affinity]);
 
   const handleSelectWeapon = (selectedOption: any) => {
     setSelectedWeapon(selectedOption)
@@ -132,8 +133,11 @@ export default function Weapon(props: IWeaponProps) {
           </div>
         </div>
       }
-
-      <label htmlFor="requirements"></label>
+      <AffinitySelection 
+        weaponSlot={weaponSlot}
+        setAffinity={setAffinity}
+        affinity={affinity}
+      />
     </div>
   )
 }

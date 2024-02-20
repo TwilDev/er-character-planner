@@ -17,7 +17,7 @@ interface IEquipmentContextContext {
   talismans: ITalismanSlots
   selectTalisman: (talisman: ITalisman, slot: keyof ITalismanSlots) => void
   weapons: any
-  selectWeapon: (weapon: any, weaponSlot: any) => void
+  selectWeapon: (weapon: any, weaponSlot: any, affinity: number) => void
 }
 
 const EquipmentContext = createContext({} as IEquipmentContextContext)
@@ -59,7 +59,7 @@ const EquipmentContextProvider = ({ children }: any) => {
     }
   )
 
-  const [weapons, setWeapons] = useState<any>(
+  const [weapons, setWeapons] = useState<IWeaponSlots>(
     {
       rh1: rh1,
       rh2: rh2,
@@ -78,30 +78,31 @@ const EquipmentContextProvider = ({ children }: any) => {
     setWeapons(newWeapons)
   }
 
-  const selectWeapon = (weapon: any, weaponSlot: any) => {
+  const selectWeapon = (weapon: any, weaponSlot: any, affinity: number) => {
     switch (weaponSlot) {
       case 'rh1':
-        setRh1(weapon)
+        console.log("updating weapon")
+        setRh1({ ID: weapon.id, weapon: weapon.weapon, weaponSlot: weaponSlot, affinity: affinity, isInfusable: weapon.isInfusable})
         updateWeapons(weapon, 'rh1')
         break;
       case 'rh2':
-        setRh2(weapon)
+        setRh2({ ID: weapon.id, weapon: weapon.weapon, weaponSlot: weaponSlot, affinity: affinity, isInfusable: weapon.isInfusable})
         updateWeapons(weapon, 'rh2')
         break;
       case 'rh3':
-        setRh3(weapon)
+        setRh3({ ID: weapon.id, weapon: weapon.weapon, weaponSlot: weaponSlot, affinity: affinity, isInfusable: weapon.isInfusable})
         updateWeapons(weapon, 'rh3')
         break;
       case 'lh1':
-        setLh1(weapon)
+        setLh1({ ID: weapon.id, weapon: weapon.weapon, weaponSlot: weaponSlot, affinity: affinity, isInfusable: weapon.isInfusable})
         updateWeapons(weapon, 'lh1')
         break;
       case 'lh2':
-        setLh2(weapon)
+        setLh2({ ID: weapon.id, weapon: weapon.weapon, weaponSlot: weaponSlot, affinity: affinity, isInfusable: weapon.isInfusable})
         updateWeapons(weapon, 'lh2')
         break;
       case 'lh3':
-        setLh3(weapon)
+        setLh3({ ID: weapon.id, weapon: weapon.weapon, weaponSlot: weaponSlot, affinity: affinity, isInfusable: weapon.isInfusable})
         updateWeapons(weapon, 'lh3')
         break;
       default:

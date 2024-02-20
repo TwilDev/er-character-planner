@@ -21,18 +21,18 @@ interface ICharacterContext {
   setLegsArmour: React.Dispatch<React.SetStateAction<IArmourPiece | null>>
   talismans: ITalismanSlots
   setTalismans: React.Dispatch<React.SetStateAction<ITalismanSlots>>
-  rh1: any
-  setRh1: React.Dispatch<React.SetStateAction<any>>
-  rh2: any
-  setRh2: React.Dispatch<React.SetStateAction<any>>
-  rh3: any
-  setRh3: React.Dispatch<React.SetStateAction<any>>
-  lh1: any
-  setLh1: React.Dispatch<React.SetStateAction<any>>
-  lh2: any
-  setLh2: React.Dispatch<React.SetStateAction<any>>
-  lh3: any
-  setLh3: React.Dispatch<React.SetStateAction<any>>
+  rh1: IWeapon | null
+  setRh1: React.Dispatch<React.SetStateAction<IWeapon | null>>
+  rh2: IWeapon | null
+  setRh2: React.Dispatch<React.SetStateAction<IWeapon | null>>
+  rh3: IWeapon | null
+  setRh3: React.Dispatch<React.SetStateAction<IWeapon | null>>
+  lh1: IWeapon | null
+  setLh1: React.Dispatch<React.SetStateAction<IWeapon | null>>
+  lh2: IWeapon | null
+  setLh2: React.Dispatch<React.SetStateAction<IWeapon | null>>
+  lh3: IWeapon | null
+  setLh3: React.Dispatch<React.SetStateAction<IWeapon | null>>
 }
 
 const CharacterContext = createContext({} as ICharacterContext)
@@ -77,12 +77,12 @@ const CharacterContextProvider = ({ children }: any) => {
     slot4: null
   })
 
-  const [rh1, setRh1] = useState<any>(null)
-  const [rh2, setRh2] = useState<any>(null)
-  const [rh3, setRh3] = useState<any>(null)
-  const [lh1, setLh1] = useState<any>(null)
-  const [lh2, setLh2] = useState<any>(null)
-  const [lh3, setLh3] = useState<any>(null)
+  const [rh1, setRh1] = useState<IWeapon | null>(null)
+  const [rh2, setRh2] = useState<IWeapon | null>(null)
+  const [rh3, setRh3] = useState<IWeapon | null>(null)
+  const [lh1, setLh1] = useState<IWeapon | null>(null)
+  const [lh2, setLh2] = useState<IWeapon | null>(null)
+  const [lh3, setLh3] = useState<IWeapon | null>(null)
 
   return (
     <CharacterContext.Provider value={{

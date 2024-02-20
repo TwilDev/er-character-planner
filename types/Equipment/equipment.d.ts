@@ -30,3 +30,21 @@ interface ITalisman {
   }
   label: string
 }
+
+interface IWeapon {
+  ID: number
+  weapon: string
+  weaponSlot: string
+  affinity: number
+  isInfusable: boolean
+}
+
+interface IWeaponSlots {
+  rh1: IWeapon | null
+  rh2: IWeapon | null
+  rh3: IWeapon | null
+  lh1: IWeapon | null
+  lh2: IWeapon | null
+  lh3: IWeapon | null
+}
+

@@ -8,14 +8,13 @@ import CalcCorrectGraphEZ from '@/data/weapons/CalcCorrectGraphEZ.json'
 import weaponData from '@/data/weapons/weaponData.json'
 
 
-export default function calculateWeaponDamage(weaponData: any, totalStats: IStats) {
+export default function calculateWeaponDamage(weaponData: any, totalStats: IStats, affinity: number) {
 
   // Typing for lookup tables
   const EquipParamWeaponData: EquipParamWeapon[] = EquipParamWeapon as EquipParamWeapon[]
   const CalcCorrectGraphEZData: any[] = CalcCorrectGraphEZ as any[]
 
   const userFinalStats = totalStats
-  const affinity = 0 // TODO implement later
   const upgradeLevel = 0 // TODO implement later
   const meetsStatRequirements = true // TODO implement later
 
@@ -111,43 +110,43 @@ export default function calculateWeaponDamage(weaponData: any, totalStats: IStat
 
     // Calculate Str scaling for weapon at current upgrade
     const correctStr = weaponParams.correctStrength * reinforceParamForAffinity.correctStrengthRate ?? 0
-    console.log("correctStr", correctStr)
+    // console.log("correctStr", correctStr)
 
     // Calculate strength scaling affect for current final str // TODO implement * 1.5 on str if two handing
     const strengthCorrectionByPhysics = checkScaling (scalingData ? scalingData["isStrengthCorrect_by" + correctByElement] : false, weaponParams[correctType], userFinalStats.strength)
-    console.log("strengthCorrectionByPhysics", strengthCorrectionByPhysics)
+    // console.log("strengthCorrectionByPhysics", strengthCorrectionByPhysics)
 
     // Calculate Dex scaling for weapon at current upgrade
     const correctDex = weaponParams.correctAgility * reinforceParamForAffinity.correctAgilityRate ?? 0
-    console.log("correctDex", correctDex)
+    // console.log("correctDex", correctDex)
 
     // Calculate Dex scaling for current final Dex
     const dexterityCorrectByPhysics = checkScaling (scalingData ? scalingData["isDexterityCorrect_by" + correctByElement] : false, weaponParams[correctType], userFinalStats.dexterity)
-    console.log("dexterityCorrectByPhysics", dexterityCorrectByPhysics)
+    // console.log("dexterityCorrectByPhysics", dexterityCorrectByPhysics)
 
     // Calculate Int scaling for weapon at current upgrade
     const correctInt = weaponParams.correctMagic * reinforceParamForAffinity.correctMagicRate ?? 0
-    console.log("correctInt", correctInt)
+    // console.log("correctInt", correctInt)
     
     // Calculate Int scaling for current final Int
     const magicCorrectByPhysics = checkScaling (scalingData ? scalingData["isMagicCorrect_by" + correctByElement] : false, weaponParams[correctType], userFinalStats.intelligence)
-    console.log("magicCorrectByPhysics", magicCorrectByPhysics)
+    // console.log("magicCorrectByPhysics", magicCorrectByPhysics)
 
     // Calculate Faith scaling for weapon at current upgrade
     const correctFth = weaponParams.correctFaith * reinforceParamForAffinity.correctFaithRate ?? 0
-    console.log("correctFth", correctFth)
+    // console.log("correctFth", correctFth)
 
     // Calculate Faith scaling for current final fth
     const faithCorrectByPhysics = checkScaling (scalingData ? scalingData["isFaithCorrect_by" + correctByElement] : false, weaponParams[correctType], userFinalStats.faith)
-    console.log("faithCorrectByPhysics", faithCorrectByPhysics)
+    // console.log("faithCorrectByPhysics", faithCorrectByPhysics)
 
     // Calculate Arcane scaling for weapon at current upgrade
     const correctArc = weaponParams.correctLuck * reinforceParamForAffinity.correctLuckRate ?? 0
-    console.log("correctArc", correctArc)
+    // console.log("correctArc", correctArc)
 
     // Calculate Arcane scaling for current final arc
     const luckCorrectByPhysics = checkScaling (scalingData ? scalingData["isLuckCorrect_by" + correctByElement] : false, weaponParams[correctType], userFinalStats.arcane)
-    console.log("luckCorrectByPhysics", luckCorrectByPhysics)
+    // console.log("luckCorrectByPhysics", luckCorrectByPhysics)
     
     var finalCalculation;
 
