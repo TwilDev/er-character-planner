@@ -36,7 +36,7 @@ interface IWeapon {
   weapon: string
   weaponSlot: string
   affinity: number
-  isInfusable: boolean
+  upgradeLevel: number
 }
 
 interface IWeaponSlots {

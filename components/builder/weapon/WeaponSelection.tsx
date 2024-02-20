@@ -39,7 +39,7 @@ console.log(formattedData)
  return (
   <div className="w-full px-4">
     <h1>Weapon Selection</h1>
-      <div className="flex gap-4">
+      <div className="flex gap-3">
         <div className="w-1/2 flex flex-col">
           <Weapon 
             dataSet={formattedData} 

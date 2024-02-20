@@ -17,7 +17,7 @@ interface IEquipmentContextContext {
   talismans: ITalismanSlots
   selectTalisman: (talisman: ITalisman, slot: keyof ITalismanSlots) => void
   weapons: any
-  selectWeapon: (weapon: any, weaponSlot: any, affinity: number) => void
+  selectWeapon: (weapon: any, weaponSlot: any, affinity: number, upgradeLevel: number) => void
 }
 
 const EquipmentContext = createContext({} as IEquipmentContextContext)
@@ -78,31 +78,30 @@ const EquipmentContextProvider = ({ children }: any) => {
     setWeapons(newWeapons)
   }
 
-  const selectWeapon = (weapon: any, weaponSlot: any, affinity: number) => {
+  const selectWeapon = (weapon: any, weaponSlot: any, affinity: number, upgradeLevel: number) => {
     switch (weaponSlot) {
       case 'rh1':
-        console.log("updating weapon")
-        setRh1({ ID: weapon.id, weapon: weapon.weapon, weaponSlot: weaponSlot, affinity: affinity, isInfusable: weapon.isInfusable})
+        setRh1({ ID: weapon.id, weapon: weapon.weapon, weaponSlot: weaponSlot, affinity: affinity, upgradeLevel: upgradeLevel})
         updateWeapons(weapon, 'rh1')
         break;
       case 'rh2':
-        setRh2({ ID: weapon.id, weapon: weapon.weapon, weaponSlot: weaponSlot, affinity: affinity, isInfusable: weapon.isInfusable})
+        setRh2({ ID: weapon.id, weapon: weapon.weapon, weaponSlot: weaponSlot, affinity: affinity, upgradeLevel: upgradeLevel})
         updateWeapons(weapon, 'rh2')
         break;
       case 'rh3':
-        setRh3({ ID: weapon.id, weapon: weapon.weapon, weaponSlot: weaponSlot, affinity: affinity, isInfusable: weapon.isInfusable})
+        setRh3({ ID: weapon.id, weapon: weapon.weapon, weaponSlot: weaponSlot, affinity: affinity, upgradeLevel: upgradeLevel})
         updateWeapons(weapon, 'rh3')
         break;
       case 'lh1':
-        setLh1({ ID: weapon.id, weapon: weapon.weapon, weaponSlot: weaponSlot, affinity: affinity, isInfusable: weapon.isInfusable})
+        setLh1({ ID: weapon.id, weapon: weapon.weapon, weaponSlot: weaponSlot, affinity: affinity, upgradeLevel: upgradeLevel})
         updateWeapons(weapon, 'lh1')
         break;
       case 'lh2':
-        setLh2({ ID: weapon.id, weapon: weapon.weapon, weaponSlot: weaponSlot, affinity: affinity, isInfusable: weapon.isInfusable})
+        setLh2({ ID: weapon.id, weapon: weapon.weapon, weaponSlot: weaponSlot, affinity: affinity, upgradeLevel: upgradeLevel})
         updateWeapons(weapon, 'lh2')
         break;
       case 'lh3':
-        setLh3({ ID: weapon.id, weapon: weapon.weapon, weaponSlot: weaponSlot, affinity: affinity, isInfusable: weapon.isInfusable})
+        setLh3({ ID: weapon.id, weapon: weapon.weapon, weaponSlot: weaponSlot, affinity: affinity, upgradeLevel: upgradeLevel})
         updateWeapons(weapon, 'lh3')
         break;
       default:

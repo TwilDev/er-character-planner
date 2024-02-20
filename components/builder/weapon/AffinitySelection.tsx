@@ -38,7 +38,7 @@ export default function AffinitySelection(props: IAffinitySelectionProps) {
   }
 
   return (
-    <div className="affinity-selection">
+    <div className="w-3/5">
       <Select
         isDisabled={!weaponData || !weaponData.isInfuse}
         options={affinityOptions ?? []}

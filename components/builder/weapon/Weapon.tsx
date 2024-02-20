@@ -57,7 +57,7 @@ export default function Weapon(props: IWeaponProps) {
   useEffect(() => {
     if (selectedWeapon) {
       // Update context with selected weapon
-      selectWeapon(selectedWeapon, weaponSlot, affinity)
+      selectWeapon(selectedWeapon, weaponSlot, affinity, upgradeLevel)
 
       const validateUpgradeLevel = handlePassUpgradeLevel()
 
@@ -157,16 +157,19 @@ export default function Weapon(props: IWeaponProps) {
           </div>
         </div>
       }
-      <AffinitySelection 
-        weaponSlot={weaponSlot}
-        setAffinity={setAffinity}
-        affinity={affinity}
-      />
-      <WeaponUpgradeSelector 
-        weaponSlot={weaponSlot}
-        setUpgradeLevel={setUpgradeLevel}
-        upgradeLevel={upgradeLevel}
-      />
+      <div className="w-full flex">
+        <AffinitySelection 
+          weaponSlot={weaponSlot}
+          setAffinity={setAffinity}
+          affinity={affinity}
+  
+        />
+        <WeaponUpgradeSelector 
+          weaponSlot={weaponSlot}
+          setUpgradeLevel={setUpgradeLevel}
+          upgradeLevel={upgradeLevel}
+        />
+      </div>
     </div>
   )
 }

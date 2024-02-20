@@ -31,7 +31,7 @@ export default function WeaponUpgradeSelector(props: IWeaponUpgradeSelectorProps
   }, [weaponData])
 
   return (
-    <div>
+    <div className="w-2/5">
       <Select
         isDisabled={!weaponData || !weaponData.isReinforce}
         options={upgradeOptions}
