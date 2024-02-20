@@ -7,6 +7,7 @@ import { EquipmentContext } from '@/context/equipmentContext'
 import calculateGetWeaponScaling from '@/helpers/calculateGetWeaponScaling'
 import getWeaponStatRequirements from '@/helpers/getWeaponStatRequirements'
 import AffinitySelection from './AffinitySelection'
+import WeaponUpgradeSelector from './WeaponUpgradeSelector'
 
 interface IWeaponProps {
   dataSet: any
@@ -23,7 +24,14 @@ export default function Weapon(props: IWeaponProps) {
 
   const selectId = `weapon-${weaponSlot}`
 
+  // Weapon related State - Selected weapon, scaling values, stat requirements, affinity
   const [selectedWeapon, setSelectedWeapon] = useState<any>(null)
+  const [scalingValues, setScalingValues] = useState<any>(null)
+  const [weaponStatRequirements, setWeaponStatRequirements] = useState<any>(null)
+  const [affinity, setAffinity] = useState<number>(0)
+  const [upgradeLevel, setUpgradeLevel] = useState<number>(0)
+
+  // Weapon damages values
   const [totalAttackRating, setTotalAttackRating] = useState<number>(0)
   const [physicalBaseAttackRating, setPhysicalBaseAttackRating] = useState<number>(0)
   const [physicalScalingAttackRating, setPhysicalScalingAttackRating] = useState<number>(0)
@@ -36,18 +44,29 @@ export default function Weapon(props: IWeaponProps) {
   const [holyBaseAttackRating, setHolyBaseAttackRating] = useState<number>(0)
   const [holyScalingAttackRating, setHolyScalingAttackRating] = useState<number>(0)
 
+  // Toggle to show damage stats
   const [toggleShowDamageStats, setToggleShowDamageStats] = useState<boolean>(false)
 
-  const [scalingValues, setScalingValues] = useState<any>(null)
-  const [weaponStatRequirements, setWeaponStatRequirements] = useState<any>(null)
-  const [affinity, setAffinity] = useState<number>(0)
+  const handlePassUpgradeLevel = () => {
+    if (!selectedWeapon.isReinforce) return 0
+    if (!selectedWeapon.isInfuse && upgradeLevel > 10) return 0
+    return upgradeLevel
+  }
 
+  // Update weapon stats when selected weapon, total stats or affinity changes
   useEffect(() => {
     if (selectedWeapon) {
       // Update context with selected weapon
       selectWeapon(selectedWeapon, weaponSlot, affinity)
 
-      const weaponDamageValues = calculateWeaponDamage(selectedWeapon, totalStats, selectedWeapon.isInfuse ? affinity : 0)
+      const validateUpgradeLevel = handlePassUpgradeLevel()
+
+      const weaponDamageValues = calculateWeaponDamage(
+        selectedWeapon, 
+        totalStats, 
+        selectedWeapon.isInfuse ? affinity : 0, 
+        validateUpgradeLevel
+      )
 
       // Set weapon damage values to state
       const { totalAttack, physicalBaseAttackRating, physicalScalingAttackRating, magicalBaseAttackRating, magicalScalingAttackRating, fireBaseAttackRating, fireScalingAttackRating, lightningBaseAttackRating, lightningScalingAttackRating, holyBaseAttackRating, holyScalingAttackRating } = weaponDamageValues
@@ -64,14 +83,19 @@ export default function Weapon(props: IWeaponProps) {
       setHolyScalingAttackRating(holyScalingAttackRating)
 
       // Get weapon scaling values
-      const weaponScalingValues = calculateGetWeaponScaling(selectedWeapon, selectedWeapon.isInfuse ? affinity : 0, 0, totalStats)
+      const weaponScalingValues = calculateGetWeaponScaling(
+        selectedWeapon, 
+        selectedWeapon.isInfuse ? affinity : 0, 
+        validateUpgradeLevel, 
+        totalStats
+      )
       setScalingValues(weaponScalingValues)
 
       // Get weapon stat requirements
       const weaponStatRequirements = getWeaponStatRequirements(selectedWeapon, selectedWeapon.isInfuse ? affinity : 0) 
       setWeaponStatRequirements(weaponStatRequirements)
     }
-  }, [selectedWeapon, totalStats, affinity]);
+  }, [selectedWeapon, totalStats, affinity, upgradeLevel]);
 
   const handleSelectWeapon = (selectedOption: any) => {
     setSelectedWeapon(selectedOption)
@@ -137,6 +161,11 @@ export default function Weapon(props: IWeaponProps) {
         weaponSlot={weaponSlot}
         setAffinity={setAffinity}
         affinity={affinity}
+      />
+      <WeaponUpgradeSelector 
+        weaponSlot={weaponSlot}
+        setUpgradeLevel={setUpgradeLevel}
+        upgradeLevel={upgradeLevel}
       />
     </div>
   )

@@ -8,14 +8,13 @@ import CalcCorrectGraphEZ from '@/data/weapons/CalcCorrectGraphEZ.json'
 import weaponData from '@/data/weapons/weaponData.json'
 
 
-export default function calculateWeaponDamage(weaponData: any, totalStats: IStats, affinity: number) {
+export default function calculateWeaponDamage(weaponData: any, totalStats: IStats, affinity: number, upgradeLevel: number) {
 
   // Typing for lookup tables
   const EquipParamWeaponData: EquipParamWeapon[] = EquipParamWeapon as EquipParamWeapon[]
   const CalcCorrectGraphEZData: any[] = CalcCorrectGraphEZ as any[]
 
   const userFinalStats = totalStats
-  const upgradeLevel = 0 // TODO implement later
   const meetsStatRequirements = true // TODO implement later
 
   // Lookup ID for common lookups in EquipParams

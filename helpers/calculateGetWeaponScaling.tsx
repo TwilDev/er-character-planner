@@ -3,8 +3,8 @@ import ReinforceParamWeapon from '@/data/weapons/ReinforceParamWeapon.json'
 
 export default function calculateGetWeaponScaling(weaponData: any, affinity: number, upgradeLevel: number, stats: IStats) {
 
-    const affinityConst = 0
-    const upgradeLevelConst = 10
+    const affinityConst = affinity
+    const upgradeLevelConst = upgradeLevel
 
     // Lookup ID for common lookups in EquipParams
     const lookupId = weaponData.id + affinityConst
