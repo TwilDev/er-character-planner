@@ -1,12 +1,7 @@
-import { useState, useEffect, useContext } from 'react'
-import { EquipmentContext } from '@/context/equipmentContext'
-import { ClassContext } from '@/context/classContext'
 import EquipParamWeapon from '@/data/weapons/EquipParamWeapon.json'
 import ReinforceParamWeapon from '@/data/weapons/ReinforceParamWeapon.json'
 import AttackElementCorrectParam from '@/data/weapons/AttackElementCorrectParam.json'
 import CalcCorrectGraphEZ from '@/data/weapons/CalcCorrectGraphEZ.json'
-import weaponData from '@/data/weapons/weaponData.json'
-
 
 export default function calculateWeaponDamage(weaponData: any, totalStats: IStats, affinity: number, upgradeLevel: number) {
 

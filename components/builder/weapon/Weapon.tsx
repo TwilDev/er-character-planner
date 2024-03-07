@@ -8,6 +8,7 @@ import calculateGetWeaponScaling from '@/helpers/calculateGetWeaponScaling'
 import getWeaponStatRequirements from '@/helpers/getWeaponStatRequirements'
 import AffinitySelection from './AffinitySelection'
 import WeaponUpgradeSelector from './WeaponUpgradeSelector'
+import checkWeaponRequirements from '@/helpers/checkWeaponRequirements'
 
 interface IWeaponProps {
   dataSet: any
@@ -26,6 +27,7 @@ export default function Weapon(props: IWeaponProps) {
 
   // Weapon related State - Selected weapon, scaling values, stat requirements, affinity
   const [selectedWeapon, setSelectedWeapon] = useState<any>(null)
+  const [meetsStatRequirements, setMeetsStatRequirements] = useState<boolean>(false)
   const [scalingValues, setScalingValues] = useState<any>(null)
   const [weaponStatRequirements, setWeaponStatRequirements] = useState<any>(null)
   const [affinity, setAffinity] = useState<number>(0)
@@ -94,13 +96,22 @@ export default function Weapon(props: IWeaponProps) {
       // Get weapon stat requirements
       const weaponStatRequirements = getWeaponStatRequirements(selectedWeapon, selectedWeapon.isInfuse ? affinity : 0) 
       setWeaponStatRequirements(weaponStatRequirements)
+      setMeetsStatRequirements(checkWeaponRequirements({ weaponStatRequirements, stats: totalStats }))
     }
-  }, [selectedWeapon, totalStats, affinity, upgradeLevel]);
+  }, [selectedWeapon, totalStats, affinity, upgradeLevel])
+
+  useEffect(() => {
+    if (selectedWeapon) {
+      setMeetsStatRequirements(checkWeaponRequirements({ weaponStatRequirements, stats: totalStats }))
+    }
+  }, [totalStats])
+  
 
   const handleSelectWeapon = (selectedOption: any) => {
     setSelectedWeapon(selectedOption)
   }
 
+  
   return (
     <div className="relative">
       <Select
@@ -115,18 +126,22 @@ export default function Weapon(props: IWeaponProps) {
           { 
             // If weaponStatRequirements is not null, show the stat requirements like this STRNumber/DEXNumber/INTNumber/FAINumber/ARCNumber
             weaponStatRequirements &&
-            `${weaponStatRequirements.strength}/${weaponStatRequirements.dexterity}/${weaponStatRequirements.intelligence}/${weaponStatRequirements.faith}/${weaponStatRequirements.arcane}` 
+              
+            `${meetsStatRequirements ? '' : 'Req'} ${weaponStatRequirements.strength}/${weaponStatRequirements.dexterity}/${weaponStatRequirements.intelligence}/${weaponStatRequirements.faith}/${weaponStatRequirements.arcane}` 
           }
         </p>
-        <p 
-          onMouseEnter={() => setToggleShowDamageStats(true)}
-          onMouseLeave={() => setToggleShowDamageStats(false)}
-          className="text-xs"
-        >
-          Total AR: {totalAttackRating.toFixed(0)}
-        </p>
+        {
+          // If weaponStatRequirements is not null, check if the character has the required stats to wield the weapon
+          weaponStatRequirements && meetsStatRequirements &&
+          <p 
+            onMouseEnter={() => setToggleShowDamageStats(true)}
+            onMouseLeave={() => setToggleShowDamageStats(false)}
+            className="text-xs"
+          >
+            Total AR: {totalAttackRating.toFixed(0)}
+          </p>
+        }
       </div>
-
       {
         toggleShowDamageStats &&
         <div className="absolute right-[-115px] z-10 top-0">
