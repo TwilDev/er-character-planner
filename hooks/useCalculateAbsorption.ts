@@ -1,6 +1,7 @@
 import { armourProtectorParams } from '@/data/armour/armourParamProtector.json'
 import { effectData } from '@/data/effects/effectData.json'
 import { EquipmentContext } from '@/context/equipmentContext'
+import { EffectContext } from '@/context/effectContext'
 import { useState, useContext, useEffect } from 'react'
 
 /* BIG TODO */
@@ -13,9 +14,9 @@ import { useState, useContext, useEffect } from 'react'
 // Return the final absorption value
 
 /* Need to inegrate */
-// Weapon Picker
+// Weapon Picker - DONE
 // Crystal Tear Picker
-// Great Rune Picker
+// Great Rune Picker - DONE
 
 // Leaving this for now as I need to implement everything else for all calculations to be complete
 
@@ -32,37 +33,38 @@ function calculateAbsorption ( armour: IArmour, damageType: any ) {
   }
 
   if (!damageCutRates.length) {
-    return '0.000'
+    return 1
   } else {
 
     // If more than 1 value multiple each element in array and return the sum
     if (damageCutRates.length) {
       let total = damageCutRates.reduce((a, b) => a * b)
-      total = 100 * (1 - total)
-      return total.toFixed(3)
+      return total
     }
   }
 
   // If an error return 0
-  return '0.000'
+  return 1
 }
 
-// Iterate throughout all talismans and calculate the absorption
-function calculateTalismanEffectAbsorption(equipment: ITalismanSlots, damageType: any) {
-  let damageRates = []
+// Generic function to calculate the absorption of effects
+function calculateEffectAbsorption(effects: IEffect[], damageType: keyof IEffect) {
+  let damageRates: number[] = []
 
-  for (const [key, value] of Object.entries(equipment)) {
-    if (value) {
-      const equipmentPiece = effectData.find((equipmentPiece) => equipmentPiece?.Source === value.value.Talisman) as any // Use type assertion
-      let damageRate: number = equipmentPiece ? equipmentPiece[damageType] : 1;
-      damageRates.push(damageRate);
-    }
+  // Iterate throughout all effects and calculate the absorption
+  for (const effect of effects) {
+    let damageRate: any = effect ? effect[damageType] : 1;
+    damageRates.push(damageRate);
   }
+
+  // Return the sum of all effects for the specified damage rate or return 1 if no effects
+  return damageRates && damageRates.length ? damageRates.reduce((a, b) => a * b) : 1
 }
 
 export default function useCalculateAbsorption() {
-  const { armour, talismans } = useContext(EquipmentContext)
-  
+  const { armour } = useContext(EquipmentContext)
+  const { effects } = useContext(EffectContext)
+
   const [physicalAbsorption, setPhysicalAbsorption] = useState<string>('0.000')
   const [strikeAbsorption, setStrikeAbsorption] = useState<string>('0.000')
   const [slashAbsorption, setSlashAbsorption] = useState<string>('0.000')
@@ -74,16 +76,57 @@ export default function useCalculateAbsorption() {
 
   // When user changes armour, talismans, weapons, crystal tear or great rune updated the absorption values
   useEffect(() => {
-    setPhysicalAbsorption(calculateAbsorption(armour, 'neutralDamageCutRate') )
-    setStrikeAbsorption(calculateAbsorption(armour, 'blowDamageCutRate'))
-    setSlashAbsorption(calculateAbsorption(armour, 'slashDamageCutRate'))
-    setPierceAbsorption(calculateAbsorption(armour, 'thrustDamageCutRate'))
-    setMagicalAbsorption(calculateAbsorption(armour, 'magicDamageCutRate'))
-    setFireAbsorption(calculateAbsorption(armour, 'fireDamageCutRate'))
-    setLightningAbsorption(calculateAbsorption(armour, 'thunderDamageCutRate'))
-    setHolyAbsorption(calculateAbsorption(armour, 'darkDamageCutRate'))
+    
+    setPhysicalAbsorption(() => {
+      const armourValues = calculateAbsorption(armour, 'neutralDamageCutRate')
+      const effectValues = calculateEffectAbsorption(effects, 'physCutRate')
+      const sum = armourValues * effectValues
+      return (100 * (1 - sum)).toFixed(3)
+    })
+    setStrikeAbsorption(() => {
+      const armourValues = calculateAbsorption(armour, 'blowDamageCutRate')
+      const effectValues = calculateEffectAbsorption(effects, 'strikeCutRate')
+      const sum = armourValues * effectValues
+      return (100 * (1 - sum)).toFixed(3)
+    })
+    setSlashAbsorption(() => {
+      const armourValues = calculateAbsorption(armour, 'slashDamageCutRate')
+      const effectValues = calculateEffectAbsorption(effects, 'slashCutRate')
+      const sum = armourValues * effectValues
+      return (100 * (1 - sum)).toFixed(3)
+    })
+    setPierceAbsorption(() => {
+      const armourValues = calculateAbsorption(armour, 'thrustDamageCutRate')
+      const effectValues = calculateEffectAbsorption(effects, 'pierceCutRate')
+      const sum = armourValues * effectValues
+      return (100 * (1 - sum)).toFixed(3)
+    })
+    setMagicalAbsorption(() => {
+      const armourValues = calculateAbsorption(armour, 'magicDamageCutRate')
+      const effectValues = calculateEffectAbsorption(effects, 'magCutRate')
+      const sum = armourValues * effectValues
+      return (100 * (1 - sum)).toFixed(3)
+    })
+    setFireAbsorption(() => {
+      const armourValues = calculateAbsorption(armour, 'fireDamageCutRate')
+      const effectValues = calculateEffectAbsorption(effects, 'fireCutRate')
+      const sum = armourValues * effectValues
+      return (100 * (1 - sum)).toFixed(3)
+    })
+    setLightningAbsorption(() => {
+      const armourValues = calculateAbsorption(armour, 'thunderDamageCutRate')
+      const effectValues = calculateEffectAbsorption(effects, 'lightningCutRate')
+      const sum = armourValues * effectValues
+      return (100 * (1 - sum)).toFixed(3)
+    })
+    setHolyAbsorption(() => {
+      const armourValues = calculateAbsorption(armour, 'darkDamageCutRate')
+      const effectValues = calculateEffectAbsorption(effects, 'holyCutRate')
+      const sum = armourValues * effectValues
+      return (100 * (1 - sum)).toFixed(3)
+    })
 
-  }, [armour, talismans])
+  }, [armour, effects])
 
   return { 
     physicalAbsorption, 
