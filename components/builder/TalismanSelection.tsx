@@ -1,23 +1,8 @@
 import Select from 'react-select'
-import { useState, useEffect, useContext } from 'react'
-import { talismans } from '@/data/talismans/talismanData.json'
-import { EquipmentContext } from '@/context/equipmentContext'
+import useTalismans from '@/hooks/equipment/useTalismans'
 
 export default function TalismanSelection() {
-
-  const { selectTalisman } = useContext(EquipmentContext)
-
-  // Values for each dropdown - all talismans in the ggame
-  const [talismanOptions, setTalismanOptions] = useState<ITalisman[]>([])
-
-  useEffect(() => {
-    talismans.forEach((talismanData) => { 
-      if (talismanData && talismanData.Talisman) {
-        const talismanParams: ITalisman = { value: talismanData, label: talismanData.Talisman }
-        setTalismanOptions(talismanOptions => [...talismanOptions, talismanParams])
-      }
-    })
-  }, [])
+  const { talismanOptions, selectTalisman } = useTalismans()
 
   return (
     <div className="w-full px-4">
