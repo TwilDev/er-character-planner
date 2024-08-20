@@ -12,14 +12,14 @@ import { useEffect, useState } from 'react'
 export default function Defences() {
 
   const { 
-    physicalAbsorption,
-    strikeAbsorption,
-    slashAbsorption,
-    pierceAbsorption,
-    magicalAbsorption, 
-    fireAbsorption, 
-    lightningAbsorption, 
-    holyAbsorption 
+    physical,
+    strike,
+    slash,
+    pierce,
+    magical,
+    fire,
+    lightning,
+    holy,
   } = useCalculateAbsorption()
   const { total, totalStats } = useContext(ClassContext)
 
@@ -56,7 +56,6 @@ export default function Defences() {
     setFocus(Math.floor(focFlat[total - 1] + focAdj[totalStats.mind - 1]))
     setVitality(Math.floor(vitFlat[total - 1] + vitAdj[totalStats.arcane - 1]))
 
-    console.log(physicalDefence)
   }, [total, totalStats])
 
   return (
@@ -68,7 +67,7 @@ export default function Defences() {
           <div>
             {/* <label className='ml-2'>{Math.floor(defFlat[total - 1] + defStrAdj[totalStats.strength - 1])}</label> */}
             <label className='ml-2'>{ physicalDefence }</label>
-            <label className='ml-2'>/ { physicalAbsorption }</label>
+            <label className='ml-2'>/ { physical }</label>
           </div>
         </div>
         <div className="flex justify-between">
@@ -76,7 +75,7 @@ export default function Defences() {
           <div>
             {/* <label className='ml-2'>{Math.floor(defFlat[total - 1] + defStrAdj[totalStats.strength - 1])}</label> */}
             <label className='ml-2'>{ strikeDefence }</label>
-            <label className='ml-2'>/ { strikeAbsorption }</label>
+            <label className='ml-2'>/ { strike }</label>
           </div>
         </div>
         <div className="flex justify-between">
@@ -84,7 +83,7 @@ export default function Defences() {
           <div>
             {/* <label className='ml-2'>{Math.floor(defFlat[total - 1] + defStrAdj[totalStats.strength - 1])}</label> */}
             <label className='ml-2'>{ slashDefence }</label>
-            <label className='ml-2'>/ { slashAbsorption }</label>
+            <label className='ml-2'>/ { slash }</label>
           </div>
         </div>
         <div className="flex justify-between">
@@ -92,7 +91,7 @@ export default function Defences() {
           <div>
             {/* <label className='ml-2'>{Math.floor(defFlat[total - 1] + defStrAdj[totalStats.strength - 1])}</label> */}
             <label className='ml-2'>{ pierceDefence }</label>
-            <label className='ml-2'>/ { pierceAbsorption }</label>
+            <label className='ml-2'>/ { pierce }</label>
           </div>
         </div>
         <div className="flex justify-between">
@@ -100,7 +99,7 @@ export default function Defences() {
           <div>
             {/* <label className='ml-2'>{Math.floor(defFlat[total - 1] + defIntAdj[totalStats.intelligence - 1])}</label> */}
             <label className='ml-2'>{ magicDefence }</label>
-            <label>/ { magicalAbsorption }</label>
+            <label>/ { magical }</label>
           </div>
         </div>
         <div className="flex justify-between">
@@ -108,7 +107,7 @@ export default function Defences() {
           <div>
             {/* <label className='ml-2'>{Math.floor(defFlat[total - 1] + defFire[totalStats.vigor - 1])}</label> */}
             <label className='ml-2'>{ fireDefence }</label>
-            <label>/ { fireAbsorption }</label>
+            <label>/ { fire }</label>
           </div>
         </div>
         <div className="flex justify-between">
@@ -116,7 +115,7 @@ export default function Defences() {
           <div>
             {/* <label className='ml-2'>{Math.floor(defFlat[total - 1])}</label> */}
             <label className='ml-2'>{ lightningDefence }</label>
-            <label>/ { lightningAbsorption }</label>
+            <label>/ { lightning }</label>
           </div>
         </div>
         <div className="flex justify-between">
@@ -124,7 +123,7 @@ export default function Defences() {
           <div>
             {/* <label className='ml-2'>{Math.floor(defFlat[total - 1] + defHoly[totalStats.arcane - 1])}</label> */}
             <label className='ml-2'>{ holyDefence }</label>
-            <label>/ { holyAbsorption }</label>
+            <label>/ { holy }</label>
           </div>
         </div>
       </div>
