@@ -1,12 +1,8 @@
-import { useEffect, useContext } from "react"
+import { useContext } from "react"
 import { ClassContext } from "@/context/classContext"
 
 export default function RuneCount() {
-  const { level, baseStats, useRuneCosts } = useContext(ClassContext)
-  const getBaselevel = () => {
-    return Object.values(baseStats).reduce((acc, val) => acc + val, 0) - 79
-  }
-  const { nextLevelRunes, totalRunesRequired } = useRuneCosts(level, getBaselevel())
+  const { totalRunesRequired, nextLevelRunes } = useContext(ClassContext)
 
   return (
     <div>

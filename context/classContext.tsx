@@ -19,7 +19,8 @@ interface IClassContext {
   updateClassOnChange: (newClass: any) => void
   statChange: string[]
   setStatChange: React.Dispatch<React.SetStateAction<string[]>>
-  useRuneCosts: (currentLevel: number, baseLevel: number) => { nextLevelRunes: number; totalRunesRequired: number }
+  totalRunesRequired: number
+  nextLevelRunes: number
 }
 
 const ClassContext = createContext({} as IClassContext)
@@ -44,30 +45,35 @@ const ClassContextProvider = ({ children }: any) => {
   //Current User Level
   const [level, setLevel] = useState(total - 79)
 
-  // calculate rune costs for current level 
-  function useRuneCosts(currentLevel: number, baseLevel: number) {
-    const [nextLevelRunes, setNextLevelRunes] = useState(0);
-    const [totalRunesRequired, setTotalRunesRequired] = useState(0);
+  // Next Level & total Runes required.
+  const [nextLevelRunes, setNextLevelRunes] = useState(0)
+  const [totalRunesRequired, setTotalRunesRequired] = useState(0)
   
-    useEffect(() => {
-      function calculateCosts(level: number) {
-        if (level >= 12) return Math.floor(0.02 * Math.pow(level, 3) + 3.06 * Math.pow(level, 2) + 105.6 * level - 895)
-        else return Math.floor(0.0068 * Math.pow(level, 3) - 0.06 * Math.pow(level, 2) + 17.1 * level + 639)
-      }
-  
-      if (currentLevel >= baseLevel) {
-        const nextLevelCost = calculateCosts(currentLevel + 1);
-        setNextLevelRunes(nextLevelCost)
-        let totalCost = [...Array(currentLevel - baseLevel + 1)].reduce((acc, val, i) => {
-          return acc + calculateCosts(baseLevel + i)
-        }, 0)
 
-        setTotalRunesRequired(totalCost);
-      }
-    }, [currentLevel]);
-  
-    return { nextLevelRunes, totalRunesRequired };
-  }
+  // calculate rune costs for current level
+  useEffect(() => {
+    // Obtains the base level for the characters class
+    const getBaselevel = () => {
+      return Object.values(baseStats).reduce((acc, val) => acc + val, 0) - 79
+    }
+    const baseLevel = getBaselevel()
+    
+    // Calculate the cost of runes for the next level and the total cost of runes required to reach the next level
+    function calculateCosts(level: number) {
+      if (level >= 12) return Math.floor(0.02 * Math.pow(level, 3) + 3.06 * Math.pow(level, 2) + 105.6 * level - 895)
+      else return Math.floor(0.0068 * Math.pow(level, 3) - 0.06 * Math.pow(level, 2) + 17.1 * level + 639)
+    }
+
+    if (level >= baseLevel) {
+      const nextLevelCost = calculateCosts(level + 1);
+      setNextLevelRunes(nextLevelCost)
+      let totalCost = [...Array(level - baseLevel + 1)].reduce((acc, val, i) => {
+        return acc + calculateCosts(baseLevel + i)
+      }, 0)
+
+      setTotalRunesRequired(totalCost);
+    }
+  }, [level, baseStats])
 
   //Update stats when a new class is selected
   const updateClassOnChange = (newClass: IStats) => {
@@ -112,7 +118,8 @@ const ClassContextProvider = ({ children }: any) => {
       updateClassOnChange,
       statChange,
       setStatChange,
-      useRuneCosts
+      nextLevelRunes,
+      totalRunesRequired
     }}>
       {children}
     </ClassContext.Provider>
