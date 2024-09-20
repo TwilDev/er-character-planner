@@ -1,7 +1,6 @@
 import Select from 'react-select'
-import EquipParamWeapon from '@/data/weapons/EquipParamWeapon.json'
 import { useState, useEffect, useContext } from 'react'
-import { EquipmentContext } from '@/context/equipmentContext'
+import { CharacterContext } from '@/context/characterContext'
 import affinityLookup from '@/data/weapons/affinityLookup.json'
 
 interface IAffinitySelectionProps {
@@ -13,8 +12,17 @@ interface IAffinitySelectionProps {
 export default function AffinitySelection(props: IAffinitySelectionProps) {
   const { weaponSlot, setAffinity, affinity } = props
   const [affinityOptions, setAffinityOptions] = useState<{ infusion: string, offset: number }[]>([])
-  const { weapons } = useContext(EquipmentContext)
-  const weaponData = weapons[weaponSlot]
+  const { rh1, rh2, rh3, lh1, lh2, lh3 } = useContext(CharacterContext)
+
+  // Dynamically obtain the weapon data based on the weaponSlot prop
+  const weaponData = {
+    rh1,
+    rh2,
+    rh3,
+    lh1,
+    lh2,
+    lh3,
+  }[weaponSlot]
 
   useEffect (() => {
     if (weaponData) {

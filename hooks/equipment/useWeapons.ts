@@ -35,7 +35,9 @@ export default function useWeapons(weaponSlot: string) {
   const selectWeapon = (
     weapon: any,
     affinity: number,
-    upgradeLevel: number
+    upgradeLevel: number,
+    isReinforce: boolean,
+    isInfuse: boolean
   ) => {
     const setter = weaponSlotSetters[weaponSlot]
     if (setter) {
@@ -45,6 +47,8 @@ export default function useWeapons(weaponSlot: string) {
         weaponSlot: weaponSlot,
         affinity: affinity,
         upgradeLevel: upgradeLevel,
+        isReinforce,
+        isInfuse
       })
     } else {
       console.error(`Invalid weapon slot: ${weaponSlot}`)
@@ -75,27 +79,26 @@ export default function useWeapons(weaponSlot: string) {
     holyScalingAttackRating: 0,
   })
 
-  const handlePassUpgradeLevel = () => {
+  const handlePassUpgradeLevel = (selectedWeapon: IWeaponData) => {
     if (!selectedWeapon.isReinforce) return 0
     if (!selectedWeapon.isInfuse && upgradeLevel > 10) return 0
     return upgradeLevel
   }
 
   const updateWeaponDamage = useCallback((
-    selectedWeapon: any,
+    selectedWeapon: IWeaponData,
     affinity: number,
     upgradeLevel: number
   ) => {
     // Calculate weapon damage
     if (selectedWeapon) {
-      // const validateUpgradeLevel = handlePassUpgradeLevel()
+      const validateUpgradeLevel = handlePassUpgradeLevel(selectedWeapon)
 
       const weaponDamageValues = calculateWeaponDamage(
         selectedWeapon,
         totalStats,
         selectedWeapon.isInfuse ? affinity : 0,
-        // validateUpgradeLevel ?? 0
-        0
+        validateUpgradeLevel
       )
 
       const {
@@ -130,8 +133,7 @@ export default function useWeapons(weaponSlot: string) {
       const weaponScalingValues = calculateGetWeaponScaling(
         selectedWeapon, 
         selectedWeapon.isInfuse ? affinity : 0, 
-        // validateUpgradeLevel,
-        0, 
+        validateUpgradeLevel ?? 0,
         totalStats
       )
       setScalingValues(weaponScalingValues)
@@ -143,19 +145,22 @@ export default function useWeapons(weaponSlot: string) {
     }
   }, [handlePassUpgradeLevel])
 
-  const handleSelectWeapon = (selectedWeapon: any) => {
+  const handleSelectWeapon = (selectedWeapon: IWeaponData) => {
+    console.log(selectedWeapon)
     setSelectedWeapon(selectedWeapon)
     selectWeapon(
       selectedWeapon,
       affinity,
-      upgradeLevel
+      upgradeLevel,
+      selectedWeapon.isReinforce,
+      selectedWeapon.isInfuse
     )
     updateWeaponDamage(selectedWeapon, affinity, upgradeLevel)
   }
 
   useEffect(() => {
     updateWeaponDamage(selectedWeapon, affinity, upgradeLevel)
-  }, [totalStats])
+  }, [totalStats, selectedWeapon, affinity, upgradeLevel])
 
   return {
     handleSelectWeapon,

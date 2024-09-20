@@ -37,6 +37,8 @@ interface IWeapon {
   weaponSlot: string
   affinity: number
   upgradeLevel: number
+  isReinforce: boolean
+  isInfuse: boolean
 }
 
 interface IWeaponSlots {
@@ -46,5 +48,23 @@ interface IWeaponSlots {
   lh1: IWeapon | null
   lh2: IWeapon | null
   lh3: IWeapon | null
+}
+
+interface IWeaponData {
+  bothHandsAtkBonus: boolean
+  castingBonusRate: string | null
+  castingBonusType: string | null
+  defaultPhysType: string
+  id: number
+  isInfuse: boolean
+  isReinforce: boolean
+  isUnique: true
+  label: string
+  specialStatusSpEffectId: number | null
+  throwable: boolean
+  value?: string
+  waAttackElementCorrectId: null
+  weapon: string
+  weaponClass: string
 }
 
