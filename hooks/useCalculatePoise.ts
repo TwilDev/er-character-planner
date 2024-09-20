@@ -1,11 +1,17 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext, useMemo } from 'react'
 import { armourProtectorParams } from '@/data/armour/armourParamProtector.json'
-import { EquipmentContext } from '@/context/equipmentContext'
+import { CharacterContext } from '@/context/characterContext'
 
 export default function useCalculatePoise() {
   const [poise, setPoise] = useState<number>(0)
   
-  const { armour } = useContext(EquipmentContext)
+  const { headArmour, bodyArmour, handsArmour, legsArmour } = useContext(CharacterContext)
+  const armour = useMemo(() => ({
+    headArmour,
+    bodyArmour,
+    handsArmour,
+    legsArmour
+  }), [headArmour, bodyArmour, handsArmour, legsArmour])
 
   useEffect(() => {
     let toughnessValues: number[] = []
