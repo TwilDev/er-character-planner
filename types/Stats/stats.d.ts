@@ -8,3 +8,5 @@ interface IStats{
   faith: number
   arcane: number
 }
+
+type IOffensiveScalingStats = Omit<IStats, 'vigor' | 'mind' | 'endurance'>

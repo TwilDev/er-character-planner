@@ -7,7 +7,7 @@ import EquipParamWeapon from '@/data/weapons/EquipParamWeapon.json'
  * @param affinity - Affinity of the weapon
  * @returns - Object with stat requirements for each main stat
  */
-export default function getWeaponStatRequirements(weaponData: any, affinity: number) {
+export default function getWeaponStatRequirements(weaponData: any, affinity: number): IOffensiveScalingStats | null {
   // Typing for lookup table
   const EquipParamWeaponData: EquipParamWeapon[] = EquipParamWeapon as EquipParamWeapon[]
 
