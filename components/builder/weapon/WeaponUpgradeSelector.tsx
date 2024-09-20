@@ -30,7 +30,7 @@ export default function WeaponUpgradeSelector(
   useEffect(() => {
     if (weaponData && weaponData.isReinforce) {
       setUpgradeLevel(0)
-      const maxUpgradeLevel = weaponData.isInfuse ? 26 : 11
+      const maxUpgradeLevel = weaponData.isUnique ? 11: 26
       const options = Array.from({ length: maxUpgradeLevel }, (_, i) => i)
       // Format the options for React Select
       const formattedOptions = options.map((option) => ({

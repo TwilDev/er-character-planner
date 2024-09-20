@@ -39,6 +39,7 @@ interface IWeapon {
   upgradeLevel: number
   isReinforce: boolean
   isInfuse: boolean
+  isUnique: boolean
 }
 
 interface IWeaponSlots {

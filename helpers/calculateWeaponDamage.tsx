@@ -24,7 +24,6 @@ export default function calculateWeaponDamage(weaponData: any, totalStats: IStat
   // reinforcement data for weapon with specific reinforcment type
   const reinforceParamForAffinity = ReinforceParamWeapon.find((item) => item.ID === reinforcementTypeId)
 
-
   /** 
    * Performs a lookup within weaponParams table to obtain baseAttack for a given weapon based upon a given elemental type
    * Loks up the attack value for a given weapon type at a specific reinforcement level based upon a given elemental type 

@@ -5,7 +5,7 @@ import WeaponUpgradeSelector from './WeaponUpgradeSelector'
 import useWeapons from '@/hooks/equipment/useWeapons'
 
 interface IWeaponProps {
-  dataSet: any
+  dataSet: IWeaponData[]
   placeholder: string
   weaponSlot: string
 }
@@ -36,7 +36,11 @@ export default function Weapon(props: IWeaponProps) {
         className="w-full mb-0 pb-0"
         options={dataSet}
         placeholder={placeholder}
-        onChange={() => handleSelectWeapon}
+        onChange={(selectedWeapon) => {
+          if (selectedWeapon) {
+            handleSelectWeapon(selectedWeapon);
+          }
+        }}
       />
       <div className="flex justify-between mb-4">
         <p className="text-xs">
@@ -60,7 +64,7 @@ export default function Weapon(props: IWeaponProps) {
         }
       </div>
       {
-        toggleShowDamageStats &&
+        toggleShowDamageStats && 
         <div className="absolute right-[-115px] z-10 top-0">
           <div className="flex flex-col bg-white p-3 shadow-lg">
             <span>Physical: {`${weaponAttackRatings.physicalBaseAttackRating.toFixed(0)} + ${weaponAttackRatings.physicalScalingAttackRating.toFixed(0)}`}</span>

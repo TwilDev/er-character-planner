@@ -1,6 +1,7 @@
 import { CharacterContext } from '@/context/characterContext'
 import calculateWeaponDamage from '@/helpers/calculateWeaponDamage'
 import calculateGetWeaponScaling from '@/helpers/calculateGetWeaponScaling'
+import calculateWeaponSpellBuff from '@/helpers/calculateWeaponSpellBuff'
 import getWeaponStatRequirements from '@/helpers/getWeaponStatRequirements'
 import checkWeaponRequirements from '@/helpers/checkWeaponRequirements'
 import { ClassContext } from '@/context/classContext'
@@ -37,7 +38,8 @@ export default function useWeapons(weaponSlot: string) {
     affinity: number,
     upgradeLevel: number,
     isReinforce: boolean,
-    isInfuse: boolean
+    isInfuse: boolean,
+    isUnique: boolean
   ) => {
     const setter = weaponSlotSetters[weaponSlot]
     if (setter) {
@@ -48,7 +50,8 @@ export default function useWeapons(weaponSlot: string) {
         affinity: affinity,
         upgradeLevel: upgradeLevel,
         isReinforce,
-        isInfuse
+        isInfuse,
+        isUnique
       })
     } else {
       console.error(`Invalid weapon slot: ${weaponSlot}`)
@@ -65,6 +68,7 @@ export default function useWeapons(weaponSlot: string) {
     useState<any>(null)
   const [affinity, setAffinity] = useState<number>(0)
   const [upgradeLevel, setUpgradeLevel] = useState<number>(0)
+  const [spellBuff, setSpellBuff] = useState<number>(0)
   const [weaponAttackRatings, setWeaponAttackRatings] = useState<any>({
     totalAttackRating: 0,
     physicalBaseAttackRating: 0,
@@ -81,7 +85,7 @@ export default function useWeapons(weaponSlot: string) {
 
   const handlePassUpgradeLevel = (selectedWeapon: IWeaponData) => {
     if (!selectedWeapon.isReinforce) return 0
-    if (!selectedWeapon.isInfuse && upgradeLevel > 10) return 0
+    if (selectedWeapon.isUnique && upgradeLevel > 10) return 0
     return upgradeLevel
   }
 
@@ -145,6 +149,20 @@ export default function useWeapons(weaponSlot: string) {
     }
   }, [handlePassUpgradeLevel])
 
+  const updateWeaponSpellBuff = (
+    selectedWeapon: IWeaponData,
+    affinity: number,
+    upgradeLevel: number
+  ) => {
+    if (selectedWeapon) {
+      const validateUpgradeLevel = handlePassUpgradeLevel(selectedWeapon)
+
+      const weaponSpellBuff = calculateWeaponSpellBuff(selectedWeapon, validateUpgradeLevel, totalStats)
+      console.log(Math.floor(weaponSpellBuff))
+      setSpellBuff(Math.floor(weaponSpellBuff))
+    }
+  }
+
   const handleSelectWeapon = (selectedWeapon: IWeaponData) => {
     console.log(selectedWeapon)
     setSelectedWeapon(selectedWeapon)
@@ -153,13 +171,16 @@ export default function useWeapons(weaponSlot: string) {
       affinity,
       upgradeLevel,
       selectedWeapon.isReinforce,
-      selectedWeapon.isInfuse
+      selectedWeapon.isInfuse,
+      selectedWeapon.isUnique
     )
     updateWeaponDamage(selectedWeapon, affinity, upgradeLevel)
+    updateWeaponSpellBuff(selectedWeapon, affinity, upgradeLevel)
   }
 
   useEffect(() => {
     updateWeaponDamage(selectedWeapon, affinity, upgradeLevel)
+    updateWeaponSpellBuff(selectedWeapon, affinity, upgradeLevel)
   }, [totalStats, selectedWeapon, affinity, upgradeLevel])
 
   return {
