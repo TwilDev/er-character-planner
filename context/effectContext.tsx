@@ -1,9 +1,7 @@
-import React, { createContext, useState, useContext, useEffect } from "react"
-import { EquipmentContext } from "./equipmentContext"
-import { CharacterContext } from "./characterContext"
-import { effectData } from "@/data/effects/effectData.json"
+import React, { createContext, useState, useContext, useEffect } from 'react'
+import { CharacterContext } from './characterContext'
+import { effectData } from '@/data/effects/effectData.json'
 
-// Define the type for your context
 interface IEffectContextContext {
   effects: IEffect[]
   setEffects: React.Dispatch<React.SetStateAction<IEffect[]>>
@@ -12,55 +10,63 @@ interface IEffectContextContext {
 const EffectContext = createContext({} as IEffectContextContext)
 
 const EffectContextProvider = ({ children }: any) => {
+  const {
+    greatRune,
+    activateGreatRune,
+    headArmour,
+    bodyArmour,
+    handsArmour,
+    legsArmour,
+    talismans,
+  } = useContext(CharacterContext)
 
-  const { armour, talismans } = useContext(EquipmentContext)
-  const { greatRune, activateGreatRune } = useContext(CharacterContext)
-  
+  const equipment = [
+    headArmour,
+    bodyArmour,
+    handsArmour,
+    legsArmour,
+    talismans.slot1,
+    talismans.slot2,
+    talismans.slot3,
+    talismans.slot4,
+  ].filter((item) => item !== null)
+
   const [effects, setEffects] = useState<IEffect[]>([])
 
   const getEffects = () => {
     const newEffects: IEffect[] = []
-    // Get effects for armour
-    for (const [key, value] of Object.entries(armour)) {
-      const armourPiece = value as IArmourPiece
-      if (armourPiece) {
-        const checkEffect = effectData.find(effect => effect?.Source === armourPiece.label)
-        if (checkEffect) {
-          newEffects.push(checkEffect as IEffect)
-        }
-      }
-
-    }
-    
-    // Get effects for talismans
-    for (const [key, value] of Object.entries(talismans)) {
-      const talisman = value as ITalisman
-      if (talisman) {
-        const checkEffect = effectData.find(effect => effect?.Source === talisman.label)
-        if (checkEffect) {
-          newEffects.push(checkEffect as IEffect)
-        }
-      }
-    }
+    equipment.forEach((item) => {
+      const checkEffect = effectData.find(
+        (effect) => effect?.Source === item.label
+      )
+      if (checkEffect) newEffects.push(checkEffect as IEffect)
+    })
 
     // Get Effect for Great Rune if exists and is active
     if (greatRune) {
       if (activateGreatRune) {
-        const checkEffect = effectData.find(effect => effect?.Source === greatRune)
+        const checkEffect = effectData.find(
+          (effect) => effect?.Source === greatRune
+        )
         if (checkEffect) {
           newEffects.push(checkEffect as IEffect)
         }
       }
     }
-    
 
     setEffects(newEffects)
   }
 
   useEffect(() => {
     getEffects()
-  }, [armour, talismans, activateGreatRune])
-
+  }, [
+    headArmour,
+    bodyArmour,
+    handsArmour,
+    legsArmour,
+    talismans,
+    activateGreatRune,
+  ])
 
   return (
     <EffectContext.Provider value={{ effects, setEffects }}>

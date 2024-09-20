@@ -7,18 +7,19 @@ export default function ClassPicker() {
   const [classes, setClasses] = useState<{label: string, value: object }[] | null>(null)
   const { updateClassOnChange } = useContext(ClassContext)
 
-    useEffect(() => {
-      let options = []
-      // Loop through the class names (keys) in baseClasses.classes
-      for (const className in baseClasses.classes) {
-        if (Object.hasOwnProperty.call(baseClasses.classes, className)) {
-          const classStats = baseClasses.classes[className];
-          // Add the class name and stats to the options array
-          options.push({value: classStats, label: className})
-        }
+  useEffect(() => {
+    let options = []
+    // Loop through the class names (keys) in baseClasses.classes
+    for (const className in baseClasses.classes) {
+      if (Object.hasOwnProperty.call(baseClasses.classes, className)) {
+        const classStats = baseClasses.classes[className];
+        // Add the class name and stats to the options array
+        options.push({value: classStats, label: className})
       }
-      setClasses(options)
-    }, []);
+    }
+    setClasses(options)
+  }, [])
+  
   if (!classes) return (<div></div>
   )
   return (
