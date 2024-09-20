@@ -37,7 +37,7 @@ const EffectContextProvider = ({ children }: any) => {
     const newEffects: IEffect[] = []
     equipment.forEach((item) => {
       const checkEffect = effectData.find(
-        (effect) => effect?.Source === item.label
+        (effect) => effect?.Source === item?.label
       )
       if (checkEffect) newEffects.push(checkEffect as IEffect)
     })

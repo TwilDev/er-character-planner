@@ -36,7 +36,7 @@ export default function Weapon(props: IWeaponProps) {
         className="w-full mb-0 pb-0"
         options={dataSet}
         placeholder={placeholder}
-        onChange={handleSelectWeapon}
+        onChange={() => handleSelectWeapon}
       />
       <div className="flex justify-between mb-4">
         <p className="text-xs">
